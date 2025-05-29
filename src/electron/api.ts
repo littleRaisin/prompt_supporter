@@ -1,6 +1,7 @@
 // src/electron/api.ts
 
-import { ipcMain, IpcMainInvokeEvent } from "electron";
+import { ipcMain } from "electron";
+import type { IpcMainInvokeEvent } from "electron";
 
 ipcMain.handle(
   "node-version",

@@ -1,1 +1,12 @@
-declare const backend: typeof import("./preload").backend;
+interface Window {
+  backend: {
+    nodeVersion: (msg: string) => Promise<string>;
+    getTranslation: (danbooruName: string) => Promise<string | { error: string }>;
+    upsertTranslation: (data: {
+      danbooruName: string;
+      viewName?: string;
+      translationText?: string;
+      memo?: string;
+    }) => Promise<{ success?: boolean; error?: string }>;
+  };
+}

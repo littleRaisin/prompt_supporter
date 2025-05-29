@@ -1,26 +1,20 @@
-import { useCallback, useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import SearchResult from './pages/SearchResult';
+import Edit from './pages/Edit';
+import Header from './components/Header';
 import './App.css'
-// src/frontend/App.tsx
-
-// 1. Notice that we don't import 'backend'
 
 function App() {
-  /* snip... */
-  const [nodeVersion, setNodeVersion] = useState<string | undefined>(undefined);
-
-  const updateNodeVersion = useCallback(
-    async () => setNodeVersion(await backend.nodeVersion("Hello from App.tsx!")),
-    []
-  );
-
   return (
-    <div className="App">
-      {/* snip... */}
-        <button onClick={updateNodeVersion}>
-          Node version is {nodeVersion}
-        </button>
-      {/* snip... */}
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/search' element={<SearchResult />} />
+        <Route path='/edit/:danbooruName' element={<Edit />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

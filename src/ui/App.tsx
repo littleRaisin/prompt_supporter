@@ -3,7 +3,6 @@ import Home from './pages/Home';
 import SearchResult from './pages/SearchResult';
 import Edit from './pages/Edit';
 import Header from './components/Header';
-import './App.css'
 
 function App() {
   return (

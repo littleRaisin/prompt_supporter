@@ -8,7 +8,7 @@ db.exec(`
     danbooru_name TEXT PRIMARY KEY,
     view_name TEXT,
     translation_text TEXT,
-    memo TEXT
+    note TEXT
   );
 `);
 

@@ -6,7 +6,7 @@ interface Window {
       danbooruName: string;
       viewName?: string;
       translationText?: string;
-      memo?: string;
+      note?: string;
     }) => Promise<{ success?: boolean; error?: string }>;
   };
 }

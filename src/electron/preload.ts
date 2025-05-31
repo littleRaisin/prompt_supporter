@@ -16,6 +16,6 @@ contextBridge.exposeInMainWorld("backend", {
     danbooruName: string,
     viewName?: string,
     translationText?: string,
-    memo?: string
+    note?: string
   }) => ipcRenderer.invoke('upsert-translation', data),
 });

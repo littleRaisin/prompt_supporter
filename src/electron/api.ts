@@ -32,16 +32,16 @@ ipcMain.handle('upsert-translation', (_event, data: {
   danbooruName: string,
   viewName?: string,
   translationText?: string,
-  memo?: string
+  note?: string
 }) => {
   try {
     const stmt = db.prepare(`
-      INSERT INTO danbooru_translation (danbooru_name, view_name, translation_text, memo)
-      VALUES (@danbooruName, @viewName, @translationText, @memo)
+      INSERT INTO danbooru_translation (danbooru_name, view_name, translation_text, note)
+      VALUES (@danbooruName, @viewName, @translationText, @note)
       ON CONFLICT(danbooru_name) DO UPDATE SET
         view_name=excluded.view_name,
         translation_text=excluded.translation_text,
-        memo=excluded.memo
+        note=excluded.note
     `);
     stmt.run(data);
     return { success: true };

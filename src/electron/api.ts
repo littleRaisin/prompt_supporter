@@ -17,11 +17,19 @@ ipcMain.handle(
 /**
  * Danbooruの翻訳情報を取得・更新するAPI
  */
-// 1件取得
-ipcMain.handle('get-translation', (_event, danbooruName: string) => {
+// 取得
+ipcMain.handle('get-translation', (_event, keyword: string) => {
   try {
-    const stmt = db.prepare('SELECT * FROM danbooru_translation WHERE danbooru_name = ?');
-    return stmt.get(danbooruName);
+    const stmt = db.prepare(`
+      SELECT * FROM danbooru_translation
+      WHERE
+        danbooru_name LIKE @kw OR
+        translation_text LIKE @kw OR
+        copyrights LIKE @kw
+      LIMIT 20
+    `);
+    // %keyword% で部分一致
+    return stmt.all({ kw: `%${keyword}%` });
   } catch (err) {
     return { error: String(err) };
   }
@@ -32,16 +40,20 @@ ipcMain.handle('upsert-translation', (_event, data: {
   danbooruName: string,
   viewName?: string,
   translationText?: string,
-  note?: string
+  note?: string,
+  favorite?: number,      // 追加
+  copyrights?: string     // 追加
 }) => {
   try {
     const stmt = db.prepare(`
-      INSERT INTO danbooru_translation (danbooru_name, view_name, translation_text, note)
-      VALUES (@danbooruName, @viewName, @translationText, @note)
+      INSERT INTO danbooru_translation (danbooru_name, view_name, translation_text, note, favorite, copyrights)
+      VALUES (@danbooruName, @viewName, @translationText, @note, @favorite, @copyrights)
       ON CONFLICT(danbooru_name) DO UPDATE SET
         view_name=excluded.view_name,
         translation_text=excluded.translation_text,
-        note=excluded.note
+        note=excluded.note,
+        favorite=excluded.favorite,
+        copyrights=excluded.copyrights
     `);
     stmt.run(data);
     return { success: true };

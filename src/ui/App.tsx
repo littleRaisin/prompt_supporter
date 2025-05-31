@@ -8,11 +8,13 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/search/:danbooruName' element={<SearchResult />} />
-        <Route path='/edit/:danbooruName' element={<Edit />} />
-      </Routes>
+      <main className="p-4">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/search/:danbooruName' element={<SearchResult />} />
+          <Route path='/edit/:danbooruName' element={<Edit />} />
+        </Routes>
+      </main>
     </BrowserRouter>
   );
 }

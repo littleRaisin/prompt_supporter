@@ -8,7 +8,7 @@ type Translation = {
   note?: string;
   favorite?: number;
   copyrights?: string;
-};
+}[];
 
 const SearchResult = () => {
   // ルートパラメータからdanbooruNameを取得
@@ -32,19 +32,31 @@ const SearchResult = () => {
 
   return (
     <div>
-      <h2>検索結果ページ</h2>
-      <p>danbooruName: {danbooruName}</p>
+      <h2>検索結果</h2>
+      <p>danbooruName: 
+        <span className='inline-block ml-2'>
+          {(!result || result.length === 0) && danbooruName}
+          {(result && result.length > 0) && (
+            <a 
+              href={`https://danbooru.donmai.us/wiki_pages/${danbooruName}`} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-blue-500 hover:underline"
+            >{danbooruName}</a>
+          )}
+        </span>
+      </p>
       {loading && <div>Loading...</div>}
-      {result && (
-        <div>
-          <div>表示名: {result.view_name}</div>
-          <div>翻訳: {result.translation_text}</div>
-          <div>メモ: {result.note}</div>
-          <div>お気に入り: {result.favorite ? "★" : "☆"}</div>
-          <div>著作権: {result.copyrights}</div>
+      {result && result.map(item => (
+        <div key={item.danbooru_name} className='mt-2'>
+          <div>表示名: {item.view_name}</div>
+          <div>翻訳: {item.translation_text}</div>
+          <div>メモ: {item.note}</div>
+          <div>お気に入り: {item.favorite ? "★" : "☆"}</div>
+          <div>著作権: {item.copyrights}</div>
         </div>
-      )}
-      {!loading && !result && <div>該当データがありません</div>}
+      ))}
+      {!loading && (!result || result.length === 0) && <div>登録されたデータがありません</div>}
     </div>
   );
 };

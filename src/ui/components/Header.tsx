@@ -1,17 +1,18 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import Button from './Button';
 
 type FormData = {
   search: string;
 };
 
 const Header = () => {
-  const { register, handleSubmit, reset } = useForm<FormData>();
+  const { register, handleSubmit } = useForm<FormData>();
   const navigate = useNavigate();
+  const { danbooruName } = useParams<{ danbooruName: string }>();
 
   const onSubmit = (data: FormData) => {
     navigate(`/search/${data.search}`);
-    reset();
   };
 
   return (
@@ -25,8 +26,12 @@ const Header = () => {
           type="text"
           className="text-black px-2"
           placeholder="検索ワード"
+          defaultValue={danbooruName ? danbooruName : ''} // ルートパラメータから初期値を設定
         />
-        <button type="submit" className="bg-blue-500 px-3 py-1 rounded">Search</button>
+        <Button 
+          type="submit"
+          text="検索"
+        />
       </form>
     </header>
   );

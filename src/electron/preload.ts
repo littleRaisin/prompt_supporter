@@ -1,11 +1,11 @@
 // src/electron/preload.ts
 
-import { contextBridge, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer, shell } from 'electron';
 
-contextBridge.exposeInMainWorld("backend", {
+contextBridge.exposeInMainWorld('backend', {
   // Node.jsのバージョンを取得
   nodeVersion: (msg: string) =>
-    ipcRenderer.invoke("node-version", msg),
+    ipcRenderer.invoke('node-version', msg),
 
   // 翻訳情報を取得
   getTranslation: (danbooruName: string) =>

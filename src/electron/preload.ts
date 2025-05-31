@@ -1,6 +1,6 @@
 // src/electron/preload.ts
 
-import { contextBridge, ipcRenderer, shell } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('backend', {
   // Node.jsのバージョンを取得

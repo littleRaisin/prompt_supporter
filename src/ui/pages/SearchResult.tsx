@@ -1,24 +1,16 @@
-import { useCallback, useState } from 'react'
-/* snip... */
+import { useParams } from 'react-router-dom';
 
-const Home = () => {
-    /* snip... */
-  const [nodeVersion, setNodeVersion] = useState<string | undefined>(undefined);
-
-  const updateNodeVersion = useCallback(
-    async () => setNodeVersion(await window.backend.nodeVersion("Hello from App.tsx!")),
-    []
-  );
+const SearchResult = () => {
+  // ルートパラメータからdanbooruNameを取得
+  const { danbooruName } = useParams<{ danbooruName: string }>();
 
   return (
-    <div className='App'>
-      {/* snip... */}
-        <button onClick={updateNodeVersion}>
-          Node version is {nodeVersion}
-        </button>
-      {/* snip... */}
+    <div>
+      <h2>検索結果ページ</h2>
+      <p>danbooruName: {danbooruName}</p>
+      {/* ここに検索結果の表示や編集ボタンなどを追加 */}
     </div>
   );
-}
+};
 
-export default Home;
+export default SearchResult;

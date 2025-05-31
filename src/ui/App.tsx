@@ -10,7 +10,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/search' element={<SearchResult />} />
+        <Route path='/search/:danbooruName' element={<SearchResult />} />
         <Route path='/edit/:danbooruName' element={<Edit />} />
       </Routes>
     </BrowserRouter>

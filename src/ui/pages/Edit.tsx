@@ -6,7 +6,7 @@ const Home = () => {
   const [nodeVersion, setNodeVersion] = useState<string | undefined>(undefined);
 
   const updateNodeVersion = useCallback(
-    async () => setNodeVersion(await window.backend.nodeVersion("Hello from App.tsx!")),
+    async () => setNodeVersion(await window.backend.nodeVersion('Hello from App.tsx!')),
     []
   );
 

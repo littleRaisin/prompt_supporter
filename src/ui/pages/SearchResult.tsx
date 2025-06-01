@@ -1,30 +1,39 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Button from '../components/Button';
 
 type Translation = {
   danbooru_name: string;
-  view_name?: string;
   translation_text?: string;
+  search_word?: string;
   note?: string;
   favorite?: number;
   copyrights?: string;
-}[];
+};
 
 const SearchResult = () => {
   // ルートパラメータからdanbooruNameを取得
   const { danbooruName } = useParams<{ danbooruName: string }>();
-  const [result, setResult] = useState<Translation | null>(null);
+  const [result, setResult] = useState<Translation[] | null>(null);
+  const [currentItem, setCurrentItem] = useState<Translation | null>(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!danbooruName) return;
     setLoading(true);
-    window.backend.getTranslation(danbooruName)
+    window.backend.getTranslationList(danbooruName)
       .then((res) => {
-        if (typeof res === "string" || (res && "error" in res)) {
+        if (
+          typeof res === "string" ||
+          (res && "error" in res) ||
+          (Array.isArray(res) && typeof res[0] === "string")
+        ) {
           setResult(null);
+        } else if (Array.isArray(res) && res.every(item => typeof item === "object" && item !== null && "danbooru_name" in item)) {
+          setResult(res as Translation[]);
         } else {
-          setResult(res);
+          setResult(null);
         }
       })
       .finally(() => setLoading(false));
@@ -33,30 +42,49 @@ const SearchResult = () => {
   return (
     <div>
       <h2>検索結果</h2>
-      <p>danbooruName: 
+      <p>検索ワード: 
         <span className='inline-block ml-2'>
           {(!result || result.length === 0) && danbooruName}
           {(result && result.length > 0) && (
-            <a 
-              href={`https://danbooru.donmai.us/wiki_pages/${danbooruName}`} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-blue-500 hover:underline"
-            >{danbooruName}</a>
+            <span>{danbooruName}</span>
           )}
         </span>
       </p>
-      {loading && <div>Loading...</div>}
-      {result && result.map(item => (
-        <div key={item.danbooru_name} className='mt-2'>
-          <div>表示名: {item.view_name}</div>
-          <div>翻訳: {item.translation_text}</div>
-          <div>メモ: {item.note}</div>
-          <div>お気に入り: {item.favorite ? "★" : "☆"}</div>
-          <div>著作権: {item.copyrights}</div>
+      <div className='relative'>
+        {loading && <div>Loading...</div>}
+        {result && result.map(item => (
+          <div key={item.danbooru_name} className='mt-2'>
+            <div>
+              {item.translation_text} <span className='inline-block ml-2'>({item.copyrights})</span>
+            </div>
+            <div className='flex gap-4'>
+              <Button text="詳細" onClick={() => setCurrentItem(item)} />
+              <Button text="編集" onClick={() => navigate(`/edit/${item.danbooru_name}`)} />
+            </div>
+          </div>
+        ))}
+        {!loading && (!result || result.length === 0) && <div>登録されたデータがありません</div>}
+        <div className='absolute top-0 right-4'>
+          {currentItem && (
+            <div className='border-[1px] rounded border-gray p-4'>
+              <div>{currentItem.translation_text}<span className='inline-block ml-2'>{currentItem.favorite ? "★" : "☆"}</span> </div>
+              <div className='mt-3'>
+                <p>Danbooruタグ名</p> 
+                <p>{currentItem.danbooru_name}</p>
+              </div>
+              <div className='mt-3'>
+                <p>帰属</p> 
+                <p>{currentItem.copyrights}</p>
+              </div>
+              <div className='whitespace-pre-wrap mt-3'>メモ: 
+                <div className='border-[1px] rounded border-gray p-2'>
+                  {currentItem.note}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      ))}
-      {!loading && (!result || result.length === 0) && <div>登録されたデータがありません</div>}
+      </div>
     </div>
   );
 };

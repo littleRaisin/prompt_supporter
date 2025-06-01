@@ -20,19 +20,24 @@ const Header = () => {
       <h1 className="text-2xl font-bold">
         <Link to="/" className="text-white hover:text-gray-300">Danbooru Trans</Link>
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex gap-2">
-        <input
-          {...register('search')}
-          type="text"
-          className="text-black px-2"
-          placeholder="検索ワード"
-          defaultValue={danbooruName ? danbooruName : ''} // ルートパラメータから初期値を設定
-        />
-        <Button 
-          type="submit"
-          text="検索"
-        />
-      </form>
+      <div className="flex justify-between items-center">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex gap-2">
+          <input
+            {...register('search')}
+            type="text"
+            className="text-black px-2"
+            placeholder="検索ワード"
+            defaultValue={danbooruName ? danbooruName : ''} // ルートパラメータから初期値を設定
+          />
+          <Button 
+            type="submit"
+            text="検索"
+          />
+        </form>
+        <nav>
+          <Link to="/create" className="text-white hover:text-gray-300">新規登録</Link>
+        </nav>
+      </div>
     </header>
   );
 };

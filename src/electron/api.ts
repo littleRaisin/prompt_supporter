@@ -7,8 +7,6 @@ import db from '../db/db';
 ipcMain.handle(
   "node-version",
   (event: IpcMainInvokeEvent, msg: string): string => {
-    console.log(event);
-    console.log(msg);
 
     return process.versions.node;
   }
@@ -23,8 +21,23 @@ ipcMain.handle('get-translation', (_event, keyword: string) => {
     const stmt = db.prepare(`
       SELECT * FROM danbooru_translation
       WHERE
+        danbooru_name = @kw
+    `);
+    return stmt.get({ kw: keyword });
+  } catch (err) {
+    return { error: String(err) };
+  }
+});
+
+// 取得
+ipcMain.handle('get-translation-list', (_event, keyword: string) => {
+  try {
+    const stmt = db.prepare(`
+      SELECT * FROM danbooru_translation
+      WHERE
         danbooru_name LIKE @kw OR
         translation_text LIKE @kw OR
+        search_word LIKE @kw OR
         copyrights LIKE @kw
       LIMIT 20
     `);
@@ -38,19 +51,19 @@ ipcMain.handle('get-translation', (_event, keyword: string) => {
 // 追加・更新
 ipcMain.handle('upsert-translation', (_event, data: {
   danbooruName: string,
-  viewName?: string,
   translationText?: string,
+  searchWord?: string,
   note?: string,
   favorite?: number,      // 追加
   copyrights?: string     // 追加
 }) => {
   try {
     const stmt = db.prepare(`
-      INSERT INTO danbooru_translation (danbooru_name, view_name, translation_text, note, favorite, copyrights)
-      VALUES (@danbooruName, @viewName, @translationText, @note, @favorite, @copyrights)
+      INSERT INTO danbooru_translation (danbooru_name, translation_text, search_word, note, favorite, copyrights)
+      VALUES (@danbooruName, @translationText, @searchWord, @note, @favorite, @copyrights)
       ON CONFLICT(danbooru_name) DO UPDATE SET
-        view_name=excluded.view_name,
         translation_text=excluded.translation_text,
+        search_word=excluded.search_word,
         note=excluded.note,
         favorite=excluded.favorite,
         copyrights=excluded.copyrights

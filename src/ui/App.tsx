@@ -12,6 +12,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/search/:danbooruName' element={<SearchResult />} />
+          <Route path='/create' element={<Edit />} /> 
           <Route path='/edit/:danbooruName' element={<Edit />} />
         </Routes>
       </main>

@@ -11,11 +11,17 @@ contextBridge.exposeInMainWorld('backend', {
   getTranslation: (danbooruName: string) =>
     ipcRenderer.invoke('get-translation', danbooruName),
 
+  // 翻訳情報を取得
+  getTranslationList: (danbooruName: string) =>
+    ipcRenderer.invoke('get-translation-list', danbooruName),
+
   // 翻訳情報を追加・更新
   upsertTranslation: (data: {
     danbooruName: string,
-    viewName?: string,
     translationText?: string,
-    note?: string
+    searchWord?: string,
+    note?: string,
+    favorite?: number;
+    copyrights?: string;
   }) => ipcRenderer.invoke('upsert-translation', data),
 });

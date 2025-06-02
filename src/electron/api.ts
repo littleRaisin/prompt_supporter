@@ -1,16 +1,7 @@
 // src/electron/api.ts
 
 import { ipcMain } from "electron";
-import type { IpcMainInvokeEvent } from "electron";
 import db from '../db/db';
-
-ipcMain.handle(
-  "node-version",
-  (event: IpcMainInvokeEvent, msg: string): string => {
-
-    return process.versions.node;
-  }
-);
 
 /**
  * Danbooruの翻訳情報を取得・更新するAPI

@@ -1,6 +1,5 @@
 interface Window {
   backend: {
-    nodeVersion: (msg: string) => Promise<string>;
     getTranslation: (danbooruName: string) => Promise<string[] | { error: string }>;
     getTranslationList: (danbooruName: string) => Promise<string[] | { error: string }>;
     upsertTranslation: (data: {

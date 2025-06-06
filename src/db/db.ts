@@ -10,8 +10,17 @@ db.exec(`
     search_word TEXT,
     note TEXT,
     favorite INTEGER NOT NULL DEFAULT 0, -- 追加: お気に入り（0=false, 1=true）
-    copyrights TEXT
+    copyrights TEXT,
+    updated_at TEXT DEFAULT (datetime('now', 'localtime'))
   );
 `);
+
+// updated_atカラムがなければ追加
+type TableInfoColumn = { name: string; [key: string]: any };
+const columns = db.prepare(`PRAGMA table_info(danbooru_translation)`).all() as TableInfoColumn[];
+const hasUpdatedAt = columns.some(col => col.name === 'updated_at');
+if (!hasUpdatedAt) {
+  db.exec(`ALTER TABLE danbooru_translation ADD COLUMN updated_at TEXT`);
+}
 
 export default db;

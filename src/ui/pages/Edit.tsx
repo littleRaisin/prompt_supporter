@@ -20,17 +20,14 @@ type FormData = {
   useEffect(() => {
     if (danbooruName) {
       window.backend.getTranslation(danbooruName).then((data) => {
-        if (
-          data && typeof data === 'object' &&
-          'danbooru_name' in data
-        ) {
+        if (data && typeof data === 'object' && 'danbooru_name' in data) {
           reset({
-            danbooruName: (data as any).danbooru_name,
-            translationText: (data as any).translation_text,
-            searchWord: (data as any).search_word,
-            note: (data as any).note,
-            favorite: !!(data as any).favorite,
-            copyrights: (data as any).copyrights,
+            danbooruName: data.danbooru_name,
+            translationText: data.translation_text,
+            searchWord: data.search_word,
+            note: data.note,
+            favorite: !!data.favorite,
+            copyrights: data.copyrights,
           });
         }
       });
@@ -38,13 +35,13 @@ type FormData = {
   }, [danbooruName, reset]);
 
   const onSubmit = async (data: FormData) => {
-    await window.backend.upsertTranslation({
+    const res = await window.backend.upsertTranslation({
       danbooruName: data.danbooruName,
       translationText: data.translationText,
       searchWord: data.searchWord,
       note: data.note,
-      ...(typeof data.favorite !== "undefined" && { favorite: data.favorite ? 1 : 0 }),
-      ...(typeof data.copyrights !== "undefined" && { copyrights: data.copyrights }),
+      favorite: typeof data.favorite === "undefined" ? 0 : (data.favorite ? 1 : 0),
+      copyrights: data.copyrights,
     });
     navigate('/search/' + data.danbooruName);
   };

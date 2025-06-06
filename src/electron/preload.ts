@@ -11,6 +11,10 @@ contextBridge.exposeInMainWorld('backend', {
   getTranslationList: (danbooruName: string) =>
     ipcRenderer.invoke('get-translation-list', danbooruName),
 
+  // お気に入り一覧を取得
+  getFavoriteList: (limit: number = 20) =>
+    ipcRenderer.invoke('get-favorite-list', limit),
+
   // 翻訳情報を追加・更新
   upsertTranslation: (data: {
     danbooruName: string,

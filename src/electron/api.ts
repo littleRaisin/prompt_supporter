@@ -20,6 +20,20 @@ ipcMain.handle('get-translation', (_event, keyword: string) => {
   }
 });
 
+ipcMain.handle('get-favorite-list', (_event, limit: number) => {
+  try {
+    const stmt = db.prepare(`
+      SELECT * FROM danbooru_translation
+      WHERE favorite = 1
+      ORDER BY updated_at DESC
+      LIMIT @limit
+    `);
+    return stmt.all({ limit });
+  } catch (err) {
+    return { error: String(err) };
+  }
+});
+
 // 取得
 ipcMain.handle('get-translation-list', (_event, keyword: string) => {
   try {
@@ -30,6 +44,7 @@ ipcMain.handle('get-translation-list', (_event, keyword: string) => {
         translation_text LIKE @kw OR
         search_word LIKE @kw OR
         copyrights LIKE @kw
+      ORDER BY updated_at DESC
       LIMIT 20
     `);
     // %keyword% で部分一致
@@ -45,19 +60,20 @@ ipcMain.handle('upsert-translation', (_event, data: {
   translationText?: string,
   searchWord?: string,
   note?: string,
-  favorite?: number,      // 追加
-  copyrights?: string     // 追加
+  favorite?: number,
+  copyrights?: string
 }) => {
   try {
     const stmt = db.prepare(`
-      INSERT INTO danbooru_translation (danbooru_name, translation_text, search_word, note, favorite, copyrights)
-      VALUES (@danbooruName, @translationText, @searchWord, @note, @favorite, @copyrights)
+      INSERT INTO danbooru_translation (danbooru_name, translation_text, search_word, note, favorite, copyrights, updated_at)
+      VALUES (@danbooruName, @translationText, @searchWord, @note, @favorite, @copyrights, datetime('now', 'localtime'))
       ON CONFLICT(danbooru_name) DO UPDATE SET
         translation_text=excluded.translation_text,
         search_word=excluded.search_word,
         note=excluded.note,
         favorite=excluded.favorite,
-        copyrights=excluded.copyrights
+        copyrights=excluded.copyrights,
+        updated_at=datetime('now', 'localtime')
     `);
     stmt.run(data);
     return { success: true };

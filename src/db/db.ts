@@ -1,6 +1,21 @@
 import Database from 'better-sqlite3';
+import path from 'path';
 
-const db = new Database('danbooru.sqlite');
+// 開発環境かどうか判定
+const isDev = process.env.NODE_ENV === 'development' || process.env.DEV === 'true';
+
+let dbPath: string;
+
+if (isDev) {
+  // 開発時はプロジェクト直下
+  dbPath = path.join(__dirname, '../../danbooru.sqlite');
+} else {
+  // 本番はuserDataディレクトリ
+  const electron = require('electron');
+  dbPath = path.join(electron.app.getPath('userData'), 'danbooru.sqlite');
+}
+
+const db = new Database(dbPath);
 
 // テーブル作成（なければ作成）
 db.exec(`
@@ -9,18 +24,10 @@ db.exec(`
     translation_text TEXT,
     search_word TEXT,
     note TEXT,
-    favorite INTEGER NOT NULL DEFAULT 0, -- 追加: お気に入り（0=false, 1=true）
+    favorite INTEGER NOT NULL DEFAULT 0,
     copyrights TEXT,
     updated_at TEXT DEFAULT (datetime('now', 'localtime'))
   );
 `);
-
-// updated_atカラムがなければ追加
-type TableInfoColumn = { name: string; [key: string]: any };
-const columns = db.prepare(`PRAGMA table_info(danbooru_translation)`).all() as TableInfoColumn[];
-const hasUpdatedAt = columns.some(col => col.name === 'updated_at');
-if (!hasUpdatedAt) {
-  db.exec(`ALTER TABLE danbooru_translation ADD COLUMN updated_at TEXT`);
-}
 
 export default db;

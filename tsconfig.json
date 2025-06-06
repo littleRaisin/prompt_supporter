@@ -5,8 +5,10 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "types": ["vitest/globals"],
-    // ...他の設定
   }
 }

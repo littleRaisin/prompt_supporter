@@ -2,6 +2,7 @@
 
 import { app, BrowserWindow, Menu } from "electron";
 import { join } from "path";
+import path from 'path';
 
 // 1. this import won't work yet, but we will fix that next
 import "./api";
@@ -27,10 +28,10 @@ function createWindow() {
     mainWindow.webContents.openDevTools();
   } else if (isPreview) {
     mainWindow.webContents.openDevTools();
-    mainWindow.loadFile("dist/index.html");
+    mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'));
                   // 3. ^^^^^ this 'dist' folder will be our output folder
   } else {
-    mainWindow.loadFile("dist/index.html");
+    mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'));
   }
 }
 

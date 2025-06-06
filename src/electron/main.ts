@@ -1,6 +1,6 @@
 // src/electron/main.ts
 
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, Menu } from "electron";
 import { join } from "path";
 
 // 1. this import won't work yet, but we will fix that next
@@ -52,4 +52,18 @@ app.whenReady().then(() => {
 // explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
+});
+
+
+app.on('browser-window-created', (_, win) => {
+  win.webContents.on('context-menu', (_event, params) => {
+    const menu = Menu.buildFromTemplate([
+      {
+        label: 'コピー',
+        role: 'copy',
+        enabled: params.selectionText.length > 0
+      }
+    ]);
+    menu.popup({ window: win });
+  });
 });

@@ -4,15 +4,15 @@ import { ipcMain } from "electron";
 import db from '../db/db';
 
 /**
- * Danbooruの翻訳情報を取得・更新するAPI
+ * Promptの翻訳情報を取得・更新するAPI
  */
 // 取得
 ipcMain.handle('get-translation', (_event, keyword: string) => {
   try {
     const stmt = db.prepare(`
-      SELECT * FROM danbooru_translation
+      SELECT * FROM prompt_supporter
       WHERE
-        danbooru_name = @kw
+        prompt_name = @kw
     `);
     return stmt.get({ kw: keyword });
   } catch (err) {
@@ -23,7 +23,7 @@ ipcMain.handle('get-translation', (_event, keyword: string) => {
 ipcMain.handle('get-favorite-list', (_event, limit: number) => {
   try {
     const stmt = db.prepare(`
-      SELECT * FROM danbooru_translation
+      SELECT * FROM prompt_supporter
       WHERE favorite = 1
       ORDER BY updated_at DESC
       LIMIT @limit
@@ -38,9 +38,9 @@ ipcMain.handle('get-favorite-list', (_event, limit: number) => {
 ipcMain.handle('get-translation-list', (_event, keyword: string) => {
   try {
     const stmt = db.prepare(`
-      SELECT * FROM danbooru_translation
+      SELECT * FROM prompt_supporter
       WHERE
-        danbooru_name LIKE @kw OR
+        prompt_name LIKE @kw OR
         translation_text LIKE @kw OR
         search_word LIKE @kw OR
         note LIKE @kw OR
@@ -57,7 +57,7 @@ ipcMain.handle('get-translation-list', (_event, keyword: string) => {
 
 // 追加・更新
 ipcMain.handle('upsert-translation', (_event, data: {
-  danbooruName: string,
+  promptName: string,
   translationText?: string,
   searchWord?: string,
   note?: string,
@@ -66,9 +66,9 @@ ipcMain.handle('upsert-translation', (_event, data: {
 }) => {
   try {
     const stmt = db.prepare(`
-      INSERT INTO danbooru_translation (danbooru_name, translation_text, search_word, note, favorite, copyrights, updated_at)
-      VALUES (@danbooruName, @translationText, @searchWord, @note, @favorite, @copyrights, datetime('now', 'localtime'))
-      ON CONFLICT(danbooru_name) DO UPDATE SET
+      INSERT INTO prompt_supporter (prompt_name, translation_text, search_word, note, favorite, copyrights, updated_at)
+      VALUES (@promptName, @translationText, @searchWord, @note, @favorite, @copyrights, datetime('now', 'localtime'))
+      ON CONFLICT(prompt_name) DO UPDATE SET
         translation_text=excluded.translation_text,
         search_word=excluded.search_word,
         note=excluded.note,

@@ -11,9 +11,9 @@ function App() {
       <main className="p-4">
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/search/:danbooruName' element={<SearchResult />} />
+          <Route path='/search/:promptName' element={<SearchResult />} />
           <Route path='/create' element={<Edit />} /> 
-          <Route path='/edit/:danbooruName' element={<Edit />} />
+          <Route path='/edit/:promptName' element={<Edit />} />
         </Routes>
       </main>
     </HashRouter>

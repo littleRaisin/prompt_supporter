@@ -3,7 +3,7 @@ import Result from '../components/Result';
 import DetailPanel from '../components/DetailPanel';
 
 type Translation = {
-  danbooru_name: string;
+  prompt_name: string;
   translation_text?: string;
   search_word?: string;
   note?: string;
@@ -28,7 +28,7 @@ const Home = () => {
     if (item) setCurrentItem(item);
   };
   const handleEdit = (item?: Translation) => () => {
-    if (item) window.location.hash = `/edit/${item.danbooru_name}`;
+    if (item) window.location.hash = `/edit/${item.prompt_name}`;
   };
 
   return (
@@ -41,7 +41,7 @@ const Home = () => {
           <div>
             <ul>
               {favorites.map(item => (
-                <li key={item.danbooru_name} className="mb-2">
+                <li key={item.prompt_name} className="mb-2">
                   <Result
                     item={item}
                     handleClick={handleClick}

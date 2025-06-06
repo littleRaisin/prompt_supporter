@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useParams, useNavigate } from 'react-router-dom';
 
 type FormData = {
-  danbooruName: string;
+  promptName: string;
   translationText?: string;
   searchWord?: string;
   note?: string;
@@ -12,17 +12,17 @@ type FormData = {
 };
 
   const Edit = () => {
-  const { danbooruName } = useParams<{ danbooruName?: string }>();
+  const { promptName } = useParams<{ promptName?: string }>();
   const navigate = useNavigate();
   const { register, handleSubmit, setValue, reset } = useForm<FormData>();
 
   // 編集時は既存データを取得してフォームにセット
   useEffect(() => {
-    if (danbooruName) {
-      window.backend.getTranslation(danbooruName).then((data) => {
-        if (data && typeof data === 'object' && 'danbooru_name' in data) {
+    if (promptName) {
+      window.backend.getTranslation(promptName).then((data) => {
+        if (data && typeof data === 'object' && 'prompt_name' in data) {
           reset({
-            danbooruName: data.danbooru_name,
+            promptName: data.prompt_name,
             translationText: data.translation_text,
             searchWord: data.search_word,
             note: data.note,
@@ -32,30 +32,30 @@ type FormData = {
         }
       });
     }
-  }, [danbooruName, reset]);
+  }, [promptName, reset]);
 
   const onSubmit = async (data: FormData) => {
     const res = await window.backend.upsertTranslation({
-      danbooruName: data.danbooruName,
+      promptName: data.promptName,
       translationText: data.translationText,
       searchWord: data.searchWord,
       note: data.note,
       favorite: typeof data.favorite === "undefined" ? 0 : (data.favorite ? 1 : 0),
       copyrights: data.copyrights,
     });
-    navigate('/search/' + data.danbooruName);
+    navigate('/search/' + data.promptName);
   };
 
   return (
     <div className="max-w-md mx-auto mt-8">
-      <h2 className="text-xl font-bold mb-4">{danbooruName ? '編集' : '新規登録'}</h2>
+      <h2 className="text-xl font-bold mb-4">{promptName ? '編集' : '新規登録'}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <label className="block font-semibold">danbooruName</label>
+          <label className="block font-semibold">promptName</label>
           <input
-            {...register('danbooruName', { required: true })}
+            {...register('promptName', { required: true })}
             className="border px-2 py-1 w-full"
-            disabled={!!danbooruName}
+            disabled={!!promptName}
           />
         </div>
         <div>

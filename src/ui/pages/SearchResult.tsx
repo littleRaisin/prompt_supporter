@@ -4,7 +4,7 @@ import Result from '../components/Result';
 import DetailPanel from '../components/DetailPanel';
 
 type Translation = {
-  danbooru_name: string;
+  prompt_name: string;
   translation_text?: string;
   search_word?: string;
   note?: string;
@@ -13,16 +13,16 @@ type Translation = {
 };
 
 const SearchResult = () => {
-  const { danbooruName } = useParams<{ danbooruName: string }>();
+  const { promptName } = useParams<{ promptName: string }>();
   const [result, setResult] = useState<Translation[] | null>(null);
   const [currentItem, setCurrentItem] = useState<Translation | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!danbooruName) return;
+    if (!promptName) return;
     setLoading(true);
-    window.backend.getTranslationList(danbooruName)
+    window.backend.getTranslationList(promptName)
       .then((res) => {
         if (
           typeof res === "string" ||
@@ -30,20 +30,20 @@ const SearchResult = () => {
           (Array.isArray(res) && typeof res[0] === "string")
         ) {
           setResult(null);
-        } else if (Array.isArray(res) && res.every(item => typeof item === "object" && item !== null && "danbooru_name" in item)) {
+        } else if (Array.isArray(res) && res.every(item => typeof item === "object" && item !== null && "prompt_name" in item)) {
           setResult(res as Translation[]);
         } else {
           setResult(null);
         }
       })
       .finally(() => setLoading(false));
-  }, [danbooruName]);
+  }, [promptName]);
 
   const handleClick = (item?: Translation) => () => {
     if (item) setCurrentItem(item);
   };
   const handleEdit = (item?: Translation) => () => {
-    if (item) navigate(`/edit/${item.danbooru_name}`);
+    if (item) navigate(`/edit/${item.prompt_name}`);
   };
 
   return (
@@ -51,7 +51,7 @@ const SearchResult = () => {
       <h2 className="text-xl font-bold mb-4">
         検索ワード: 
         <span className='inline-block ml-2'>
-          {danbooruName}
+          {promptName}
         </span>
       </h2>
       {!loading && (!result || result.length === 0) ? (
@@ -61,7 +61,7 @@ const SearchResult = () => {
           <div>
             <ul>
               {result && result.map(item => (
-                <li key={item.danbooru_name} className='mb-2'>
+                <li key={item.prompt_name} className='mb-2'>
                   <Result
                     item={item}
                     handleClick={handleClick}

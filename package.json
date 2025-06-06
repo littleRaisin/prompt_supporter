@@ -1,13 +1,13 @@
 {
-  "name": "danbooru-dict",
+  "name": "prompt-supporter",
   "private": true,
-  "version": "0.2.4",
+  "version": "0.3.0",
   "type": "commonjs",
   "main": "dist/electron/main.js",
   "author": "little_raisin",
-  "description": "Efficient prompt storage and search for Danbooru-style tags.",
+  "description": "Efficient prompt storage and search for tags.",
   "scripts": {
-    "dev": "concurrently \"vite\" \"cross-env DEV= tsc-watch -p tsconfig-electron.json --onSuccess \\\"electron .\\\"\"",
+    "dev": "concurrently \"vite\" \"cross-env NODE_ENV=development DEV=true tsc-watch -p tsconfig-electron.json --onSuccess \\\"electron .\\\"\"",
     "preview": "vite build && tsc -p tsconfig-electron.json && cross-env PREVIEW= electron .",
     "build": "vite build && tsc -p tsconfig-electron.json && electron-forge make",
     "rebuild": "electron-rebuild"

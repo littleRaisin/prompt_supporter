@@ -4,12 +4,12 @@ import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('backend', {
   // 翻訳情報を取得
-  getTranslation: (danbooruName: string) =>
-    ipcRenderer.invoke('get-translation', danbooruName),
+  getTranslation: (promptName: string) =>
+    ipcRenderer.invoke('get-translation', promptName),
 
   // 翻訳情報を取得
-  getTranslationList: (danbooruName: string) =>
-    ipcRenderer.invoke('get-translation-list', danbooruName),
+  getTranslationList: (promptName: string) =>
+    ipcRenderer.invoke('get-translation-list', promptName),
 
   // お気に入り一覧を取得
   getFavoriteList: (limit: number = 20) =>
@@ -17,7 +17,7 @@ contextBridge.exposeInMainWorld('backend', {
 
   // 翻訳情報を追加・更新
   upsertTranslation: (data: {
-    danbooruName: string,
+    promptName: string,
     translationText?: string,
     searchWord?: string,
     note?: string,

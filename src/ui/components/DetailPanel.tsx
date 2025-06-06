@@ -1,7 +1,7 @@
 import { Toaster, toast } from 'react-hot-toast';
 
 type Translation = {
-  danbooru_name: string;
+  prompt_name: string;
   translation_text?: string;
   search_word?: string;
   note?: string;
@@ -48,8 +48,8 @@ const DetailPanel = ({ item }: { item: Translation | null }) => {
         <span className='inline-block ml-2'>{item.favorite ? "★" : "☆"}</span>
       </div>
       <div className='mt-3'>
-        <TitleWithCopy label="Danbooruタグ名" value={item.danbooru_name} onCopy={handleCopy} />
-        <p className='m-1'>{item.danbooru_name}</p>
+        <TitleWithCopy label="Promptタグ名" value={item.prompt_name} onCopy={handleCopy} />
+        <p className='m-1'>{item.prompt_name}</p>
       </div>
       <div className='mt-3'>
         <TitleWithCopy label="帰属" value={item.copyrights} onCopy={handleCopy} />

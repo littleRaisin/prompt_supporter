@@ -1,5 +1,5 @@
 interface Translation {
-  danbooru_name: string;
+  prompt_name: string;
   translation_text?: string;
   search_word?: string;
   note?: string;
@@ -10,11 +10,11 @@ interface Translation {
 
 interface Window {
   backend: {
-    getTranslation: (danbooruName: string) => Promise<Translation | { error: string }>;
-    getTranslationList: (danbooruName: string) => Promise<Translation[] | { error: string }>;
+    getTranslation: (promptName: string) => Promise<Translation | { error: string }>;
+    getTranslationList: (promptName: string) => Promise<Translation[] | { error: string }>;
     getFavoriteList: (limit?: number) => Promise<Translation[] | { error: string }>;
     upsertTranslation: (data: {
-      danbooruName: string;
+      promptName: string;
       translationText?: string;
       searchWord?: string;
       note?: string;

@@ -1,26 +1,24 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 
-// 開発環境かどうか判定
 const isDev = process.env.NODE_ENV === 'development' || process.env.DEV === 'true';
-
 let dbPath: string;
 
 if (isDev) {
-  // 開発時はプロジェクト直下
-  dbPath = path.join(__dirname, '../../danbooru.sqlite');
+  dbPath = path.join(__dirname, '../../prompt-supporter.sqlite');
 } else {
-  // 本番はuserDataディレクトリ
   const electron = require('electron');
-  dbPath = path.join(electron.app.getPath('userData'), 'danbooru.sqlite');
+  dbPath = path.join(electron.app.getPath('userData'), 'prompt-supporter.sqlite');
 }
 
 const db = new Database(dbPath);
 
-// テーブル作成（なければ作成）
+console.log(dbPath);
+
+// --- テーブル作成（なければ作成） ---
 db.exec(`
-  CREATE TABLE IF NOT EXISTS danbooru_translation (
-    danbooru_name TEXT PRIMARY KEY,
+  CREATE TABLE IF NOT EXISTS prompt_supporter (
+    prompt_name TEXT PRIMARY KEY,
     translation_text TEXT,
     search_word TEXT,
     note TEXT,

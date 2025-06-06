@@ -9,7 +9,7 @@ type FormData = {
 const Header = () => {
   const { register, handleSubmit } = useForm<FormData>();
   const navigate = useNavigate();
-  const { danbooruName } = useParams<{ danbooruName: string }>();
+  const { promptName } = useParams<{ promptName: string }>();
 
   const onSubmit = (data: FormData) => {
     navigate(`/search/${data.search}`);
@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <header className="bg-gray-800 text-white p-4">
       <h1 className="text-2xl font-bold">
-        <Link to="/" className="text-white hover:text-gray-300">Danbooru Trans</Link>
+        <Link to="/" className="text-white hover:text-gray-300">Prompt Supporter</Link>
       </h1>
       <div className="flex justify-between items-center">
         <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex gap-2">
@@ -27,7 +27,7 @@ const Header = () => {
             type="text"
             className="text-black px-2"
             placeholder="検索ワード"
-            defaultValue={danbooruName ? danbooruName : ''} // ルートパラメータから初期値を設定
+            defaultValue={promptName ? promptName : ''} // ルートパラメータから初期値を設定
           />
           <Button 
             type="submit"

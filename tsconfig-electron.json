@@ -3,7 +3,8 @@
   "compilerOptions": {
     "module": "CommonJS",
     "outDir": "dist",
-    "noEmit": false
+    "noEmit": false,
+    "types": ["vitest/globals", "node"]
   },
   "include": [
     "src/electron"

@@ -6,6 +6,7 @@
   ],
   "compilerOptions": {
     "esModuleInterop": true,
+    "types": ["vitest/globals"],
     // ...他の設定
   }
 }

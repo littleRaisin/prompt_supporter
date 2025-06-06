@@ -20,7 +20,7 @@ const TitleWithCopy = ({ label, value, onCopy }: Props) => (
   <div className='flex gap-2 items-center mb-1'>
     <p className='font-bold'>{label}</p>
     <img
-      src="/ico_copy.svg"
+      src="./ico_copy.svg"
       alt="copy"
       className='inline-block w-4 h-4 cursor-pointer'
       title="コピー"
@@ -42,7 +42,28 @@ const DetailPanel = ({ item }: { item: Translation | null }) => {
 
   return (
     <div>
-      <Toaster position="top-right" />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          // Define default options
+          className: '',
+          duration: 5000,
+          removeDelay: 1000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            iconTheme: {
+              primary: 'green',
+              secondary: 'black',
+            },
+          },
+        }}
+      />
       <div>
         {item.translation_text}
         <span className='inline-block ml-2'>{item.favorite ? "★" : "☆"}</span>

@@ -11,7 +11,7 @@ type Translation = {
 const DetailPanel = ({ item }: { item: Translation | null }) => {
   if (!item) return null;
   return (
-    <div className='min-w-60 absolute top-0 right-0 border-[1px] rounded border-gray p-4'>
+    <div>
       <div>
         {item.translation_text}
         <span className='inline-block ml-2'>{item.favorite ? "★" : "☆"}</span>

@@ -13,8 +13,6 @@ if (isDev) {
 
 const db = new Database(dbPath);
 
-console.log(dbPath);
-
 // --- テーブル作成（なければ作成） ---
 db.exec(`
   CREATE TABLE IF NOT EXISTS prompt_supporter (

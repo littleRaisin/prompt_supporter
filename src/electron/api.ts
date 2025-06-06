@@ -6,7 +6,7 @@ import db from '../db/db';
 /**
  * Promptの翻訳情報を取得・更新するAPI
  */
-// 取得
+// 特定取得
 ipcMain.handle('get-translation', (_event, keyword: string) => {
   try {
     const stmt = db.prepare(`
@@ -20,6 +20,7 @@ ipcMain.handle('get-translation', (_event, keyword: string) => {
   }
 });
 
+// お気に入り一覧の取得
 ipcMain.handle('get-favorite-list', (_event, limit: number) => {
   try {
     const stmt = db.prepare(`
@@ -34,7 +35,7 @@ ipcMain.handle('get-favorite-list', (_event, limit: number) => {
   }
 });
 
-// 取得
+// 検索結果の取得
 ipcMain.handle('get-translation-list', (_event, keyword: string) => {
   try {
     const stmt = db.prepare(`
@@ -48,7 +49,6 @@ ipcMain.handle('get-translation-list', (_event, keyword: string) => {
       ORDER BY updated_at DESC
       LIMIT 20
     `);
-    // %keyword% で部分一致
     return stmt.all({ kw: `%${keyword}%` });
   } catch (err) {
     return { error: String(err) };

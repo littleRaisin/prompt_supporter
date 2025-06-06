@@ -21,16 +21,16 @@ function createWindow() {
   });
 
   if (isDev) {
+    // 開発時はローカルサーバーを利用
+    // ここではViteのデフォルトポート5173を使用
     mainWindow.loadURL("http://localhost:5173");
-                                      // ^^^^ make sure this port
-                                      // matches the port used when
-                                      // you run 'yarn run vite'
     mainWindow.webContents.openDevTools();
   } else if (isPreview) {
+    // プレビュー時はローカルのdistフォルダを利用
     mainWindow.webContents.openDevTools();
     mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'));
-                  // 3. ^^^^^ this 'dist' folder will be our output folder
   } else {
+    // 本番環境ではビルドされたファイルを利用
     mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'));
   }
 }
@@ -57,6 +57,8 @@ app.on("window-all-closed", () => {
 
 
 app.on('browser-window-created', (_, win) => {
+  // コンテキストメニューの設定
+  // 右クリックメニューにコピー機能を追加
   win.webContents.on('context-menu', (_event, params) => {
     const menu = Menu.buildFromTemplate([
       {

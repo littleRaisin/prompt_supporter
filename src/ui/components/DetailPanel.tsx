@@ -32,6 +32,7 @@ const TitleWithCopy = ({ label, value, onCopy }: Props) => (
 const DetailPanel = ({ item }: { item: Translation | null }) => {
   if (!item) return null;
 
+  // Window.navigatorを利用してクリップボードにコピーする
   const handleCopy = (target :string | undefined) => {
     if (target) {
       navigator.clipboard.writeText(target).then(() => {
@@ -45,7 +46,6 @@ const DetailPanel = ({ item }: { item: Translation | null }) => {
       <Toaster
         position="top-right"
         toastOptions={{
-          // Define default options
           className: '',
           duration: 5000,
           removeDelay: 1000,
@@ -54,7 +54,6 @@ const DetailPanel = ({ item }: { item: Translation | null }) => {
             color: '#fff',
           },
 
-          // Default options for specific types
           success: {
             duration: 3000,
             iconTheme: {

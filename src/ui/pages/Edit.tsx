@@ -11,10 +11,10 @@ type FormData = {
   copyrights?: string;
 };
 
-  const Edit = () => {
+const Edit = () => {
   const { promptName } = useParams<{ promptName?: string }>();
   const navigate = useNavigate();
-  const { register, handleSubmit, setValue, reset } = useForm<FormData>();
+  const { register, handleSubmit, reset } = useForm<FormData>();
 
   // 編集時は既存データを取得してフォームにセット
   useEffect(() => {
@@ -35,7 +35,7 @@ type FormData = {
   }, [promptName, reset]);
 
   const onSubmit = async (data: FormData) => {
-    const res = await window.backend.upsertTranslation({
+    await window.backend.upsertTranslation({
       promptName: data.promptName,
       translationText: data.translationText,
       searchWord: data.searchWord,

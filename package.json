@@ -1,11 +1,11 @@
 {
   "name": "danbooru-dict",
   "private": true,
-  "version": "0.2.2",
+  "version": "0.2.3",
   "type": "commonjs",
   "main": "dist/electron/main.js",
   "author": "little_raisin",
-  "description": "Danbooru辞書",
+  "description": "Efficient prompt storage and search for Danbooru-style tags.",
   "scripts": {
     "dev": "concurrently \"vite\" \"cross-env DEV= tsc-watch -p tsconfig-electron.json --onSuccess \\\"electron .\\\"\"",
     "preview": "vite build && tsc -p tsconfig-electron.json && cross-env PREVIEW= electron .",

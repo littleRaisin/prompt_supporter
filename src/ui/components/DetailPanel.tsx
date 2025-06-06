@@ -1,3 +1,5 @@
+import Button from './Button';
+
 type Translation = {
   danbooru_name: string;
   translation_text?: string;
@@ -10,6 +12,13 @@ type Translation = {
 
 const DetailPanel = ({ item }: { item: Translation | null }) => {
   if (!item) return null;
+
+  const handleCopy = () => {
+    if (item.note) {
+      navigator.clipboard.writeText(item.note);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -25,6 +34,7 @@ const DetailPanel = ({ item }: { item: Translation | null }) => {
         <p>{item.copyrights}</p>
       </div>
       <div className='whitespace-pre-wrap mt-3'>メモ:
+        <Button text="コピー" onClick={handleCopy} />
         <div className='border-[1px] rounded border-gray p-2'>
           {item.note}
         </div>

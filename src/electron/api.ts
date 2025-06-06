@@ -43,6 +43,7 @@ ipcMain.handle('get-translation-list', (_event, keyword: string) => {
         danbooru_name LIKE @kw OR
         translation_text LIKE @kw OR
         search_word LIKE @kw OR
+        note LIKE @kw OR
         copyrights LIKE @kw
       ORDER BY updated_at DESC
       LIMIT 20

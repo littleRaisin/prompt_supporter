@@ -19,13 +19,20 @@ type Props = {
 const TitleWithCopy = ({ label, value, onCopy }: Props) => (
   <div className='flex gap-2 items-center mb-1'>
     <p className='font-bold'>{label}</p>
-    <img
-      src="./ico_copy.svg"
-      alt="copy"
-      className='inline-block w-4 h-4 cursor-pointer'
+    <button
+      type="button"
+      className="inline-flex items-center justify-center w-6 h-6 p-0 bg-transparent border-none"
       title="コピー"
+      aria-label="コピー"
       onClick={() => onCopy(value)}
-    />
+    >
+      <img
+        src="./ico_copy.svg"
+        alt=""
+        className="w-4 h-4"
+        aria-hidden="true"
+      />
+    </button>
   </div>
 );
 

@@ -2,9 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-a {
+button {
+  cursor: pointer;
+}
+
+a, button {
   transition: opacity 0.2s ease-in-out;
 }
-a:hover {
-  opacity: 0.8;
+a:hover, button:hover {
+  opacity: 0.6;
 }

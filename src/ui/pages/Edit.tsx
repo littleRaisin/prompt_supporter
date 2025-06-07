@@ -19,10 +19,11 @@ const Edit = () => {
   // 編集時は既存データを取得してフォームにセット
   useEffect(() => {
     if (promptName) {
-      window.backend.getTranslation(promptName).then((data) => {
+      const trimmedPromptName = promptName.trim();
+      window.backend.getTranslation(trimmedPromptName).then((data) => {
         if (data && typeof data === 'object' && 'prompt_name' in data) {
           reset({
-            promptName: data.prompt_name,
+            promptName: trimmedPromptName,
             translationText: data.translation_text,
             searchWord: data.search_word,
             note: data.note,
@@ -35,15 +36,16 @@ const Edit = () => {
   }, [promptName, reset]);
 
   const onSubmit = async (data: FormData) => {
+    const trimmedPromptName = data.promptName.trim();
     await window.backend.upsertTranslation({
-      promptName: data.promptName,
+      promptName: trimmedPromptName,
       translationText: data.translationText,
       searchWord: data.searchWord,
       note: data.note,
       favorite: typeof data.favorite === "undefined" ? 0 : (data.favorite ? 1 : 0),
       copyrights: data.copyrights,
     });
-    navigate('/search/' + data.promptName);
+    navigate('/search/' + trimmedPromptName);
   };
 
   return (

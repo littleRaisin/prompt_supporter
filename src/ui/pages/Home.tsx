@@ -52,9 +52,11 @@ const Home = () => {
             </ul>
           </div>
           <div className='w-60'>
-            <div className='sticky top-0 border-[1px] rounded border-gray p-4 bg-white'>
-              <DetailPanel item={currentItem} />
-            </div>
+            {currentItem && (
+              <div className='sticky top-0 border-[1px] rounded border-gray p-4 bg-white'>
+                <DetailPanel item={currentItem} />
+              </div>
+            )}
           </div>
         </div>
       )}

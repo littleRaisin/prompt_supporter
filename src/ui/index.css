@@ -9,6 +9,7 @@ button {
 a, button {
   transition: opacity 0.2s ease-in-out;
 }
+
 a:hover, button:hover {
   opacity: 0.6;
 }

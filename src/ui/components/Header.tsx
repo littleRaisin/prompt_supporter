@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <header className="bg-gray-800 text-white p-4">
       <h1 className="text-2xl font-bold">
-        <Link to="/" className="text-white hover:text-gray-300">Prompt Supporter</Link>
+        <Link to="/" className="text-white">Prompt Supporter</Link>
       </h1>
       <div className="flex justify-between items-center">
         <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex gap-2">

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 
 type Translation = {
@@ -80,7 +81,11 @@ const DetailPanel = ({ item }: { item: Translation | null }) => {
       </div>
       <div className='mt-3'>
         <TitleWithCopy label="帰属" value={item.copyrights} onCopy={handleCopy} />
-        <p className='m-1'>{item.copyrights}</p>
+        <p className='m-1'>
+          <Link to={`/search/${item.copyrights}`} className='underline'>
+            {item.copyrights}
+          </Link>
+        </p>
       </div>
       <div className='whitespace-pre-wrap mt-3'>
         <TitleWithCopy label="メモ" value={item.note} onCopy={handleCopy} />

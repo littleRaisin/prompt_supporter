@@ -20,16 +20,26 @@ ipcMain.handle('get-translation', (_event, keyword: string) => {
   }
 });
 
-// お気に入り一覧の取得
-ipcMain.handle('get-favorite-list', (_event, limit: number) => {
+// お気に入り一覧の取得（ページネーション対応）
+ipcMain.handle('get-favorite-list', async (_event, { limit, page }) => {
   try {
+    const offset = (page - 1) * limit;
+    // データ取得
     const stmt = db.prepare(`
       SELECT * FROM prompt_supporter
       WHERE favorite = 1
       ORDER BY updated_at DESC
-      LIMIT @limit
+      LIMIT @limit OFFSET @offset
     `);
-    return stmt.all({ limit });
+    const items = stmt.all({ limit, offset });
+
+    // 全件数取得
+    const countStmt = db.prepare(`
+      SELECT COUNT(*) as total FROM prompt_supporter WHERE favorite = 1
+    `);
+    const countResult = countStmt.get() as { total?: number } | undefined;
+    const total = countResult?.total ?? 0;
+    return { items, total };
   } catch (err) {
     return { error: String(err) };
   }

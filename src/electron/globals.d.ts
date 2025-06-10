@@ -12,7 +12,10 @@ interface Window {
   backend: {
     getTranslation: (promptName: string) => Promise<Translation | { error: string }>;
     getTranslationList: (promptName: string) => Promise<Translation[] | { error: string }>;
-    getFavoriteList: (limit?: number) => Promise<Translation[] | { error: string }>;
+    getFavoriteList: (
+      limit?: number,
+      page?: number
+    ) => Promise<{ items: Translation[]; total: number } | { error: string }>;
     upsertTranslation: (data: {
       promptName: string;
       translationText?: string;

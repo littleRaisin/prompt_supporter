@@ -82,22 +82,26 @@ describe('Electron API', () => {
         { prompt_name: 'fav1', favorite: 1 },
         { prompt_name: 'fav2', favorite: 1 },
       ];
-      ((db.prepare as unknown) as MockInstance).mockReturnValue({
-        all: vi.fn().mockReturnValue(mockResult),
-      });
+      const mockAllFn = vi.fn().mockReturnValue(mockResult);
+      const mockGetFn = vi.fn().mockReturnValue({ total: 2 });
+      ((db.prepare as unknown) as MockInstance)
+        .mockReturnValueOnce({ all: mockAllFn }) // items用
+        .mockReturnValueOnce({ get: mockGetFn }); // total用
 
       const handler = ((ipcMain.handle as unknown) as MockInstance)?.mock?.calls.find(
         (call: any[]) => call[0] === 'get-favorite-list'
       )?.[1];
 
-      const result = await handler(null, 10);
-      expect(db.prepare).toHaveBeenCalledWith(`
-      SELECT * FROM prompt_supporter
-      WHERE favorite = 1
-      ORDER BY updated_at DESC
-      LIMIT @limit
-    `);
-      expect(result).toEqual(mockResult);
+      const result = await handler(null, { limit: 10, page: 1 });
+      expect(db.prepare).toHaveBeenCalledWith(
+        expect.stringContaining('SELECT * FROM prompt_supporter')
+      );
+      expect(mockAllFn).toHaveBeenCalledWith({ limit: 10, offset: 0 });
+      expect(db.prepare).toHaveBeenCalledWith(
+        expect.stringContaining('SELECT COUNT(*) as total FROM prompt_supporter')
+      );
+      expect(mockGetFn).toHaveBeenCalled();
+      expect(result).toEqual({ items: mockResult, total: 2 });
     });
   });
 

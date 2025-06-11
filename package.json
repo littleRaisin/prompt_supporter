@@ -1,7 +1,7 @@
 {
   "name": "prompt-supporter",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "commonjs",
   "main": "dist/electron/main.js",
   "author": "little_raisin",
@@ -32,6 +32,7 @@
     "@electron-forge/plugin-fuses": "^7.8.1",
     "@electron/fuses": "^1.8.0",
     "@eslint/js": "^9.25.0",
+    "@headlessui/react": "^2.2.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",

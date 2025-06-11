@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Result from '../components/Result';
+import SidePanel from '../components/SidePanel';
 import DetailPanel from '../components/DetailPanel';
 
 type Translation = {
@@ -17,6 +18,7 @@ const SearchResult = () => {
   const [result, setResult] = useState<Translation[] | null>(null);
   const [currentItem, setCurrentItem] = useState<Translation | null>(null);
   const [loading, setLoading] = useState(false);
+  const [sideOpen, setSideOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,7 +42,10 @@ const SearchResult = () => {
   }, [promptName]);
 
   const handleClick = (item?: Translation) => () => {
-    if (item) setCurrentItem(item);
+    if (item) {
+      setCurrentItem(item);
+      setSideOpen(true);
+    }
   };
   const handleEdit = (item?: Translation) => () => {
     if (item) navigate(`/edit/${item.prompt_name}`);
@@ -57,8 +62,8 @@ const SearchResult = () => {
       {!loading && (!result || result.length === 0) ? (
         <div>登録されたデータがありません</div>
       ) : (
-        <div className='flex justify-between w-full max-w-full'>
-          <div>
+        <div className='w-full max-w-full'>
+          <div className='max-w-[500px]'>
             <ul>
               {result && result.map(item => (
                 <li key={item.prompt_name} className='mb-2'>
@@ -71,13 +76,11 @@ const SearchResult = () => {
               ))}
             </ul>
           </div>
-          <div className='w-60'>
-            {currentItem && (
-              <div className='sticky top-0 border-[1px] rounded border-gray p-4 bg-white'>
-                <DetailPanel item={currentItem} />
-              </div>
-            )}
-          </div>
+          {currentItem && (
+            <SidePanel open={sideOpen} onClose={() => setSideOpen(false)}>
+              {currentItem && <DetailPanel item={currentItem} />}
+            </SidePanel>
+          )}
         </div>
       )}
     </div>

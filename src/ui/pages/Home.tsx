@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import Result from '../components/Result';
-import DetailPanel from '../components/DetailPanel';
 import Pagination from '../components/Pagination';
 import SidePanel from '../components/SidePanel';
+import DetailPanel from '../components/DetailPanel';
 
 type Translation = {
   prompt_name: string;
@@ -64,49 +64,45 @@ const Home = () => {
       {favorites.length === 0 ? (
         <div>お気に入りはありません。</div>
       ) : (
-        <div className='flex flex-col w-full max-w-full'>
-          <div className='flex justify-between'>
-            <div>
-              <div className='flex items-center gap-8'>
-                <Pagination
-                  page={page}
-                  maxPage={maxPage}
-                  onPageChange={setPage}
-                />
-                <select
-                  id="limit-select"
-                  value={limit}
-                  onChange={handleLimitChange}
-                  className="border rounded px-2 py-1"
-                >
-                  {[5,10,20,50,100].map(value => (
-                    <option key={value} value={value}>
-                      {value}件
-                    </option>
-                  ))}
-                </select>
-
-              </div>
-              <ul className='mt-4'>
-                {favorites.map(item => (
-                  <li key={item.prompt_name} className="mb-2">
-                    <Result
-                      item={item}
-                      handleClick={handleClick}
-                      handleEdit={handleEdit}
-                    />
-                  </li>
+        <div className='w-full'>
+          <div className='max-w-[500px]'>
+            <div className='flex items-center gap-8'>
+              <Pagination
+                page={page}
+                maxPage={maxPage}
+                onPageChange={setPage}
+              />
+              <select
+                id="limit-select"
+                value={limit}
+                onChange={handleLimitChange}
+                className="border rounded px-2 py-1"
+              >
+                {[5,10,20,50,100].map(value => (
+                  <option key={value} value={value}>
+                    {value}件
+                  </option>
                 ))}
-              </ul>
+              </select>
+
             </div>
-            <div className='w-60'>
-              {currentItem && (
-                <SidePanel open={sideOpen} onClose={() => setSideOpen(false)}>
-                  {currentItem && <DetailPanel item={currentItem} />}
-                </SidePanel>
-              )}
-            </div>
+            <ul className='mt-4'>
+              {favorites.map(item => (
+                <li key={item.prompt_name} className="mb-2">
+                  <Result
+                    item={item}
+                    handleClick={handleClick}
+                    handleEdit={handleEdit}
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
+          {currentItem && (
+            <SidePanel open={sideOpen} onClose={() => setSideOpen(false)}>
+              {currentItem && <DetailPanel item={currentItem} />}
+            </SidePanel>
+          )}
         </div>
       )}
     </div>

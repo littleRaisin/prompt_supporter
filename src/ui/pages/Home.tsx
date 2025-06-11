@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Result from '../components/Result';
 import DetailPanel from '../components/DetailPanel';
 import Pagination from '../components/Pagination';
+import SidePanel from '../components/SidePanel';
 
 type Translation = {
   prompt_name: string;
@@ -25,6 +26,7 @@ const Home = () => {
   const [favorites, setFavorites] = useState<Translation[]>([]);
   const [total, setTotal] = useState(0);
   const [currentItem, setCurrentItem] = useState<Translation | null>(null);
+  const [sideOpen, setSideOpen] = useState(false);
 
   useEffect(() => {
     window.backend.getFavoriteList(limit, page).then((res) => {
@@ -46,7 +48,10 @@ const Home = () => {
     localStorage.setItem(LIMIT_KEY, String(newLimit));
   };
   const handleClick = (item?: Translation) => () => {
-    if (item) setCurrentItem(item);
+    if (item) {
+      setCurrentItem(item);
+      setSideOpen(true);
+    }
   };
   const handleEdit = (item?: Translation) => () => {
     if (item) window.location.hash = `/edit/${item.prompt_name}`;
@@ -96,9 +101,9 @@ const Home = () => {
             </div>
             <div className='w-60'>
               {currentItem && (
-                <div className='sticky top-0 border-[1px] rounded border-gray p-4 bg-white'>
-                  <DetailPanel item={currentItem} />
-                </div>
+                <SidePanel open={sideOpen} onClose={() => setSideOpen(false)}>
+                  {currentItem && <DetailPanel item={currentItem} />}
+                </SidePanel>
               )}
             </div>
           </div>

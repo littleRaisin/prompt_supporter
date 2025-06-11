@@ -8,7 +8,7 @@ type SidePanelProps = {
 };
 
 const SidePanel = ({ open, onClose, children }: SidePanelProps) => (
-  <Transition show={open} as={Fragment}>
+  <Transition show={open} as={Fragment} appear>
     <Dialog as="div" className="fixed inset-0 z-50 overflow-hidden" onClose={onClose}>
       <TransitionChild
         as={Fragment}

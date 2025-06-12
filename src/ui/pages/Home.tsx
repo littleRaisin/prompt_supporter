@@ -3,16 +3,7 @@ import Result from '../components/Result';
 import Pagination from '../components/Pagination';
 import SidePanel from '../components/SidePanel';
 import DetailPanel from '../components/DetailPanel';
-
-type Translation = {
-  prompt_name: string;
-  translation_text?: string;
-  search_word?: string;
-  note?: string;
-  favorite?: number;
-  copyrights?: string;
-  updated_at?: string;
-};
+import type { Translation } from '../types/Translation';
 
 const LIMIT_KEY = 'favorite_limit';
 

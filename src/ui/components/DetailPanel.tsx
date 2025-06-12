@@ -1,15 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
-
-type Translation = {
-  prompt_name: string;
-  translation_text?: string;
-  search_word?: string;
-  note?: string;
-  favorite?: number;
-  copyrights?: string;
-  updated_at?: string;
-};
+import type { Translation } from '../types/Translation';
 
 type Props = {
   label: string;

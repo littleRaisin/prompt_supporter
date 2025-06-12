@@ -1,18 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import Result from '../components/Result';
 import SidePanel from '../components/SidePanel';
 import DetailPanel from '../components/DetailPanel';
 import { useItemActions } from '../hooks/useItemActions';
 
-type Translation = {
-  prompt_name: string;
-  translation_text?: string;
-  search_word?: string;
-  note?: string;
-  favorite?: number;
-  copyrights?: string;
-};
+import type { Translation } from '../../types/Translation';
 
 const SearchResult = () => {
   const { promptName } = useParams<{ promptName: string }>();
@@ -33,16 +27,11 @@ const SearchResult = () => {
     setLoading(true);
     window.backend.getTranslationList(promptName)
       .then((res) => {
-        if (
-          typeof res === "string" ||
-          (res && "error" in res) ||
-          (Array.isArray(res) && typeof res[0] === "string")
-        ) {
+        if ('error' in res) {
           setResult(null);
-        } else if (Array.isArray(res) && res.every(item => typeof item === "object" && item !== null && "prompt_name" in item)) {
-          setResult(res as Translation[]);
+          toast.error(res.error);
         } else {
-          setResult(null);
+          setResult(res);
         }
       })
       .finally(() => setLoading(false));

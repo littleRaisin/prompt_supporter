@@ -1,5 +1,5 @@
 import Button from '../components/Button';
-import type { Translation } from '../types/Translation';
+import type { Translation } from '../../types/Translation';
 
 const Result = ({
   item,

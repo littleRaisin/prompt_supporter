@@ -3,12 +3,12 @@ import Result from '../components/Result';
 import Pagination from '../components/Pagination';
 import SidePanel from '../components/SidePanel';
 import DetailPanel from '../components/DetailPanel';
-import type { Translation } from '../types/Translation';
+import { useItemActions } from '../hooks/useItemActions';
+import type { Translation } from '../../types/Translation';
 
 const LIMIT_KEY = 'favorite_limit';
 
 const Home = () => {
-  // localStorageから初期値を取得（なければ20）
   const [limit, setLimit] = useState(() => {
     const saved = localStorage.getItem(LIMIT_KEY);
     return saved ? Number(saved) : 20;
@@ -16,8 +16,15 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [favorites, setFavorites] = useState<Translation[]>([]);
   const [total, setTotal] = useState(0);
-  const [currentItem, setCurrentItem] = useState<Translation | null>(null);
-  const [sideOpen, setSideOpen] = useState(false);
+
+  // useItemActionsフックを利用
+  const {
+    currentItem,
+    sideOpen,
+    handleClick,
+    handleEdit,
+    closeSidePanel,
+  } = useItemActions();
 
   useEffect(() => {
     window.backend.getFavoriteList(limit, page).then((res) => {
@@ -38,15 +45,7 @@ const Home = () => {
     setPage(1);
     localStorage.setItem(LIMIT_KEY, String(newLimit));
   };
-  const handleClick = (item?: Translation) => () => {
-    if (item) {
-      setCurrentItem(item);
-      setSideOpen(true);
-    }
-  };
-  const handleEdit = (item?: Translation) => () => {
-    if (item) window.location.hash = `/edit/${item.prompt_name}`;
-  };
+
   const maxPage = Math.max(1, Math.ceil(total / limit));
 
   return (
@@ -75,7 +74,6 @@ const Home = () => {
                   </option>
                 ))}
               </select>
-
             </div>
             <ul className='mt-4'>
               {favorites.map(item => (
@@ -89,11 +87,9 @@ const Home = () => {
               ))}
             </ul>
           </div>
-          {currentItem && (
-            <SidePanel open={sideOpen} onClose={() => setSideOpen(false)}>
-              {currentItem && <DetailPanel item={currentItem} />}
-            </SidePanel>
-          )}
+          <SidePanel open={sideOpen} onClose={closeSidePanel}>
+            {currentItem && <DetailPanel item={currentItem} />}
+          </SidePanel>
         </div>
       )}
     </div>

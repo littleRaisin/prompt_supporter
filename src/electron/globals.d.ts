@@ -1,13 +1,3 @@
-interface Translation {
-  prompt_name: string;
-  translation_text?: string;
-  search_word?: string;
-  note?: string;
-  favorite?: number;
-  copyrights?: string;
-  updated_at?: string;
-}
-
 interface Window {
   backend: {
     getTranslation: (promptName: string) => Promise<Translation | { error: string }>;

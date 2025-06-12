@@ -1,8 +1,9 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Result from '../components/Result';
 import SidePanel from '../components/SidePanel';
 import DetailPanel from '../components/DetailPanel';
+import { useItemActions } from '../hooks/useItemActions';
 
 type Translation = {
   prompt_name: string;
@@ -16,10 +17,16 @@ type Translation = {
 const SearchResult = () => {
   const { promptName } = useParams<{ promptName: string }>();
   const [result, setResult] = useState<Translation[] | null>(null);
-  const [currentItem, setCurrentItem] = useState<Translation | null>(null);
   const [loading, setLoading] = useState(false);
-  const [sideOpen, setSideOpen] = useState(false);
-  const navigate = useNavigate();
+
+  // useItemActionsフックを利用
+  const {
+    currentItem,
+    sideOpen,
+    handleClick,
+    handleEdit,
+    closeSidePanel,
+  } = useItemActions();
 
   useEffect(() => {
     if (!promptName) return;
@@ -40,16 +47,6 @@ const SearchResult = () => {
       })
       .finally(() => setLoading(false));
   }, [promptName]);
-
-  const handleClick = (item?: Translation) => () => {
-    if (item) {
-      setCurrentItem(item);
-      setSideOpen(true);
-    }
-  };
-  const handleEdit = (item?: Translation) => () => {
-    if (item) navigate(`/edit/${item.prompt_name}`);
-  };
 
   return (
     <div>
@@ -76,11 +73,9 @@ const SearchResult = () => {
               ))}
             </ul>
           </div>
-          {currentItem && (
-            <SidePanel open={sideOpen} onClose={() => setSideOpen(false)}>
-              {currentItem && <DetailPanel item={currentItem} />}
-            </SidePanel>
-          )}
+          <SidePanel open={sideOpen} onClose={closeSidePanel}>
+            {currentItem && <DetailPanel item={currentItem} />}
+          </SidePanel>
         </div>
       )}
     </div>

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Result from '../components/Result';
 import SidePanel from '../components/SidePanel';
@@ -22,7 +22,7 @@ const SearchResult = () => {
     closeSidePanel,
   } = useItemActions();
 
-  useEffect(() => {
+  const refreshSearchResults = useCallback(() => {
     if (!promptName) return;
     setLoading(true);
     window.backend.getTranslationList(promptName)
@@ -36,6 +36,10 @@ const SearchResult = () => {
       })
       .finally(() => setLoading(false));
   }, [promptName]);
+
+  useEffect(() => {
+    refreshSearchResults();
+  }, [refreshSearchResults]);
 
   return (
     <div>
@@ -63,7 +67,7 @@ const SearchResult = () => {
             </ul>
           </div>
           <SidePanel open={sideOpen} onClose={closeSidePanel}>
-            {currentItem && <DetailPanel item={currentItem} />}
+            {currentItem && <DetailPanel item={currentItem} onDataChange={refreshSearchResults} />}
           </SidePanel>
         </div>
       )}

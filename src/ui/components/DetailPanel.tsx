@@ -1,14 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 import type { Translation } from '../../types/Translation';
+import FavoriteIcon from './FavoriteIcon';
+import Button from './Button';
+import { useState } from 'react';
 
-type Props = {
+type DetailPanelProps = {
+  item: Translation | null;
+  onDataChange: () => void;
+};
+
+type TitleWithCopyProps = {
   label: string;
   value?: string;
   onCopy: (value?: string) => void;
 };
 
-const TitleWithCopy = ({ label, value, onCopy }: Props) => (
+const TitleWithCopy = ({ label, value, onCopy }: TitleWithCopyProps) => (
   <div className='flex gap-2 items-center mb-1'>
     <p className='font-bold'>{label}</p>
     <button
@@ -28,8 +36,10 @@ const TitleWithCopy = ({ label, value, onCopy }: Props) => (
   </div>
 );
 
-const DetailPanel = ({ item }: { item: Translation | null }) => {
+const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
   if (!item) return null;
+  const navigate = useNavigate();
+  const [favorite, setFavorite] = useState(!!item.favorite);
 
   // Window.navigatorを利用してクリップボードにコピーする
   const handleCopy = (target :string | undefined) => {
@@ -38,6 +48,23 @@ const DetailPanel = ({ item }: { item: Translation | null }) => {
         toast.success("コピーしました!");
       })
     }
+  };
+
+  // お気に入り切り替え
+  const handleFavoriteToggle = async () => {
+    if (!item) return;
+    const newFavorite = favorite ? 0 : 1;
+    await window.backend.upsertTranslation({
+      promptName: item.prompt_name,
+      translationText: item.translation_text,
+      searchWord: item.search_word,
+      note: item.note,
+      favorite: newFavorite,
+      copyrights: item.copyrights,
+    });
+    setFavorite(!!newFavorite);
+    toast.success(newFavorite ? "お気に入りに追加しました" : "お気に入りを解除しました");
+    onDataChange();
   };
 
   return (
@@ -62,10 +89,22 @@ const DetailPanel = ({ item }: { item: Translation | null }) => {
           },
         }}
       />
-      <div>
+
+      <div className='flex items-center gap-2'>
         {item.translation_text}
-        <span className='inline-block ml-2'>{item.favorite ? "★" : "☆"}</span>
+        <FavoriteIcon 
+          isFavorite={favorite} 
+          onClick={handleFavoriteToggle} 
+        />
+        <div className='ml-4'>
+          <Button 
+            text="編集" 
+            onClick={() => {
+              navigate(`/edit/${item.prompt_name}`);
+            }} />
+        </div>
       </div>
+      
       <div className='mt-3'>
         <TitleWithCopy label="Promptタグ名" value={item.prompt_name} onCopy={handleCopy} />
         <p className='m-1'>{item.prompt_name}</p>

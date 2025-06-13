@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Result from '../components/Result';
 import Pagination from '../components/Pagination';
 import SidePanel from '../components/SidePanel';
@@ -26,7 +26,7 @@ const Home = () => {
     closeSidePanel,
   } = useItemActions();
 
-  useEffect(() => {
+  const refreshFavorites = useCallback(() => {
     window.backend.getFavoriteList(limit, page).then((res) => {
       if ('items' in res && 'total' in res) {
         setFavorites(res.items);
@@ -37,6 +37,10 @@ const Home = () => {
       }
     });
   }, [limit, page]);
+
+  useEffect(() => {
+    refreshFavorites();
+  }, [refreshFavorites]);
 
   // 件数変更時に1ページ目に戻し、localStorageにも保存
   const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -88,7 +92,7 @@ const Home = () => {
             </ul>
           </div>
           <SidePanel open={sideOpen} onClose={closeSidePanel}>
-            {currentItem && <DetailPanel item={currentItem} />}
+            {currentItem && <DetailPanel item={currentItem} onDataChange={refreshFavorites} />}
           </SidePanel>
         </div>
       )}

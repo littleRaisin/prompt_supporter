@@ -1,7 +1,8 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react'; // useStateとuseEffectをインポート
+import { useState, useEffect } from 'react';
 import Button from './Button';
+import SearchCategoryCheckbox from './SearchCategoryCheckbox';
 
 type FormData = {
   search: string;
@@ -20,13 +21,11 @@ const Header = () => {
   const navigate = useNavigate();
   const { promptName } = useParams<{ promptName: string }>();
 
-  // カテゴリのチェック状態を管理するstate
   const [searchCategories, setSearchCategories] = useState<SearchCategories>(() => {
     const saved = localStorage.getItem(SEARCH_CATEGORIES_KEY);
     return saved ? JSON.parse(saved) : { character: true, tag: true, copyright: true };
   });
 
-  // searchCategoriesの変更をlocalStorageに保存
   useEffect(() => {
     localStorage.setItem(SEARCH_CATEGORIES_KEY, JSON.stringify(searchCategories));
   }, [searchCategories]);
@@ -61,40 +60,31 @@ const Header = () => {
               type="text"
               className="text-black px-2"
               placeholder="検索ワード"
-              defaultValue={promptName ? promptName : ''} // ルートパラメータから初期値を設定
+              defaultValue={promptName ? promptName : ''}
             />
             <Button 
               type="submit"
               text="検索"
             />
             <div className="flex items-center gap-2 ml-4">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={searchCategories.character}
-                  onChange={() => handleCategoryChange('character')}
-                  className="mr-1"
-                />
-                キャラ
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={searchCategories.tag}
-                  onChange={() => handleCategoryChange('tag')}
-                  className="mr-1"
-                />
-                タグ
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={searchCategories.copyright}
-                  onChange={() => handleCategoryChange('copyright')}
-                  className="mr-1"
-                />
-                著作権
-              </label>
+              <SearchCategoryCheckbox
+                label="キャラ"
+                categoryKey="character"
+                checked={searchCategories.character}
+                onChange={handleCategoryChange}
+              />
+              <SearchCategoryCheckbox
+                label="タグ"
+                categoryKey="tag"
+                checked={searchCategories.tag}
+                onChange={handleCategoryChange}
+              />
+              <SearchCategoryCheckbox
+                label="著作権"
+                categoryKey="copyright"
+                checked={searchCategories.copyright}
+                onChange={handleCategoryChange}
+              />
             </div>
           </form>
           <nav>

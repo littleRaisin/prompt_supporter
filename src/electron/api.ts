@@ -140,11 +140,9 @@ ipcMain.handle('upsert-translation', (_event, data: {
         category=excluded.category, -- categoryを追加
         updated_at=datetime('now', 'localtime')
     `);
-    console.log('Upserting data:', data); // 渡されたデータをログに出力
     stmt.run(data);
     return { success: true };
   } catch (err) {
-    console.error('Error in upsert-translation:', err); // エラーもログに出力
     return { error: String(err) };
   }
 });

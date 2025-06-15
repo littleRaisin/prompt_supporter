@@ -61,6 +61,7 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
       note: item.note,
       favorite: newFavorite,
       copyrights: item.copyrights,
+      category: item.category,
     });
     setFavorite(!!newFavorite);
     toast.success(newFavorite ? "お気に入りに追加しました" : "お気に入りを解除しました");

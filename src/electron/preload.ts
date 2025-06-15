@@ -7,13 +7,21 @@ contextBridge.exposeInMainWorld('backend', {
     getTranslation: (promptName : string) => ipcRenderer.invoke('get-translation', promptName),
 
     // 翻訳情報を取得
-    getTranslationList: (promptName : string) => ipcRenderer.invoke('get-translation-list', promptName),
+    getTranslationList: (data: { keyword: string, categories: { character: boolean, tag: boolean, copyright: boolean } }) => ipcRenderer.invoke('get-translation-list', data),
 
     // お気に入り一覧を取得
     getFavoriteList: (limit: number = 20, page = 1): Promise<{ items: any[]; total: number }> =>
     ipcRenderer.invoke('get-favorite-list', {
         limit,
         page
+    }),
+
+    // カテゴリー別お気に入り一覧を取得
+    getFavoriteListByCategory: (limit: number, page: number, category: string): Promise<{ items: any[]; total: number }> =>
+    ipcRenderer.invoke('get-favorite-list-by-category', {
+        limit,
+        page,
+        category
     }),
 
     // 翻訳情報を追加・更新
@@ -24,5 +32,6 @@ contextBridge.exposeInMainWorld('backend', {
         note?: string,
         favorite?: number;
         copyrights?: string;
+        category?: string; // categoryを追加
     }) => ipcRenderer.invoke('upsert-translation', data)
 });

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom'; // useLocationをインポート
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Result from '../components/Result';
@@ -10,6 +10,7 @@ import type { Translation } from '../../types/Translation';
 
 const SearchResult = () => {
   const { promptName } = useParams<{ promptName: string }>();
+  const location = useLocation(); // useLocationフックを使用
   const [result, setResult] = useState<Translation[] | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +26,16 @@ const SearchResult = () => {
   const refreshSearchResults = useCallback(() => {
     if (!promptName) return;
     setLoading(true);
-    window.backend.getTranslationList(promptName)
+
+    // URLのクエリパラメータからカテゴリ情報を取得
+    const params = new URLSearchParams(location.search);
+    const categories = {
+      character: params.get('character') === 'true',
+      tag: params.get('tag') === 'true',
+      copyright: params.get('copyright') === 'true',
+    };
+
+    window.backend.getTranslationList({ keyword: promptName, categories }) // カテゴリ情報を渡す
       .then((res) => {
         if ('error' in res) {
           setResult(null);
@@ -35,7 +45,7 @@ const SearchResult = () => {
         }
       })
       .finally(() => setLoading(false));
-  }, [promptName]);
+  }, [promptName, location.search]); // location.searchを依存配列に追加
 
   useEffect(() => {
     refreshSearchResults();

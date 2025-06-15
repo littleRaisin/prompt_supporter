@@ -99,18 +99,20 @@ const Header = () => {
           </form>
           <nav>
             <ul className='flex gap-4 mt-2'>
-              <li>
-                <Link to="/favorite/character" className="text-white hover:text-gray-300">キャラ</Link>
-              </li>
-              <li>
-                <Link to="/favorite/tag" className="text-white hover:text-gray-300">タグ</Link>
-              </li>
-              <li>
-                <Link to="/favorite/copyright" className="text-white hover:text-gray-300">著作権</Link>
-              </li>
-              <li>
-                <Link to="/create" className="text-white hover:text-gray-300">新規登録</Link>
-              </li>
+              {
+                [
+                  { link: '/favorite/character', label: 'キャラ' },
+                  { link: '/favorite/tag', label: 'タグ' },
+                  { link: '/favorite/copyright', label: '著作権' },
+                  { link: '/create', label: '新規登録' },
+                ].map((item) => (
+                  <li key={item.link}>
+                    <Link to={item.link} className="text-white hover:text-gray-300">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))
+              }
             </ul>
           </nav>
         </div>

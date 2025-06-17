@@ -33,5 +33,8 @@ contextBridge.exposeInMainWorld('backend', {
         favorite?: number;
         copyrights?: string;
         category?: string; // categoryを追加
-    }) => ipcRenderer.invoke('upsert-translation', data)
+    }) => ipcRenderer.invoke('upsert-translation', data),
+
+    // 外部URLを開く
+    openExternalUrl: (url: string) => ipcRenderer.invoke('open-external-url', url)
 });

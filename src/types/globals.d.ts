@@ -23,6 +23,7 @@ declare global {
         copyrights?: string;
         category?: string; // categoryを追加
       }) => Promise<{ success?: boolean; error?: string }>;
+      openExternalUrl: (url: string) => Promise<{ success?: boolean; error?: string }>; // 外部URLを開くAPIの型定義を追加
     };
   }
 }

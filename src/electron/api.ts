@@ -1,6 +1,6 @@
 // src/electron/api.ts
 
-import { ipcMain } from "electron";
+import { ipcMain, shell } from "electron"; // shellをインポート
 import db from '../db/db';
 
 /**
@@ -16,6 +16,17 @@ ipcMain.handle('get-translation', (_event, keyword: string) => {
     `);
     return stmt.get({ kw: keyword });
   } catch (err) {
+    return { error: String(err) };
+  }
+});
+
+// 外部URLを開く
+ipcMain.handle('open-external-url', async (_event, url: string) => {
+  try {
+    await shell.openExternal(url);
+    return { success: true };
+  } catch (err) {
+    console.error('Error opening external URL:', err);
     return { error: String(err) };
   }
 });

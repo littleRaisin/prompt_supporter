@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import Button from './Button';
 import SearchCategoryCheckbox from './SearchCategoryCheckbox';
+import useExternalLink from '../hooks/useExternalLink'; // useExternalLinkをインポート
+import TextButton from './TextButton';
 
 type FormData = {
   search: string;
@@ -20,6 +22,7 @@ const Header = () => {
   const { register, handleSubmit } = useForm<FormData>();
   const navigate = useNavigate();
   const { promptName } = useParams<{ promptName: string }>();
+  const openExternalLink = useExternalLink(); // useExternalLinkフックを使用
 
   const [searchCategories, setSearchCategories] = useState<SearchCategories>(() => {
     const saved = localStorage.getItem(SEARCH_CATEGORIES_KEY);
@@ -103,6 +106,13 @@ const Header = () => {
                   </li>
                 ))
               }
+              <li>
+                <TextButton
+                  onClick={() => openExternalLink("https://github.com/kiyomiya/prompt_supporter/")}
+                >
+                  GitHub
+                </TextButton>
+              </li>
             </ul>
           </nav>
         </div>

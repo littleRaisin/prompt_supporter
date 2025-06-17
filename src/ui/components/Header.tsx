@@ -108,7 +108,7 @@ const Header = () => {
               }
               <li>
                 <TextButton
-                  onClick={() => openExternalLink("https://github.com/kiyomiya/prompt_supporter/")}
+                  onClick={() => openExternalLink("https://github.com/littleRaisin/prompt_supporter")}
                 >
                   GitHub
                 </TextButton>

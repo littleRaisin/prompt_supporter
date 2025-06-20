@@ -57,7 +57,7 @@ const FavoriteCategoryList = () => {
 
   const categoryLabels: { [key: string]: string } = {
     character: 'キャラクター',
-    copyright: '著作権',
+    copyright: 'コピーライト',
     tag: 'タグ',
   };
 

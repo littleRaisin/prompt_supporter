@@ -111,7 +111,7 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
         <p className='m-1'>{item.prompt_name}</p>
       </div>
       <div className='mt-3'>
-        <TitleWithCopy label="帰属" value={item.copyrights} onCopy={handleCopy} />
+        <TitleWithCopy label="コピーライト" value={item.copyrights} onCopy={handleCopy} />
         <p className='m-1'>
           <Link to={`/search/${item.copyrights}`} className='underline'>
             {item.copyrights}

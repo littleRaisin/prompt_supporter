@@ -83,7 +83,7 @@ const Header = () => {
                 onChange={handleCategoryChange}
               />
               <SearchCategoryCheckbox
-                label="著作権"
+                label="コピーライト"
                 categoryKey="copyright"
                 checked={searchCategories.copyright}
                 onChange={handleCategoryChange}
@@ -96,7 +96,7 @@ const Header = () => {
                 [
                   { link: '/favorite/character', label: 'キャラ' },
                   { link: '/favorite/tag', label: 'タグ' },
-                  { link: '/favorite/copyright', label: '著作権' },
+                  { link: '/favorite/copyright', label: 'コピーライト' },
                   { link: '/create', label: '新規登録' },
                 ].map((item) => (
                   <li key={item.link}>

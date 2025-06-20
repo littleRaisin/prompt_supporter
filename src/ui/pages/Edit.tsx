@@ -113,7 +113,7 @@ const Edit = () => {
           <input type="checkbox" {...register('favorite')} />
         </div>
         <div>
-          <label className="block font-semibold">帰属</label>
+          <label className="block font-semibold">コピーライト</label>
           <input {...register('copyrights')} className="border px-2 py-1 w-full" />
         </div>
 
@@ -121,7 +121,7 @@ const Edit = () => {
           <label className="block font-semibold">カテゴリー</label>
           <select {...register('category')} className="border px-2 py-1 w-full">
             <option value="character">キャラクター</option>
-            <option value="copyright">著作権</option>
+            <option value="copyright">コピーライト</option>
             <option value="tag">タグ</option>
           </select>
         </div>

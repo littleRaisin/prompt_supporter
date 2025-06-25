@@ -92,7 +92,9 @@ const Header = () => {
                 onChange={handleCategoryChange}
               />
             </div>
-            <LanguageSwitcher />
+            <div className='ml-4'>
+              <LanguageSwitcher />
+            </div>
           </form>
           <nav>
             <ul className='flex gap-4 mt-2'>

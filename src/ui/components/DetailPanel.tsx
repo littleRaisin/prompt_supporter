@@ -112,11 +112,11 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
       </div>
 
       <div className='mt-3'>
-        <TitleWithCopy label={t('promptLabel')} value={item.prompt_name} onCopy={handleCopy} />
+        <TitleWithCopy label={t('prompt')} value={item.prompt_name} onCopy={handleCopy} />
         <p className='m-1'>{item.prompt_name}</p>
       </div>
       <div className='mt-3'>
-        <TitleWithCopy label={t('copyrightsValue')} value={item.copyrights} onCopy={handleCopy} />
+        <TitleWithCopy label={t('copyrights')} value={item.copyrights} onCopy={handleCopy} />
         <p className='m-1'>
           <Link to={`/search/${item.copyrights}`} className='underline'>
             {item.copyrights}
@@ -124,7 +124,7 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
         </p>
       </div>
       <div className='whitespace-pre-wrap mt-3'>
-        <TitleWithCopy label={t('noteLabel')} value={item.note} onCopy={handleCopy} />
+        <TitleWithCopy label={t('note')} value={item.note} onCopy={handleCopy} />
         <div className='border-[1px] rounded border-gray p-2 m-1'>
           {item.note}
         </div>

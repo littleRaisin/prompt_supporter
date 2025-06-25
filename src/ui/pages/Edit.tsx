@@ -80,19 +80,19 @@ const Edit = () => {
   return (
     <div className="max-w-md mx-auto mt-8">
       <h2 className="text-xl font-bold mb-4">
-        {promptName ? (isCopyMode ? t('copyAndNewRegistration') : t('Edit')) : t('newRegistration')}
+        {promptName ? (isCopyMode ? t('copyAndNewRegistration') : t('Edit')) : t('New Registration')}
       </h2>
       {promptName && !isCopyMode && (
         <Button
           type="button"
-          text={t('copyThisContentAndRegisterNew')}
+          text={t('copyAndNewRegistration')}
           variant="secondary"
           onClick={handleCopy}
         />
       )}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
         <div>
-          <label className="block font-semibold">{t('promptNameLabel')}</label>
+          <label className="block font-semibold">{t('promptName')}</label>
           <input
             {...register('promptName', { required: true })}
             className="border px-2 py-1 w-full"
@@ -117,12 +117,12 @@ const Edit = () => {
           <input type="checkbox" {...register('favorite')} />
         </div>
         <div>
-          <label className="block font-semibold">{t('copyrightsLabel')}</label>
+          <label className="block font-semibold">{t('Copyrights')}</label>
           <input {...register('copyrights')} className="border px-2 py-1 w-full" />
         </div>
 
         <div>
-          <label className="block font-semibold">{t('categoryLabel')}</label>
+          <label className="block font-semibold">{t('Category')}</label>
           <select {...register('category')} className="border px-2 py-1 w-full">
             <option value="character">{t('Character')}</option>
             <option value="copyright">{t('Copyrights')}</option>

@@ -66,7 +66,7 @@ const FavoriteCategoryList = () => {
   return (
     <div className='App relative'>
       <h2 className="text-xl font-bold mb-4">
-        {t('Favorite List')}: {category ? categoryLabels[category] || category : t('Unknown Category')}
+        {t('Favorite List')}: {category ? categoryLabels[category] || category : ''}
       </h2>
       {favorites.length === 0 ? (
         <div>{t('No favorites.')}</div>

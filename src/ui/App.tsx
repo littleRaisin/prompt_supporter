@@ -1,4 +1,5 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
+import './../i18n/i18n';
 import Home from './pages/Home';
 import SearchResult from './pages/SearchResult';
 import Edit from './pages/Edit';

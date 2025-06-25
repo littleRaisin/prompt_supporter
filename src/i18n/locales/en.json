@@ -7,7 +7,7 @@
   "Favorite": "Favorite",
   "Copyrights": "Copyrights",
   "Save": "Save",
-  "Search Word:": "Search Word:",
+  "Search Word": "Search Word",
   "No data registered": "No data registered",
   "Favorite List": "Favorite List",
   "No favorites": "No favorites",
@@ -15,6 +15,11 @@
   "Previous": "Previous",
   "Next": "Next",
   "Search": "Search",
+  "Prompt": "Prompt",
+  "Note": "Note",
+  "Copied": "Copied to clipboard!",
+  "Added to favorites": "Added to favorites",
+  "Removed from favorites": "Removed from favorites",
   "New Registration": "New Registration",
   "Close": "Close"
 }

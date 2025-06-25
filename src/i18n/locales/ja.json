@@ -5,9 +5,9 @@
   "Search Word (Optional)": "検索ワード（任意）",
   "Note (Optional)": "メモ（任意）",
   "Favorite": "お気に入り",
-  "Copyrights": "帰属",
+  "Copyrights": "コピーライト",
   "Save": "保存",
-  "Search Word:": "検索ワード:",
+  "Search Word": "検索ワード",
   "No data registered": "データが登録されていません",
   "Favorite List": "お気に入り一覧",
   "No favorites": "お気に入りはありません",
@@ -15,6 +15,11 @@
   "Previous": "前へ",
   "Next": "次へ",
   "Search": "検索",
+  "Prompt": "プロンプト",
+  "Note": "メモ",
+  "Copied": "コピーしました！",
+  "Added to favorites": "お気に入りに追加しました",
+  "Removed from favorites": "お気に入りを解除しました",
   "New Registration": "新規登録",
   "Close": "閉じる"
 }

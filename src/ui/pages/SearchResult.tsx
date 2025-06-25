@@ -1,5 +1,6 @@
 import { useParams, useLocation } from 'react-router-dom'; // useLocationをインポート
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import Result from '../components/Result';
 import SidePanel from '../components/SidePanel';
@@ -9,6 +10,7 @@ import { useItemActions } from '../hooks/useItemActions';
 import type { Translation } from '../../types/Translation';
 
 const SearchResult = () => {
+  const { t } = useTranslation();
   const { promptName } = useParams<{ promptName: string }>();
   const location = useLocation(); // useLocationフックを使用
   const [result, setResult] = useState<Translation[] | null>(null);
@@ -54,13 +56,13 @@ const SearchResult = () => {
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">
-        検索ワード: 
+        {t('SearchWord')}:
         <span className='inline-block ml-2'>
           {promptName}
         </span>
       </h2>
       {!loading && (!result || result.length === 0) ? (
-        <div>登録されたデータがありません</div>
+        <div>{t('No data registered')}</div>
       ) : (
         <div className='w-full max-w-full'>
           <div className='max-w-[500px]'>

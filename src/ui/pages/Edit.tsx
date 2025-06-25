@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 
@@ -14,6 +15,7 @@ type FormData = {
 };
 
 const Edit = () => {
+  const { t } = useTranslation();
   const { promptName } = useParams<{ promptName?: string }>();
   const navigate = useNavigate();
   const { register, handleSubmit, reset, setValue } = useForm<FormData>();
@@ -77,58 +79,60 @@ const Edit = () => {
 
   return (
     <div className="max-w-md mx-auto mt-8">
-      <h2 className="text-xl font-bold mb-4">{promptName ? (isCopyMode ? 'コピーして新規登録' : '編集') : '新規登録'}</h2>
+      <h2 className="text-xl font-bold mb-4">
+        {promptName ? (isCopyMode ? t('copyAndNewRegistration') : t('Edit')) : t('newRegistration')}
+      </h2>
       {promptName && !isCopyMode && (
         <Button
           type="button"
-          text="この内容をコピーして新規登録"
+          text={t('copyThisContentAndRegisterNew')}
           variant="secondary"
           onClick={handleCopy}
         />
       )}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
         <div>
-          <label className="block font-semibold">promptName</label>
+          <label className="block font-semibold">{t('promptNameLabel')}</label>
           <input
             {...register('promptName', { required: true })}
             className="border px-2 py-1 w-full"
             disabled={!!promptName && !isCopyMode}
-            placeholder="新しいpromptNameを入力"
+            placeholder={t('enterNewPromptName')}
           />
         </div>
         <div>
-          <label className="block font-semibold">翻訳テキスト（任意）</label>
+          <label className="block font-semibold">{t('TranslationText')} ({t("Optional")})</label>
           <input {...register('translationText')} className="border px-2 py-1 w-full" />
         </div>
         <div>
-          <label className="block font-semibold">検索ワード（任意）</label>
+          <label className="block font-semibold">{t('SearchWord')} ({t("Optional")})</label>
           <input {...register('searchWord')} className="border px-2 py-1 w-full" />
         </div>
         <div>
-          <label className="block font-semibold">メモ（任意）</label>
+          <label className="block font-semibold">{t('Note')} ({t("Optional")})</label>
           <textarea rows={5} {...register('note')} className="border px-2 py-1 w-full" />
         </div>
         <div>
-          <label className="block font-semibold">お気に入り</label>
+          <label className="block font-semibold">{t('Favorite')}</label>
           <input type="checkbox" {...register('favorite')} />
         </div>
         <div>
-          <label className="block font-semibold">コピーライト</label>
+          <label className="block font-semibold">{t('copyrightsLabel')}</label>
           <input {...register('copyrights')} className="border px-2 py-1 w-full" />
         </div>
 
         <div>
-          <label className="block font-semibold">カテゴリー</label>
+          <label className="block font-semibold">{t('categoryLabel')}</label>
           <select {...register('category')} className="border px-2 py-1 w-full">
-            <option value="character">キャラクター</option>
-            <option value="copyright">コピーライト</option>
-            <option value="tag">タグ</option>
+            <option value="character">{t('Character')}</option>
+            <option value="copyright">{t('Copyrights')}</option>
+            <option value="tag">{t('Tag')}</option>
           </select>
         </div>
 
         <div className="flex gap-2">
-          <Button type="submit" text="保存" variant="primary" />
-          <Button type="button" text="キャンセル" variant="secondary" onClick={() => navigate(-1)} />
+          <Button type="submit" text={t('saveButton')} variant="primary" />
+          <Button type="button" text={t('cancelButton')} variant="secondary" onClick={() => navigate(-1)} />
         </div>
       </form>
     </div>

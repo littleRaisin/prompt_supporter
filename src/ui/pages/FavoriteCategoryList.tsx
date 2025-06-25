@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Result from '../components/Result';
 import Pagination from '../components/Pagination';
 import SidePanel from '../components/SidePanel';
@@ -10,6 +11,7 @@ import type { Translation } from '../../types/Translation';
 const LIMIT_KEY = 'favorite_category_limit';
 
 const FavoriteCategoryList = () => {
+  const { t } = useTranslation();
   const { category } = useParams<{ category: string }>();
   const [limit, setLimit] = useState(() => {
     const saved = localStorage.getItem(LIMIT_KEY);
@@ -56,18 +58,18 @@ const FavoriteCategoryList = () => {
   const maxPage = Math.max(1, Math.ceil(total / limit));
 
   const categoryLabels: { [key: string]: string } = {
-    character: 'キャラクター',
-    copyright: 'コピーライト',
-    tag: 'タグ',
+    character: t('Character'),
+    copyright: t('Copyrights'),
+    tag: t('Tag'),
   };
 
   return (
     <div className='App relative'>
       <h2 className="text-xl font-bold mb-4">
-        お気に入り一覧: {category ? categoryLabels[category] || category : '不明なカテゴリー'}
+        {t('Favorite List')}: {category ? categoryLabels[category] || category : t('Unknown Category')}
       </h2>
       {favorites.length === 0 ? (
-        <div>お気に入りはありません。</div>
+        <div>{t('No favorites.')}</div>
       ) : (
         <div className='w-full'>
           <div className='max-w-[500px]'>
@@ -85,7 +87,7 @@ const FavoriteCategoryList = () => {
               >
                 {[5,10,20,50,100].map(value => (
                   <option key={value} value={value}>
-                    {value}件
+                    {t('itemsPerPage', { count: value })}
                   </option>
                 ))}
               </select>

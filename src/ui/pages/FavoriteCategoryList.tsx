@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Result from '../components/Result';
 import Pagination from '../components/Pagination';
 import SidePanel from '../components/SidePanel';
@@ -6,9 +7,10 @@ import DetailPanel from '../components/DetailPanel';
 import { useItemActions } from '../hooks/useItemActions';
 import type { Translation } from '../../types/Translation';
 
-const LIMIT_KEY = 'favorite_limit';
+const LIMIT_KEY = 'favorite_category_limit';
 
-const Home = () => {
+const FavoriteCategoryList = () => {
+  const { category } = useParams<{ category: string }>();
   const [limit, setLimit] = useState(() => {
     const saved = localStorage.getItem(LIMIT_KEY);
     return saved ? Number(saved) : 20;
@@ -27,7 +29,8 @@ const Home = () => {
   } = useItemActions();
 
   const refreshFavorites = useCallback(() => {
-    window.backend.getFavoriteList(limit, page).then((res) => {
+    if (!category) return;
+    window.backend.getFavoriteListByCategory(limit, page, category).then((res) => {
       if ('items' in res && 'total' in res) {
         setFavorites(res.items);
         setTotal(res.total);
@@ -36,7 +39,7 @@ const Home = () => {
         setTotal(0);
       }
     });
-  }, [limit, page]);
+  }, [limit, page, category]);
 
   useEffect(() => {
     refreshFavorites();
@@ -52,9 +55,17 @@ const Home = () => {
 
   const maxPage = Math.max(1, Math.ceil(total / limit));
 
+  const categoryLabels: { [key: string]: string } = {
+    character: 'キャラクター',
+    copyright: 'コピーライト',
+    tag: 'タグ',
+  };
+
   return (
     <div className='App relative'>
-      <h2 className="text-xl font-bold mb-4">お気に入り一覧</h2>
+      <h2 className="text-xl font-bold mb-4">
+        お気に入り一覧: {category ? categoryLabels[category] || category : '不明なカテゴリー'}
+      </h2>
       {favorites.length === 0 ? (
         <div>お気に入りはありません。</div>
       ) : (
@@ -100,4 +111,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default FavoriteCategoryList;

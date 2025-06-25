@@ -3,6 +3,7 @@
 import { app, BrowserWindow, Menu } from "electron";
 import { join } from "path";
 import path from 'path';
+import fs from 'fs'; // fsモジュールをインポート
 
 // 1. this import won't work yet, but we will fix that next
 import "./api";
@@ -11,13 +12,44 @@ import "./api";
 const isDev = process.env.DEV != undefined;
 const isPreview = process.env.PREVIEW != undefined;
 
+// ウィンドウの状態を保存するファイルのパス
+const windowStatePath = path.join(app.getPath('userData'), 'window-state.json');
+
 function createWindow() {
+  let x, y, width, height;
+
+  try {
+    // 保存されたウィンドウの状態を読み込む
+    const windowState = JSON.parse(fs.readFileSync(windowStatePath, 'utf-8'));
+    x = windowState.x;
+    y = windowState.y;
+    width = windowState.width;
+    height = windowState.height;
+  } catch (e) {
+    // ファイルが存在しないか、読み込みに失敗した場合はデフォルト値を使用
+    width = 800;
+    height = 600;
+  }
+
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    x,
+    y,
+    width,
+    height,
     webPreferences: {
       preload: join(__dirname, "preload.js"),
     },
+  });
+
+  // ウィンドウのリサイズと移動イベントを監視し、状態を保存
+  mainWindow.on('resize', () => {
+    const { width, height } = mainWindow.getBounds();
+    saveWindowState({ width, height });
+  });
+
+  mainWindow.on('move', () => {
+    const { x, y } = mainWindow.getBounds();
+    saveWindowState({ x, y });
   });
 
   if (isDev) {
@@ -32,6 +64,26 @@ function createWindow() {
   } else {
     // 本番環境ではビルドされたファイルを利用
     mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'));
+  }
+}
+
+// ウィンドウの状態をファイルに保存する関数
+function saveWindowState(state: { width?: number, height?: number, x?: number, y?: number }) {
+  let currentState = { width: 800, height: 600 }; // デフォルト値
+
+  try {
+    if (fs.existsSync(windowStatePath)) {
+      currentState = JSON.parse(fs.readFileSync(windowStatePath, 'utf-8'));
+    }
+  } catch (e) {
+    console.error('Failed to read window state:', e);
+  }
+
+  const newState = { ...currentState, ...state };
+  try {
+    fs.writeFileSync(windowStatePath, JSON.stringify(newState));
+  } catch (e) {
+    console.error('Failed to save window state:', e);
   }
 }
 
@@ -52,6 +104,12 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
+  // アプリケーション終了時にもウィンドウの状態を保存
+  const mainWindow = BrowserWindow.getAllWindows()[0]; // 最初のウィンドウを取得
+  if (mainWindow) {
+    const { x, y, width, height } = mainWindow.getBounds();
+    saveWindowState({ x, y, width, height });
+  }
   if (process.platform !== "darwin") app.quit();
 });
 

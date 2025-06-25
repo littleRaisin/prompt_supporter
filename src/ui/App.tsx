@@ -3,6 +3,7 @@ import './../i18n/i18n';
 import Home from './pages/Home';
 import SearchResult from './pages/SearchResult';
 import Edit from './pages/Edit';
+import FavoriteCategoryList from './pages/FavoriteCategoryList';
 import Header from './components/Header';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path='/search/:promptName' element={<SearchResult />} />
           <Route path='/create' element={<Edit />} /> 
           <Route path='/edit/:promptName' element={<Edit />} />
+          <Route path='/favorite/:category' element={<FavoriteCategoryList />} /> {/* 新しいルートを追加 */}
         </Routes>
       </main>
     </HashRouter>

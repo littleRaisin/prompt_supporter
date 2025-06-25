@@ -1,50 +1,55 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom'; // useLocationをインポート
+import { useCallback, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import Result from '../components/Result';
+import SidePanel from '../components/SidePanel';
 import DetailPanel from '../components/DetailPanel';
+import { useItemActions } from '../hooks/useItemActions';
 
-type Translation = {
-  prompt_name: string;
-  translation_text?: string;
-  search_word?: string;
-  note?: string;
-  favorite?: number;
-  copyrights?: string;
-};
+import type { Translation } from '../../types/Translation';
 
 const SearchResult = () => {
   const { promptName } = useParams<{ promptName: string }>();
+  const location = useLocation(); // useLocationフックを使用
   const [result, setResult] = useState<Translation[] | null>(null);
-  const [currentItem, setCurrentItem] = useState<Translation | null>(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
-  useEffect(() => {
+  // useItemActionsフックを利用
+  const {
+    currentItem,
+    sideOpen,
+    handleClick,
+    handleEdit,
+    closeSidePanel,
+  } = useItemActions();
+
+  const refreshSearchResults = useCallback(() => {
     if (!promptName) return;
     setLoading(true);
-    window.backend.getTranslationList(promptName)
+
+    // URLのクエリパラメータからカテゴリ情報を取得
+    const params = new URLSearchParams(location.search);
+    const categories = {
+      character: params.get('character') === 'true',
+      tag: params.get('tag') === 'true',
+      copyright: params.get('copyright') === 'true',
+    };
+
+    window.backend.getTranslationList({ keyword: promptName, categories }) // カテゴリ情報を渡す
       .then((res) => {
-        if (
-          typeof res === "string" ||
-          (res && "error" in res) ||
-          (Array.isArray(res) && typeof res[0] === "string")
-        ) {
+        if ('error' in res) {
           setResult(null);
-        } else if (Array.isArray(res) && res.every(item => typeof item === "object" && item !== null && "prompt_name" in item)) {
-          setResult(res as Translation[]);
+          toast.error(res.error);
         } else {
-          setResult(null);
+          setResult(res);
         }
       })
       .finally(() => setLoading(false));
-  }, [promptName]);
+  }, [promptName, location.search]); // location.searchを依存配列に追加
 
-  const handleClick = (item?: Translation) => () => {
-    if (item) setCurrentItem(item);
-  };
-  const handleEdit = (item?: Translation) => () => {
-    if (item) navigate(`/edit/${item.prompt_name}`);
-  };
+  useEffect(() => {
+    refreshSearchResults();
+  }, [refreshSearchResults]);
 
   return (
     <div>
@@ -57,8 +62,8 @@ const SearchResult = () => {
       {!loading && (!result || result.length === 0) ? (
         <div>登録されたデータがありません</div>
       ) : (
-        <div className='flex justify-between w-full max-w-full'>
-          <div>
+        <div className='w-full max-w-full'>
+          <div className='max-w-[500px]'>
             <ul>
               {result && result.map(item => (
                 <li key={item.prompt_name} className='mb-2'>
@@ -71,13 +76,9 @@ const SearchResult = () => {
               ))}
             </ul>
           </div>
-          <div className='w-60'>
-            {currentItem && (
-              <div className='sticky top-0 border-[1px] rounded border-gray p-4 bg-white'>
-                <DetailPanel item={currentItem} />
-              </div>
-            )}
-          </div>
+          <SidePanel open={sideOpen} onClose={closeSidePanel}>
+            {currentItem && <DetailPanel item={currentItem} onDataChange={refreshSearchResults} />}
+          </SidePanel>
         </div>
       )}
     </div>

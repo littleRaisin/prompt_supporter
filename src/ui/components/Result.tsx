@@ -1,22 +1,34 @@
 import Button from '../components/Button';
+import type { Translation } from '../../types/Translation';
 
 const Result = ({
   item,
   handleClick,
   handleEdit,  
 }: {
-  item: Translation
-  handleClick?: (item?: Translation) => () => void
-  handleEdit: (item?: Translation) => () => void
+  item: Translation,
+  handleClick?: (item?: Translation) => () => void,
+  handleEdit: (item?: Translation) => () => void,
 }
 ) => {
+  const displayContent = () => {
+    return (
+      <>
+        {item.translation_text}
+        <span className='inline-block ml-2'>
+          ({item.category === 'tag' || item.category === 'copyright' ? item.prompt_name : item.copyrights})
+        </span>
+      </>
+    );
+  };
+
   return (
     <div className='flex justify-between items-center p-1 border-b border-gray-200 gap-1 '>
       <div
         className='flex-1 cursor-pointer hover:text-blue-500 transition-colors'
         {...(handleClick ? { onClick: handleClick(item) } : {})}
       >
-        {item.translation_text} <span className='inline-block ml-2'>({item.copyrights})</span>
+        {displayContent()}
       </div>
       <Button text="編集" onClick={handleEdit(item)} />
     </div>

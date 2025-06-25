@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
-import type { Translation } from '../../types/Translation';
+import { useTranslation } from 'react-i18next';
 import FavoriteIcon from './FavoriteIcon';
 import Button from './Button';
 import { useState } from 'react';
+import type { Translation } from '../../types/Translation';
 
 type DetailPanelProps = {
   item: Translation | null;
@@ -16,41 +17,45 @@ type TitleWithCopyProps = {
   onCopy: (value?: string) => void;
 };
 
-const TitleWithCopy = ({ label, value, onCopy }: TitleWithCopyProps) => (
-  <div className='flex gap-2 items-center mb-1'>
-    <p className='font-bold'>{label}</p>
-    <button
-      type="button"
-      className="inline-flex items-center justify-center w-6 h-6 p-0 bg-transparent border-none"
-      title="コピー"
-      aria-label="コピー"
-      onClick={() => onCopy(value)}
-    >
-      <img
-        src="./ico_copy.svg"
-        alt=""
-        className="w-4 h-4"
-        aria-hidden="true"
-      />
-    </button>
-  </div>
-);
+const TitleWithCopy = ({ label, value, onCopy }: TitleWithCopyProps) => {
+  const { t } = useTranslation();
+  return (
+    <div className='flex gap-2 items-center mb-1'>
+      <p className='font-bold'>{label}</p>
+      <button
+        type="button"
+        className="inline-flex items-center justify-center w-6 h-6 p-0 bg-transparent border-none"
+        title={t('copyButton')}
+        aria-label={t('copyButton')}
+        onClick={() => onCopy(value)}
+      >
+        <img
+          src="./ico_copy.svg"
+          alt=""
+          className="w-4 h-4"
+          aria-hidden="true"
+        />
+      </button>
+    </div>
+  );
+}
 
 const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
   if (!item) return null;
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [favorite, setFavorite] = useState(!!item.favorite);
 
-  // Window.navigatorを利用してクリップボードにコピーする
-  const handleCopy = (target :string | undefined) => {
+  // Copy using navigator.clipboard
+  const handleCopy = (target: string | undefined) => {
     if (target) {
       navigator.clipboard.writeText(target).then(() => {
-        toast.success("コピーしました!");
+        toast.success(t('copiedMessage'));
       })
     }
   };
 
-  // お気に入り切り替え
+  // Toggle favorite
   const handleFavoriteToggle = async () => {
     if (!item) return;
     const newFavorite = favorite ? 0 : 1;
@@ -64,7 +69,7 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
       category: item.category,
     });
     setFavorite(!!newFavorite);
-    toast.success(newFavorite ? "お気に入りに追加しました" : "お気に入りを解除しました");
+    toast.success(newFavorite ? t('addedToFavoritesMessage') : t('removedFromFavoritesMessage'));
     onDataChange();
   };
 
@@ -93,25 +98,25 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
 
       <div className='flex items-center gap-2'>
         {item.translation_text}
-        <FavoriteIcon 
-          isFavorite={favorite} 
-          onClick={handleFavoriteToggle} 
+        <FavoriteIcon
+          isFavorite={favorite}
+          onClick={handleFavoriteToggle}
         />
         <div className='ml-4'>
-          <Button 
-            text="編集" 
+<Button
+            text={t('Edit')}
             onClick={() => {
               navigate(`/edit/${item.prompt_name}`);
             }} />
         </div>
       </div>
-      
+
       <div className='mt-3'>
-        <TitleWithCopy label="Promptタグ名" value={item.prompt_name} onCopy={handleCopy} />
+        <TitleWithCopy label={t('promptLabel')} value={item.prompt_name} onCopy={handleCopy} />
         <p className='m-1'>{item.prompt_name}</p>
       </div>
       <div className='mt-3'>
-        <TitleWithCopy label="コピーライト" value={item.copyrights} onCopy={handleCopy} />
+        <TitleWithCopy label={t('copyrightsValue')} value={item.copyrights} onCopy={handleCopy} />
         <p className='m-1'>
           <Link to={`/search/${item.copyrights}`} className='underline'>
             {item.copyrights}
@@ -119,12 +124,12 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
         </p>
       </div>
       <div className='whitespace-pre-wrap mt-3'>
-        <TitleWithCopy label="メモ" value={item.note} onCopy={handleCopy} />
+        <TitleWithCopy label={t('noteLabel')} value={item.note} onCopy={handleCopy} />
         <div className='border-[1px] rounded border-gray p-2 m-1'>
           {item.note}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

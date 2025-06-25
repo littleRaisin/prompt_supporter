@@ -1,10 +1,12 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from './Button';
 import SearchCategoryCheckbox from './SearchCategoryCheckbox';
 import useExternalLink from '../hooks/useExternalLink'; // useExternalLinkをインポート
 import TextButton from './TextButton';
+import LanguageSwitcher from './LanguageSwitcher';
 
 type FormData = {
   search: string;
@@ -22,7 +24,8 @@ const Header = () => {
   const { register, handleSubmit } = useForm<FormData>();
   const navigate = useNavigate();
   const { promptName } = useParams<{ promptName: string }>();
-  const openExternalLink = useExternalLink(); // useExternalLinkフックを使用
+  const openExternalLink = useExternalLink();
+  const { t } = useTranslation();
 
   const [searchCategories, setSearchCategories] = useState<SearchCategories>(() => {
     const saved = localStorage.getItem(SEARCH_CATEGORIES_KEY);
@@ -62,42 +65,45 @@ const Header = () => {
               {...register('search')}
               type="text"
               className="text-black px-2"
-              placeholder="検索ワード"
+              placeholder={t('SearchWord')}
               defaultValue={promptName ? promptName : ''}
             />
             <Button 
               type="submit"
-              text="検索"
+              text={t('Search')}
             />
             <div className="flex items-center gap-2 ml-4">
               <SearchCategoryCheckbox
-                label="キャラ"
+                label={t('Character')}
                 categoryKey="character"
                 checked={searchCategories.character}
                 onChange={handleCategoryChange}
               />
               <SearchCategoryCheckbox
-                label="タグ"
+                label={t('Tag')}
                 categoryKey="tag"
                 checked={searchCategories.tag}
                 onChange={handleCategoryChange}
               />
               <SearchCategoryCheckbox
-                label="コピーライト"
+                label={t('Copyrights')}
                 categoryKey="copyright"
                 checked={searchCategories.copyright}
                 onChange={handleCategoryChange}
               />
+            </div>
+            <div className='ml-4'>
+              <LanguageSwitcher />
             </div>
           </form>
           <nav>
             <ul className='flex gap-4 mt-2'>
               {
                 [
-                  { link: '/favorite/character', label: 'キャラ' },
-                  { link: '/favorite/tag', label: 'タグ' },
-                  { link: '/favorite/copyright', label: 'コピーライト' },
-                  { link: '/create', label: '新規登録' },
+                  { link: '/favorite/character', label: t('Character') },
+                  { link: '/favorite/tag', label: t('Tag') },
+                  { link: '/favorite/copyright', label: t('Copyrights') },
+                  { link: '/create', label: t('New Registration') },
                 ].map((item) => (
                   <li key={item.link}>
                     <Link to={item.link} className="text-white hover:text-gray-300">

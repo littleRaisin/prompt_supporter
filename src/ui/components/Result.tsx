@@ -1,4 +1,5 @@
 import Button from '../components/Button';
+import { useTranslation } from 'react-i18next';
 import type { Translation } from '../../types/Translation';
 
 const Result = ({
@@ -11,6 +12,7 @@ const Result = ({
   handleEdit: (item?: Translation) => () => void,
 }
 ) => {
+  const { t } = useTranslation();
   const displayContent = () => {
     return (
       <>
@@ -30,7 +32,7 @@ const Result = ({
       >
         {displayContent()}
       </div>
-      <Button text="編集" onClick={handleEdit(item)} />
+      <Button text={t('Edit')} onClick={handleEdit(item)} />
     </div>
   );
 }

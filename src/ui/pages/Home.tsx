@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Result from '../components/Result';
 import Pagination from '../components/Pagination';
 import SidePanel from '../components/SidePanel';
@@ -9,6 +10,7 @@ import type { Translation } from '../../types/Translation';
 const LIMIT_KEY = 'favorite_limit';
 
 const Home = () => {
+  const { t } = useTranslation();
   const [limit, setLimit] = useState(() => {
     const saved = localStorage.getItem(LIMIT_KEY);
     return saved ? Number(saved) : 20;
@@ -52,11 +54,11 @@ const Home = () => {
 
   const maxPage = Math.max(1, Math.ceil(total / limit));
 
-  return (
+return (
     <div className='App relative'>
-      <h2 className="text-xl font-bold mb-4">お気に入り一覧</h2>
+      <h2 className="text-xl font-bold mb-4">{t('Favorite List')}</h2>
       {favorites.length === 0 ? (
-        <div>お気に入りはありません。</div>
+        <div>{t('No favorites.')}</div>
       ) : (
         <div className='w-full'>
           <div className='max-w-[500px]'>
@@ -73,8 +75,8 @@ const Home = () => {
                 className="border rounded px-2 py-1"
               >
                 {[5,10,20,50,100].map(value => (
-                  <option key={value} value={value}>
-                    {value}件
+<option key={value} value={value}>
+                    {t('itemsPerPage', { count: value })}
                   </option>
                 ))}
               </select>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Translation } from '../../types/Translation'; 
 
@@ -7,18 +7,18 @@ export const useItemActions = () => {
   const [sideOpen, setSideOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleClick = (item?: Translation) => () => {
+  const handleClick = useCallback((item?: Translation) => () => {
     if (item) {
       setCurrentItem(item);
       setSideOpen(true);
     }
-  };
+  }, []);
 
-  const handleEdit = (item?: Translation) => () => {
+  const handleEdit = useCallback((item?: Translation) => () => {
     if (item) navigate(`/edit/${item.prompt_name}`);
-  };
+  }, [navigate]);
 
-  const closeSidePanel = () => setSideOpen(false);
+  const closeSidePanel = useCallback(() => setSideOpen(false), []);
 
   return {
     currentItem,

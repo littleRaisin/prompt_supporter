@@ -32,7 +32,7 @@ const Result = ({
       >
         {displayContent()}
       </div>
-      <Button text={t('Edit')} onClick={handleEdit(item)} />
+      <Button text={t('common.Edit')} onClick={handleEdit(item)} />
     </div>
   );
 }

@@ -25,8 +25,8 @@ const TitleWithCopy = ({ label, value, onCopy }: TitleWithCopyProps) => {
       <button
         type="button"
         className="inline-flex items-center justify-center w-6 h-6 p-0 bg-transparent border-none"
-        title={t('copyButton')}
-        aria-label={t('copyButton')}
+        title={t('common.copyButton')}
+        aria-label={t('common.copyButton')}
         onClick={() => onCopy(value)}
       >
         <img
@@ -50,7 +50,7 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
   const handleCopy = (target: string | undefined) => {
     if (target) {
       navigator.clipboard.writeText(target).then(() => {
-        toast.success(t('copiedMessage'));
+        toast.success(t('common.copiedMessage'));
       })
     }
   };
@@ -69,7 +69,7 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
       category: item.category,
     });
     setFavorite(!!newFavorite);
-    toast.success(newFavorite ? t('addedToFavoritesMessage') : t('removedFromFavoritesMessage'));
+    toast.success(newFavorite ? t('common.addedToFavoritesMessage') : t('common.removedFromFavoritesMessage'));
     onDataChange();
   };
 
@@ -104,7 +104,7 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
         />
         <div className='ml-4'>
 <Button
-            text={t('Edit')}
+            text={t('common.Edit')}
             onClick={() => {
               navigate(`/edit/${item.prompt_name}`);
             }} />
@@ -112,11 +112,11 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
       </div>
 
       <div className='mt-3'>
-        <TitleWithCopy label={t('prompt')} value={item.prompt_name} onCopy={handleCopy} />
+        <TitleWithCopy label={t('common.prompt')} value={item.prompt_name} onCopy={handleCopy} />
         <p className='m-1'>{item.prompt_name}</p>
       </div>
       <div className='mt-3'>
-        <TitleWithCopy label={t('copyrights')} value={item.copyrights} onCopy={handleCopy} />
+        <TitleWithCopy label={t('common.Copyrights')} value={item.copyrights} onCopy={handleCopy} />
         <p className='m-1'>
           <Link to={`/search/${item.copyrights}`} className='underline'>
             {item.copyrights}
@@ -124,7 +124,7 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
         </p>
       </div>
       <div className='whitespace-pre-wrap mt-3'>
-        <TitleWithCopy label={t('note')} value={item.note} onCopy={handleCopy} />
+        <TitleWithCopy label={t('common.Note')} value={item.note} onCopy={handleCopy} />
         <div className='border-[1px] rounded border-gray p-2 m-1'>
           {item.note}
         </div>

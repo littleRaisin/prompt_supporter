@@ -22,8 +22,8 @@ const LanguageSwitcher = () => {
       className="text-black px-2 py-1 rounded"
       style={{ minWidth: 80 }}
     >
-      <option value="en">{t('English')}</option>
-      <option value="ja">{t('Japanese')}</option>
+      <option value="en">{t('common.English')}</option>
+      <option value="ja">{t('common.Japanese')}</option>
     </select>
   );
 };

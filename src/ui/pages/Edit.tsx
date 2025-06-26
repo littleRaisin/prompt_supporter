@@ -80,59 +80,59 @@ const Edit = () => {
   return (
     <div className="max-w-md mx-auto mt-8">
       <h2 className="text-xl font-bold mb-4">
-        {promptName ? (isCopyMode ? t('copyAndNewRegistration') : t('Edit')) : t('New Registration')}
+        {promptName ? (isCopyMode ? t('common.copyAndNewRegistration') : t('common.Edit')) : t('common.New Registration')}
       </h2>
       {promptName && !isCopyMode && (
         <Button
           type="button"
-          text={t('copyAndNewRegistration')}
+          text={t('common.copyAndNewRegistration')}
           variant="secondary"
           onClick={handleCopy}
         />
       )}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
         <div>
-          <label className="block font-semibold">{t('promptName')}</label>
+          <label className="block font-semibold">{t('common.promptName')}</label>
           <input
             {...register('promptName', { required: true })}
             className="border px-2 py-1 w-full"
             disabled={!!promptName && !isCopyMode}
-            placeholder={t('enterNewPromptName')}
+            placeholder={t('common.enterNewPromptName')}
           />
         </div>
         <div>
-          <label className="block font-semibold">{t('TranslationText')} ({t("Optional")})</label>
+          <label className="block font-semibold">{t('common.TranslationText')} ({t("common.Optional")})</label>
           <input {...register('translationText')} className="border px-2 py-1 w-full" />
         </div>
         <div>
-          <label className="block font-semibold">{t('SearchWord')} ({t("Optional")})</label>
+          <label className="block font-semibold">{t('common.SearchWord')} ({t("common.Optional")})</label>
           <input {...register('searchWord')} className="border px-2 py-1 w-full" />
         </div>
         <div>
-          <label className="block font-semibold">{t('Note')} ({t("Optional")})</label>
+          <label className="block font-semibold">{t('common.Note')} ({t("common.Optional")})</label>
           <textarea rows={5} {...register('note')} className="border px-2 py-1 w-full" />
         </div>
         <div>
-          <label className="block font-semibold">{t('Favorite')}</label>
+          <label className="block font-semibold">{t('common.Favorite')}</label>
           <input type="checkbox" {...register('favorite')} />
         </div>
         <div>
-          <label className="block font-semibold">{t('Copyrights')}</label>
+          <label className="block font-semibold">{t('common.Copyrights')}</label>
           <input {...register('copyrights')} className="border px-2 py-1 w-full" />
         </div>
 
         <div>
-          <label className="block font-semibold">{t('Category')}</label>
+          <label className="block font-semibold">{t('common.Category')}</label>
           <select {...register('category')} className="border px-2 py-1 w-full">
-            <option value="character">{t('Character')}</option>
-            <option value="copyright">{t('Copyrights')}</option>
-            <option value="tag">{t('Tag')}</option>
+            <option value="character">{t('common.Character')}</option>
+            <option value="copyright">{t('common.Copyrights')}</option>
+            <option value="tag">{t('common.Tag')}</option>
           </select>
         </div>
 
         <div className="flex gap-2">
-          <Button type="submit" text={t('saveButton')} variant="primary" />
-          <Button type="button" text={t('cancelButton')} variant="secondary" onClick={() => navigate(-1)} />
+          <Button type="submit" text={t('common.saveButton')} variant="primary" />
+          <Button type="button" text={t('common.cancelButton')} variant="secondary" onClick={() => navigate(-1)} />
         </div>
       </form>
     </div>

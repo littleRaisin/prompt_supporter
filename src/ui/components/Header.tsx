@@ -60,19 +60,21 @@ const Header = () => {
       </h1>
       <div className="flex justify-between items-center">
         <div>
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex gap-2">
-            <input
-              {...register('search')}
-              type="text"
-              className="text-black px-2"
-              placeholder={t('common.SearchWord')}
-              defaultValue={promptName ? promptName : ''}
-            />
-            <Button 
-              type="submit"
-              text={t('common.Search')}
-            />
-            <div className="flex items-center gap-2 ml-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex gap-2 flex-wrap">
+            <div className="flex gap-2 mr-4">
+              <input
+                {...register('search')}
+                type="text"
+                className="text-black px-2"
+                placeholder={t('common.SearchWord')}
+                defaultValue={promptName ? promptName : ''}
+              />
+              <Button 
+                type="submit"
+                text={t('common.Search')}
+              />
+            </div>
+            <div className="flex items-center gap-2 mr-4">
               <SearchCategoryCheckbox
                 label={t('common.Character')}
                 categoryKey="character"
@@ -92,9 +94,7 @@ const Header = () => {
                 onChange={handleCategoryChange}
               />
             </div>
-            <div className='ml-4'>
-              <LanguageSwitcher />
-            </div>
+            <LanguageSwitcher />
           </form>
           <nav>
             <ul className='flex gap-4 mt-2'>

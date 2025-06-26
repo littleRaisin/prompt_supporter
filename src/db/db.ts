@@ -1,5 +1,6 @@
 import Database from 'better-sqlite3';
 import path from 'path';
+import fs from 'fs'; // fsモジュールをインポート
 
 const isDev = process.env.NODE_ENV === 'development' || process.env.DEV === 'true';
 let dbPath: string;
@@ -22,21 +23,58 @@ db.exec(`
     note TEXT,
     favorite INTEGER NOT NULL DEFAULT 0,
     copyrights TEXT,
-    category TEXT DEFAULT 'character', -- 新しいカラムを追加
+    category TEXT, -- categoryのDEFAULTはマイグレーションで設定
     updated_at TEXT DEFAULT (datetime('now', 'localtime'))
+  );
+
+  -- スキーマバージョン管理テーブル
+  CREATE TABLE IF NOT EXISTS schema_version (
+    version INTEGER PRIMARY KEY
   );
 `);
 
-// --- マイグレーション: categoryカラムの追加 ---
-// categoryカラムが存在しない場合のみ追加
-const tableInfo = db.prepare("PRAGMA table_info(prompt_supporter);").all();
-const hasCategoryColumn = (tableInfo as { name: string }[]).some(column => column.name === 'category');
+// --- マイグレーションロジック ---
+const migrationsDir = path.join(__dirname, './migrations'); // マイグレーションスクリプトのディレクトリ
 
-if (!hasCategoryColumn) {
-  db.exec(`
-    ALTER TABLE prompt_supporter ADD COLUMN category TEXT DEFAULT 'character';
-  `);
-  console.log("Added 'category' column to prompt_supporter table.");
+function getCurrentSchemaVersion(): number {
+  try {
+    const result = db.prepare("SELECT version FROM schema_version ORDER BY version DESC LIMIT 1").get() as { version: number } | undefined;
+    return result ? result.version : 0;
+  } catch (e) {
+    // テーブルが存在しない場合など、エラーが発生した場合はバージョン0とみなす
+    return 0;
+  }
 }
+
+async function runMigrations() {
+  const currentVersion = getCurrentSchemaVersion();
+  console.log(`Current schema version: ${currentVersion}`);
+
+  const migrationFiles = fs.readdirSync(migrationsDir)
+    .filter(file => file.endsWith('.ts') || file.endsWith('.js'))
+    .sort(); // ファイル名をソートして実行順序を保証
+
+  for (const file of migrationFiles) {
+    const migrationPath = path.join(migrationsDir, file);
+    // 動的にモジュールをインポート
+    const migration = await import(migrationPath);
+    const migrationVersion = migration.version;
+
+    if (migrationVersion > currentVersion) {
+      console.log(`Running migration: ${file} (version ${migrationVersion})`);
+      db.transaction(() => { // トランザクションでマイグレーションを実行
+        migration.up(db);
+        db.prepare("INSERT OR REPLACE INTO schema_version (version) VALUES (?)").run(migrationVersion);
+      })(); // 即時実行
+    }
+  }
+  console.log("All migrations completed.");
+}
+
+// アプリケーション起動時にマイグレーションを実行
+runMigrations().catch(error => {
+  console.error("Failed to run migrations:", error);
+  // エラーハンドリング: アプリケーションを終了するなど
+});
 
 export default db;

@@ -81,12 +81,13 @@ ipcMain.handle('get-favorite-list-by-category', async (_event, { limit, page, ca
   }
 });
 
-// 検索結果の取得
-ipcMain.handle('get-translation-list', (_event, data: { keyword: string, categories: { character: boolean, tag: boolean, copyright: boolean } }) => {
+// 検索結果の取得（ページネーション対応）
+ipcMain.handle('get-translation-list', (_event, data: { keyword: string, categories: { character: boolean, tag: boolean, copyright: boolean }, limit: number, page: number }) => {
   try {
-    const { keyword, categories } = data; // ここで分割代入する
+    const { keyword, categories, limit, page } = data;
+    const offset = (page - 1) * limit;
     let whereClauses = [];
-    const params: { [key: string]: any } = { kw: `%${keyword}%` };
+    const params: { [key: string]: any } = { kw: `%${keyword}%`, limit, offset };
 
     // キーワード検索条件
     whereClauses.push(`
@@ -115,14 +116,24 @@ ipcMain.handle('get-translation-list', (_event, data: { keyword: string, categor
 
     const whereClause = whereClauses.join(' AND ');
 
-    const sql = `
+    // データ取得
+    const stmt = db.prepare(`
       SELECT * FROM prompt_supporter
       WHERE ${whereClause}
       ORDER BY updated_at DESC
-      LIMIT 20
-    `;
-    const stmt = db.prepare(sql);
-    return stmt.all(params);
+      LIMIT @limit OFFSET @offset
+    `);
+    const items = stmt.all(params);
+
+    // 全件数取得
+    const countStmt = db.prepare(`
+      SELECT COUNT(*) as total FROM prompt_supporter
+      WHERE ${whereClause}
+    `);
+    const countResult = countStmt.get(params) as { total?: number } | undefined;
+    const total = countResult?.total ?? 0;
+
+    return { items, total };
   } catch (err) {
     return { error: String(err) };
   }

@@ -4,7 +4,7 @@ declare global {
   interface Window {
     backend: {
       getTranslation: (promptName: string) => Promise<Translation | { error: string }>;
-      getTranslationList: (data: { keyword: string, categories: { character: boolean, tag: boolean, copyright: boolean } }) => Promise<Translation[] | { error: string }>;
+      getTranslationList: (data: { keyword: string, categories: { character: boolean, tag: boolean, copyright: boolean }, limit: number, page: number }) => Promise<{ items: Translation[]; total: number } | { error: string }>;
       getFavoriteList: (
         limit?: number,
         page?: number

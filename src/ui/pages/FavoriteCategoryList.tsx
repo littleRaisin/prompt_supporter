@@ -58,18 +58,18 @@ const FavoriteCategoryList = () => {
   const maxPage = Math.max(1, Math.ceil(total / limit));
 
   const categoryLabels: { [key: string]: string } = {
-    character: t('Character'),
-    copyright: t('Copyrights'),
-    tag: t('Tag'),
+    character: t('common.Character'),
+    copyright: t('common.Copyrights'),
+    tag: t('common.Tag'),
   };
 
   return (
     <div className='App relative'>
       <h2 className="text-xl font-bold mb-4">
-        {t('Favorite List')}: {category ? categoryLabels[category] || category : ''}
+        {t('common.Favorite List')}: {category ? categoryLabels[category] || category : ''}
       </h2>
       {favorites.length === 0 ? (
-        <div>{t('No favorites.')}</div>
+        <div>{t('common.No favorites')}</div>
       ) : (
         <div className='w-full'>
           <div className='max-w-[500px]'>
@@ -87,7 +87,7 @@ const FavoriteCategoryList = () => {
               >
                 {[5,10,20,50,100].map(value => (
                   <option key={value} value={value}>
-                    {t('itemsPerPage', { count: value })}
+                    {t('common.itemsPerPage', { count: value })}
                   </option>
                 ))}
               </select>

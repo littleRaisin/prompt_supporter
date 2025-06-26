@@ -56,9 +56,9 @@ const Home = () => {
 
 return (
     <div className='App relative'>
-      <h2 className="text-xl font-bold mb-4">{t('Favorite List')}</h2>
+      <h2 className="text-xl font-bold mb-4">{t('common.Favorite List')}</h2>
       {favorites.length === 0 ? (
-        <div>{t('No favorites.')}</div>
+        <div>{t('common.No favorites')}</div>
       ) : (
         <div className='w-full'>
           <div className='max-w-[500px]'>
@@ -76,7 +76,7 @@ return (
               >
                 {[5,10,20,50,100].map(value => (
 <option key={value} value={value}>
-                    {t('itemsPerPage', { count: value })}
+                    {t('common.itemsPerPage', { count: value })}
                   </option>
                 ))}
               </select>

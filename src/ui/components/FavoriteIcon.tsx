@@ -12,7 +12,7 @@ const FavoriteIcon = ({
   const { t } = useTranslation();
   const props = {
     className: `inline-block cursor-pointer text-xl ${isFavorite ? 'text-red-500' : 'text-gray-400'}`,
-    title: isFavorite ? t('Remove from favorites') : t('Add to favorites'),
+    title: isFavorite ? t('common.Remove from favorites') : t('common.Add to favorites'),
     ...(onClick ? { onClick } : {}),
   };
 
@@ -20,7 +20,7 @@ const FavoriteIcon = ({
     <span {...props}>
       <img
         src={isFavorite ? './ico_star_filled.svg' : './ico_star_blank.svg'}
-        alt={isFavorite ? t('Favorite') : t('Not favorite')}
+        alt={isFavorite ? t('common.Favorite') : t('common.Not favorite')}
         width={20}
         height={20}
       />

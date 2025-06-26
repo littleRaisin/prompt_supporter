@@ -65,28 +65,28 @@ const Header = () => {
               {...register('search')}
               type="text"
               className="text-black px-2"
-              placeholder={t('SearchWord')}
+              placeholder={t('common.SearchWord')}
               defaultValue={promptName ? promptName : ''}
             />
             <Button 
               type="submit"
-              text={t('Search')}
+              text={t('common.Search')}
             />
             <div className="flex items-center gap-2 ml-4">
               <SearchCategoryCheckbox
-                label={t('Character')}
+                label={t('common.Character')}
                 categoryKey="character"
                 checked={searchCategories.character}
                 onChange={handleCategoryChange}
               />
               <SearchCategoryCheckbox
-                label={t('Tag')}
+                label={t('common.Tag')}
                 categoryKey="tag"
                 checked={searchCategories.tag}
                 onChange={handleCategoryChange}
               />
               <SearchCategoryCheckbox
-                label={t('Copyrights')}
+                label={t('common.Copyrights')}
                 categoryKey="copyright"
                 checked={searchCategories.copyright}
                 onChange={handleCategoryChange}
@@ -100,10 +100,10 @@ const Header = () => {
             <ul className='flex gap-4 mt-2'>
               {
                 [
-                  { link: '/favorite/character', label: t('Character') },
-                  { link: '/favorite/tag', label: t('Tag') },
-                  { link: '/favorite/copyright', label: t('Copyrights') },
-                  { link: '/create', label: t('New Registration') },
+                  { link: '/favorite/character', label: t('common.Character') },
+                  { link: '/favorite/tag', label: t('common.Tag') },
+                  { link: '/favorite/copyright', label: t('common.Copyrights') },
+                  { link: '/create', label: t('common.New Registration') },
                 ].map((item) => (
                   <li key={item.link}>
                     <Link to={item.link} className="text-white hover:text-gray-300">

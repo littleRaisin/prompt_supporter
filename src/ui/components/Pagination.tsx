@@ -16,15 +16,15 @@ const Pagination: React.FC<PaginationProps> = ({ page, maxPage, onPageChange }) 
         onClick={() => onPageChange(Math.max(1, page - 1))}
         disabled={page === 1}
       >
-        {t('Previous')}
+        {t('common.Previous')}
       </button>
-      <span>{t('Page')} {page} / {maxPage}</span>
+      <span>{t('common.Page')} {page} / {maxPage}</span>
       <button
         className="px-3 py-1 border rounded disabled:opacity-50"
         onClick={() => onPageChange(Math.min(maxPage, page + 1))}
         disabled={page >= maxPage}
       >
-        {t('Next')}
+        {t('common.Next')}
       </button>
     </div>
   );

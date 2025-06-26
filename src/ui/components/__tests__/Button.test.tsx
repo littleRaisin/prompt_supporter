@@ -30,4 +30,15 @@ describe('Button', () => {
     const button = screen.getByText('サブミット');
     expect(button).toHaveAttribute('type', 'submit');
   });
+
+  it('disabledがtrueの場合、ボタンがクリックできないこと', async () => {
+    const handleClick = vi.fn();
+    render(<Button text="無効ボタン" onClick={handleClick} disabled />);
+    
+    const button = screen.getByText('無効ボタン');
+    await userEvent.click(button);
+    
+    expect(handleClick).not.toHaveBeenCalled();
+    expect(button).toBeDisabled();
+  });
 });

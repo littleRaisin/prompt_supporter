@@ -54,16 +54,11 @@ const Header = () => {
 
   return (
     <header className="bg-gray-800 text-white p-4 relative w-full">
-      <h1 className="text-2xl font-bold">
-        <Link to="/" className="text-white">Prompt Supporter</Link>
-      </h1>
-      <button
-        className="absolute top-4 right-4 h-[2rem]"
-        onClick={() => setSettingsOpen(true)}
-        aria-label={t('common.Settings')}
-      >
-        <img src="./ico_settings.svg" alt={t('common.Settings')} className="w-6 h-6" />
-      </button>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">
+          <Link to="/" className="text-white">Prompt Supporter</Link>
+        </h1>
+      </div>
       <SettingsPanel isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
       <div className="flex justify-between items-center">
         <div>
@@ -103,7 +98,7 @@ const Header = () => {
             </div>
           </form>
           <nav>
-            <ul className='flex gap-4 mt-2'>
+            <ul className='flex gap-4 mt-2 items-center'>
               {
                 [
                   { link: '/favorite/character', label: t('common.Character') },
@@ -118,6 +113,16 @@ const Header = () => {
                   </li>
                 ))
               }
+              <li>
+                <button
+                  className="flex items-center justify-center"
+                  onClick={() => setSettingsOpen(true)}
+                  aria-label={t('common.Settings')}
+                  style={{ background: 'none', border: 'none', padding: 0 }}
+                >
+                  <img src="./ico_settings.svg" alt={t('common.Settings')} className="w-5 h-5" />
+                </button>
+              </li>
             </ul>
           </nav>
         </div>

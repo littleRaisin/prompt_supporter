@@ -36,6 +36,10 @@
     "Not favorite": "Not favorite",
     "English": "English",
     "Japanese": "Japanese",
-    "Page": "Page"
+    "Page": "Page",
+    "Settings": "Settings",
+    "LanguageSetting": "Language Setting",
+    "Version": "Version",
+    "GitHubRepository": "GitHub Repository"
   }
 }

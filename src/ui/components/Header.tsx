@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Button from './Button';
 import SearchCategoryCheckbox from './SearchCategoryCheckbox';
 import useExternalLink from '../hooks/useExternalLink'; // useExternalLinkをインポート
-import TextButton from './TextButton';
-import LanguageSwitcher from './LanguageSwitcher';
+import SettingsPanel from './SettingsPanel';
 
 type FormData = {
   search: string;
@@ -32,6 +31,8 @@ const Header = () => {
     return saved ? JSON.parse(saved) : { character: true, tag: true, copyright: true };
   });
 
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
   useEffect(() => {
     localStorage.setItem(SEARCH_CATEGORIES_KEY, JSON.stringify(searchCategories));
   }, [searchCategories]);
@@ -54,10 +55,18 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gray-800 text-white p-4">
+    <header className="bg-gray-800 text-white p-4 relative w-full">
       <h1 className="text-2xl font-bold">
         <Link to="/" className="text-white">Prompt Supporter</Link>
       </h1>
+      <button
+        className="absolute top-4 right-4 h-[2rem]"
+        onClick={() => setSettingsOpen(true)}
+        aria-label={t('common.Settings')}
+      >
+        <img src="./ico_settings.svg" alt={t('common.Settings')} className="w-6 h-6" />
+      </button>
+      <SettingsPanel isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
       <div className="flex justify-between items-center">
         <div>
           <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex gap-2 flex-wrap">
@@ -94,7 +103,6 @@ const Header = () => {
                 onChange={handleCategoryChange}
               />
             </div>
-            <LanguageSwitcher />
           </form>
           <nav>
             <ul className='flex gap-4 mt-2'>
@@ -112,13 +120,6 @@ const Header = () => {
                   </li>
                 ))
               }
-              <li>
-                <TextButton
-                  onClick={() => openExternalLink("https://github.com/littleRaisin/prompt_supporter")}
-                >
-                  GitHub
-                </TextButton>
-              </li>
             </ul>
           </nav>
         </div>

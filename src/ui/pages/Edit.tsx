@@ -11,7 +11,7 @@ type FormData = {
   note?: string;
   favorite?: boolean;
   copyrights?: string;
-  category?: string; // categoryを追加
+  category?: string;
 };
 
 const Edit = () => {
@@ -34,7 +34,7 @@ const Edit = () => {
             note: data.note,
             favorite: !!data.favorite,
             copyrights: data.copyrights,
-            category: data.category || 'character', // categoryを追加し、デフォルト値を設定
+            category: data.category || 'character',
           });
         }
       });
@@ -51,13 +51,13 @@ const Edit = () => {
     const data = await window.backend.getTranslation(trimmedPromptName);
     if (data && typeof data === 'object' && 'prompt_name' in data) {
       reset({
-        promptName: '', // 新規登録用に空欄
+        promptName: '',
         translationText: data.translation_text,
         searchWord: data.search_word,
         note: data.note,
         favorite: !!data.favorite,
         copyrights: data.copyrights,
-        category: data.category || 'character', // categoryを追加し、デフォルト値を設定
+        category: data.category || 'character',
       });
       setIsCopyMode(true);
     }
@@ -72,7 +72,7 @@ const Edit = () => {
       note: data.note,
       favorite: typeof data.favorite === "undefined" ? 0 : (data.favorite ? 1 : 0),
       copyrights: data.copyrights,
-      category: data.category, // categoryを追加
+      category: data.category,
     });
     navigate('/search/' + trimmedPromptName);
   };

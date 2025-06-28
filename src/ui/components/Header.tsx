@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from './Button';
 import SearchCategoryCheckbox from './SearchCategoryCheckbox';
-import useExternalLink from '../hooks/useExternalLink'; // useExternalLinkをインポート
 import SettingsPanel from './SettingsPanel';
 
 type FormData = {
@@ -23,7 +22,6 @@ const Header = () => {
   const { register, handleSubmit } = useForm<FormData>();
   const navigate = useNavigate();
   const { promptName } = useParams<{ promptName: string }>();
-  const openExternalLink = useExternalLink();
   const { t } = useTranslation();
 
   const [searchCategories, setSearchCategories] = useState<SearchCategories>(() => {

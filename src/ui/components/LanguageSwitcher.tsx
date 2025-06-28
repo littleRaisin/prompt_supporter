@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const LANGUAGE_KEY = 'app_language';
+const LANGUAGE_KEY = 'i18n_language';
 
 const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation();
@@ -16,7 +16,7 @@ const LanguageSwitcher = () => {
   }, [language, i18n]);
 
   return (
-<select
+    <select
       value={language}
       onChange={e => setLanguage(e.target.value)}
       className="text-black px-2 py-1 rounded"

@@ -103,11 +103,12 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
           onClick={handleFavoriteToggle}
         />
         <div className='ml-4'>
-<Button
+          <Button
             text={t('common.Edit')}
             onClick={() => {
               navigate(`/edit/${item.prompt_name}`);
-            }} />
+            }}
+          />
         </div>
       </div>
 

@@ -19,7 +19,7 @@ const LanguageSwitcher = () => {
     <select
       value={language}
       onChange={e => setLanguage(e.target.value)}
-      className="text-black px-2 py-1 rounded"
+      className="text-black px-2 py-1 rounded border-gray border-[1px]"
       style={{ minWidth: 80 }}
     >
       <option value="en">{t('common.English')}</option>

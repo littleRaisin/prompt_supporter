@@ -1,20 +1,21 @@
 {
   "name": "prompt-supporter",
   "private": true,
-  "version": "0.7.1",
+  "version": "0.7.2",
   "type": "commonjs",
   "main": "dist/electron/main.js",
   "author": "little_raisin",
   "description": "Efficient prompt storage and search for tags.",
   "scripts": {
-    "dev": "concurrently \"vite\" \"cross-env NODE_ENV=development DEV=true tsc-watch -p tsconfig-electron.json --onSuccess \\\"electron .\\\"\"",
+    "dev": "npm run licenses && concurrently \"vite\" \"cross-env NODE_ENV=development DEV=true tsc-watch -p tsconfig-electron.json --onSuccess \\\"electron .\\\"\"",
     "preview": "vite build && tsc -p tsconfig-electron.json && cross-env PREVIEW= electron .",
-    "build": "vite build && tsc -p tsconfig-electron.json && electron-forge make",
+    "build": "npm run licenses && vite build && tsc -p tsconfig-electron.json && electron-forge make",
     "rebuild": "electron-rebuild",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "licenses": "npx license-checker --production --json > public/licenses.json && node scripts/generate-licenses.js"
   },
   "dependencies": {
     "better-sqlite3": "^11.10.0",
@@ -65,6 +66,7 @@
     "eslint-plugin-storybook": "^9.0.12",
     "globals": "^16.0.0",
     "jsdom": "^26.1.0",
+    "license-checker": "^25.0.1",
     "postcss": "^8.5.4",
     "react-hot-toast": "^2.5.2",
     "storybook": "^9.0.12",

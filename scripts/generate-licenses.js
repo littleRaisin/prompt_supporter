@@ -11,7 +11,8 @@ const licenses = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
 
 let result = '';
 
-for (const [pkg, info] of Object.entries(licenses)) {
+for (const pkg of Object.keys(licenses).sort()) {
+  const info = licenses[pkg];
   result += `Package: ${pkg}\n`;
   result += `Version: ${info.version || '-'}\n`;
   result += `License: ${info.licenses || '-'}\n`;

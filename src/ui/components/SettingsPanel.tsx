@@ -31,7 +31,7 @@ const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
   }, [isOpen]);
 
   useEffect(() => {
-    fetch('/licenses.txt')
+    fetch('./licenses.txt')
       .then(res => res.text())
       .then(setLicenses);
   }, []);

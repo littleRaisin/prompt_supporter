@@ -31,9 +31,24 @@ const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
   }, [isOpen]);
 
   useEffect(() => {
+    setLoadingLicenses(true);
+    setLicensesError('');
     fetch('./licenses.txt')
-      .then(res => res.text())
-      .then(setLicenses);
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`Failed to fetch licenses: ${res.statusText}`);
+        }
+        return res.text();
+      })
+      .then(text => {
+        setLicenses(text);
+        setLoadingLicenses(false);
+      })
+      .catch(error => {
+        console.error('Error fetching licenses:', error);
+        setLicensesError('Failed to load licenses. Please try again later.');
+        setLoadingLicenses(false);
+      });
   }, []);
 
   return (

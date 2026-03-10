@@ -1377,7 +1377,7 @@ THE SOFTWARE.
 
 ----- END LICENSE TEXT -----
 
-Package: prompt-supporter@0.7.2
+Package: prompt-supporter@0.7.3
 Version: -
 License: UNLICENSED
 Publisher: little_raisin

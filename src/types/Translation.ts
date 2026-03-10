@@ -5,7 +5,7 @@ export type Translation = {
   note?: string;
   favorite?: number;
   copyrights?: string;
-  category?: string; // categoryを追加
+  category?: string;
   updated_at?: string;
 };
 export type TranslationList = Translation[];

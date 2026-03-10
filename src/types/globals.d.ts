@@ -24,6 +24,7 @@ declare global {
         category?: string; // categoryを追加
       }) => Promise<{ success?: boolean; error?: string }>;
       openExternalUrl: (url: string) => Promise<{ success?: boolean; error?: string }>; // 外部URLを開くAPIの型定義を追加
+      getAppVersion: () => Promise<string | { error: string }>; // アプリケーションのバージョンを取得するAPIの型定義を追加
     };
   }
 }

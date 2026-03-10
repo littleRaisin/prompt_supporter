@@ -23,7 +23,7 @@ db.exec(`
     note TEXT,
     favorite INTEGER NOT NULL DEFAULT 0,
     copyrights TEXT,
-    category TEXT, -- categoryのDEFAULTはマイグレーションで設定
+    category TEXT,
     updated_at TEXT DEFAULT (datetime('now', 'localtime'))
   );
 

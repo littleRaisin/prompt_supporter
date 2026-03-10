@@ -47,6 +47,11 @@ const FavoriteCategoryList = () => {
     refreshFavorites();
   }, [refreshFavorites]);
 
+  // categoryが変更されたときにページを1にリセット
+  useEffect(() => {
+    setPage(1);
+  }, [category]);
+
   // 件数変更時に1ページ目に戻し、localStorageにも保存
   const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLimit = Number(e.target.value);

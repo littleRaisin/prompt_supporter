@@ -4,9 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from './Button';
 import SearchCategoryCheckbox from './SearchCategoryCheckbox';
-import useExternalLink from '../hooks/useExternalLink'; // useExternalLinkをインポート
-import TextButton from './TextButton';
-import LanguageSwitcher from './LanguageSwitcher';
+import SettingsPanel from './SettingsPanel';
 
 type FormData = {
   search: string;
@@ -24,13 +22,14 @@ const Header = () => {
   const { register, handleSubmit } = useForm<FormData>();
   const navigate = useNavigate();
   const { promptName } = useParams<{ promptName: string }>();
-  const openExternalLink = useExternalLink();
   const { t } = useTranslation();
 
   const [searchCategories, setSearchCategories] = useState<SearchCategories>(() => {
     const saved = localStorage.getItem(SEARCH_CATEGORIES_KEY);
     return saved ? JSON.parse(saved) : { character: true, tag: true, copyright: true };
   });
+
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem(SEARCH_CATEGORIES_KEY, JSON.stringify(searchCategories));
@@ -54,25 +53,30 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-gray-800 text-white p-4">
-      <h1 className="text-2xl font-bold">
-        <Link to="/" className="text-white">Prompt Supporter</Link>
-      </h1>
+    <header className="bg-gray-800 text-white p-4 relative w-full">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">
+          <Link to="/" className="text-white">Prompt Supporter</Link>
+        </h1>
+      </div>
+      <SettingsPanel isOpen={settingsOpen} onClose={() => setSettingsOpen(false)} />
       <div className="flex justify-between items-center">
         <div>
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex gap-2">
-            <input
-              {...register('search')}
-              type="text"
-              className="text-black px-2"
-              placeholder={t('common.SearchWord')}
-              defaultValue={promptName ? promptName : ''}
-            />
-            <Button 
-              type="submit"
-              text={t('common.Search')}
-            />
-            <div className="flex items-center gap-2 ml-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex gap-2 flex-wrap">
+            <div className="flex gap-2 mr-4">
+              <input
+                {...register('search')}
+                type="text"
+                className="text-black px-2"
+                placeholder={t('common.SearchWord')}
+                defaultValue={promptName ? promptName : ''}
+              />
+              <Button 
+                type="submit"
+                text={t('common.Search')}
+              />
+            </div>
+            <div className="flex items-center gap-2 mr-4">
               <SearchCategoryCheckbox
                 label={t('common.Character')}
                 categoryKey="character"
@@ -92,12 +96,9 @@ const Header = () => {
                 onChange={handleCategoryChange}
               />
             </div>
-            <div className='ml-4'>
-              <LanguageSwitcher />
-            </div>
           </form>
           <nav>
-            <ul className='flex gap-4 mt-2'>
+            <ul className='flex gap-4 mt-2 items-center'>
               {
                 [
                   { link: '/favorite/character', label: t('common.Character') },
@@ -113,11 +114,14 @@ const Header = () => {
                 ))
               }
               <li>
-                <TextButton
-                  onClick={() => openExternalLink("https://github.com/littleRaisin/prompt_supporter")}
+                <button
+                  className="flex items-center justify-center"
+                  onClick={() => setSettingsOpen(true)}
+                  aria-label={t('common.Settings')}
+                  style={{ background: 'none', border: 'none', padding: 0 }}
                 >
-                  GitHub
-                </TextButton>
+                  <img src="./ico_settings.svg" alt={t('common.Settings')} className="w-5 h-5" />
+                </button>
               </li>
             </ul>
           </nav>

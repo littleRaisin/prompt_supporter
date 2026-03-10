@@ -1,6 +1,6 @@
 // src/electron/main.ts
 
-import { app, BrowserWindow, Menu } from "electron";
+import { app, BrowserWindow, Menu, ipcMain } from "electron";
 import { join } from "path";
 import path from 'path';
 import fs from 'fs'; // fsモジュールをインポート
@@ -103,6 +103,12 @@ app.whenReady().then(() => {
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
+
+// アプリケーションのバージョンを返すIPCハンドラ
+ipcMain.handle('get-app-version', () => {
+  return app.getVersion();
+});
+
 app.on("window-all-closed", () => {
   // アプリケーション終了時にもウィンドウの状態を保存
   const mainWindow = BrowserWindow.getAllWindows()[0]; // 最初のウィンドウを取得

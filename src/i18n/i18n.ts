@@ -4,6 +4,8 @@ import { initReactI18next } from 'react-i18next';
 import en from './locales/en.json';
 import ja from './locales/ja.json';
 
+const savedLang = localStorage.getItem('i18n_language') || 'en';
+
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
@@ -15,8 +17,8 @@ i18n
         translation: ja
       }
     },
-    lng: "en", // default language
-    fallbackLng: "ja",
+    lng: savedLang,
+    fallbackLng: "en",
 
     interpolation: {
       escapeValue: false // react already safes from xss

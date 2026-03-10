@@ -36,5 +36,8 @@ contextBridge.exposeInMainWorld('backend', {
     }) => ipcRenderer.invoke('upsert-translation', data),
 
     // 外部URLを開く
-    openExternalUrl: (url: string) => ipcRenderer.invoke('open-external-url', url)
+    openExternalUrl: (url: string) => ipcRenderer.invoke('open-external-url', url),
+
+    // アプリケーションのバージョンを取得
+    getAppVersion: () => ipcRenderer.invoke('get-app-version'),
 });

@@ -116,6 +116,7 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
         <TitleWithCopy label={t('common.prompt')} value={item.prompt_name} onCopy={handleCopy} />
         <p className='m-1'>{item.prompt_name}</p>
       </div>
+      {item.category !== 'tag' && (
       <div className='mt-3'>
         <TitleWithCopy label={t('common.Copyrights')} value={item.copyrights} onCopy={handleCopy} />
         <p className='m-1'>
@@ -124,6 +125,7 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
           </Link>
         </p>
       </div>
+      )}
       <div className='whitespace-pre-wrap mt-3'>
         <TitleWithCopy label={t('common.Note')} value={item.note} onCopy={handleCopy} />
         <div className='border-[1px] rounded border-gray p-2 m-1'>

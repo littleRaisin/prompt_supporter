@@ -18,7 +18,8 @@ const Edit = () => {
   const { t } = useTranslation();
   const { promptName } = useParams<{ promptName?: string }>();
   const navigate = useNavigate();
-  const { register, handleSubmit, reset, setValue } = useForm<FormData>();
+  const { register, handleSubmit, reset, setValue, watch } = useForm<FormData>();
+  const selectedCategory = watch('category');
   const [isCopyMode, setIsCopyMode] = useState(false);
 
   // 編集時は既存データを取得してフォームにセット
@@ -117,11 +118,6 @@ const Edit = () => {
           <input type="checkbox" {...register('favorite')} />
         </div>
         <div>
-          <label className="block font-semibold">{t('common.Copyrights')}</label>
-          <input {...register('copyrights')} className="border px-2 py-1 w-full" />
-        </div>
-
-        <div>
           <label className="block font-semibold">{t('common.Category')}</label>
           <select {...register('category')} className="border px-2 py-1 w-full">
             <option value="character">{t('common.Character')}</option>
@@ -129,6 +125,13 @@ const Edit = () => {
             <option value="tag">{t('common.Tag')}</option>
           </select>
         </div>
+
+        {selectedCategory !== 'tag' && (
+        <div>
+          <label className="block font-semibold">{t('common.Copyrights')}</label>
+          <input {...register('copyrights')} className="border px-2 py-1 w-full" />
+        </div>
+        )}
 
         <div className="flex gap-2">
           <Button type="submit" text={t('common.saveButton')} variant="primary" />

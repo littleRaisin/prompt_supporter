@@ -114,28 +114,30 @@ describe('Electron API', () => {
         { prompt_name: 'search1' },
         { prompt_name: 'search2' },
       ];
-      ((db.prepare as unknown) as MockInstance).mockReturnValue({
-        all: vi.fn().mockReturnValue(mockResult),
-      });
+      const mockAllFn = vi.fn().mockReturnValue(mockResult);
+      const mockGetFn = vi.fn().mockReturnValue({ total: 2 });
+      ((db.prepare as unknown) as MockInstance)
+        .mockReturnValueOnce({ all: mockAllFn })
+        .mockReturnValueOnce({ get: mockGetFn });
 
       const handler = (ipcMain.handle as Mock).mock?.calls.find(
         (call: any[]) => call[0] === 'get-translation-list'
       )?.[1];
 
       expect(handler).toBeDefined();
-      const result = await handler!(null, 'keyword');
-      expect(db.prepare).toHaveBeenCalledWith(`
-      SELECT * FROM prompt_supporter
-      WHERE
-        prompt_name LIKE @kw OR
-        translation_text LIKE @kw OR
-        search_word LIKE @kw OR
-        note LIKE @kw OR
-        copyrights LIKE @kw
-      ORDER BY updated_at DESC
-      LIMIT 20
-    `);
-      expect(result).toEqual(mockResult);
+      const result = await handler!(null, {
+        keyword: 'keyword',
+        categories: { character: true, tag: true, copyright: true },
+        limit: 20,
+        page: 1,
+      });
+      expect(db.prepare).toHaveBeenCalledWith(
+        expect.stringContaining('SELECT * FROM prompt_supporter')
+      );
+      expect(mockAllFn).toHaveBeenCalledWith(
+        expect.objectContaining({ kw: '%keyword%', limit: 20, offset: 0 })
+      );
+      expect(result).toEqual({ items: mockResult, total: 2 });
     });
   });
 
@@ -156,17 +158,12 @@ describe('Electron API', () => {
         favorite: 1,
       };
       const result = await handler(null, testData);
-      expect(db.prepare).toHaveBeenCalledWith(`
-      INSERT INTO prompt_supporter (prompt_name, translation_text, search_word, note, favorite, copyrights, updated_at)
-      VALUES (@promptName, @translationText, @searchWord, @note, @favorite, @copyrights, datetime('now', 'localtime'))
-      ON CONFLICT(prompt_name) DO UPDATE SET
-        translation_text=excluded.translation_text,
-        search_word=excluded.search_word,
-        note=excluded.note,
-        favorite=excluded.favorite,
-        copyrights=excluded.copyrights,
-        updated_at=datetime('now', 'localtime')
-    `);
+      expect(db.prepare).toHaveBeenCalledWith(
+        expect.stringContaining('INSERT INTO prompt_supporter')
+      );
+      expect(db.prepare).toHaveBeenCalledWith(
+        expect.stringContaining('category')
+      );
       expect(result).toEqual({ success: true });
     });
 

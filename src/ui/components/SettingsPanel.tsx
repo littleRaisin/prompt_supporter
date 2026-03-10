@@ -15,6 +15,8 @@ const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
   const openExternalLink = useExternalLink();
   const [appVersion, setAppVersion] = useState('N/A');
   const [licenses, setLicenses] = useState('');
+  const [loadingLicenses, setLoadingLicenses] = useState(false);
+  const [licensesError, setLicensesError] = useState('');
 
   useEffect(() => {
     if (isOpen && window.backend && window.backend.getAppVersion) {
@@ -77,7 +79,13 @@ const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
         <li className="mt-8 border-t pt-4 text-xs text-gray-500">
           <p className="text-sm text-gray-500 mb-3">利用OSS・ライセンス一覧</p>
           <div className="whitespace-pre-line flex-1 min-h-[100px] overflow-y-scroll break-words" style={{maxHeight: 'calc(100vh - 300px)'}}>
-            <pre className='whitespace-pre-line break-words'>{licenses}</pre>
+            {loadingLicenses ? (
+              <p>Loading...</p>
+            ) : licensesError ? (
+              <p className="text-red-500">{licensesError}</p>
+            ) : (
+              <pre className='whitespace-pre-line break-words'>{licenses}</pre>
+            )}
           </div>
         </li>
       </ul>

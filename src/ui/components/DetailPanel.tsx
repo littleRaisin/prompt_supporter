@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import FavoriteIcon from './FavoriteIcon';
 import Button from './Button';
@@ -41,10 +41,11 @@ const TitleWithCopy = ({ label, value, onCopy }: TitleWithCopyProps) => {
 }
 
 const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
-  if (!item) return null;
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [favorite, setFavorite] = useState(!!item.favorite);
+  const [favorite, setFavorite] = useState(!!item?.favorite);
+
+  if (!item) return null;
 
   // Copy using navigator.clipboard
   const handleCopy = (target: string | undefined) => {
@@ -75,27 +76,6 @@ const DetailPanel = ({ item, onDataChange }: DetailPanelProps) => {
 
   return (
     <div>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          className: '',
-          duration: 5000,
-          removeDelay: 1000,
-          style: {
-            background: '#363636',
-            color: '#fff',
-          },
-
-          success: {
-            duration: 3000,
-            iconTheme: {
-              primary: 'green',
-              secondary: 'black',
-            },
-          },
-        }}
-      />
-
       <div className='flex items-center gap-2'>
         {item.translation_text}
         <FavoriteIcon

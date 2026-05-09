@@ -19,7 +19,7 @@ type SearchCategories = {
 const SEARCH_CATEGORIES_KEY = 'search_categories';
 
 const Header = () => {
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit, setValue } = useForm<FormData>();
   const navigate = useNavigate();
   const { promptName } = useParams<{ promptName: string }>();
   const { t } = useTranslation();
@@ -30,6 +30,10 @@ const Header = () => {
   });
 
   const [settingsOpen, setSettingsOpen] = useState(false);
+
+  useEffect(() => {
+    setValue('search', promptName ?? '');
+  }, [promptName, setValue]);
 
   useEffect(() => {
     localStorage.setItem(SEARCH_CATEGORIES_KEY, JSON.stringify(searchCategories));
@@ -69,7 +73,6 @@ const Header = () => {
                 type="text"
                 className="text-black px-2"
                 placeholder={t('common.SearchWord')}
-                defaultValue={promptName ? promptName : ''}
               />
               <Button 
                 type="submit"

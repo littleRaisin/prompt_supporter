@@ -15,7 +15,7 @@
     "path": "D:\\git\\prompt-supporter\\node_modules\\base64-js",
     "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\base64-js\\LICENSE"
   },
-  "better-sqlite3@11.10.0": {
+  "better-sqlite3@12.9.0": {
     "licenses": "MIT",
     "repository": "https://github.com/WiseLibs/better-sqlite3",
     "publisher": "Joshua Wise",
@@ -228,7 +228,7 @@
     "path": "D:\\git\\prompt-supporter\\node_modules\\napi-build-utils",
     "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\napi-build-utils\\LICENSE"
   },
-  "node-abi@3.75.0": {
+  "node-abi@4.31.0": {
     "licenses": "MIT",
     "repository": "https://github.com/electron/node-abi",
     "publisher": "Lukas Geiger",
@@ -252,7 +252,7 @@
     "path": "D:\\git\\prompt-supporter\\node_modules\\prebuild-install",
     "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\prebuild-install\\LICENSE"
   },
-  "prompt-supporter@0.7.3": {
+  "prompt-supporter@0.7.4": {
     "licenses": "UNLICENSED",
     "private": true,
     "publisher": "little_raisin",

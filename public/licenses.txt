@@ -61,7 +61,7 @@ THE SOFTWARE.
 
 ----- END LICENSE TEXT -----
 
-Package: better-sqlite3@11.10.0
+Package: better-sqlite3@12.9.0
 Version: -
 License: MIT
 Publisher: Joshua Wise
@@ -1290,7 +1290,7 @@ SOFTWARE.
 
 ----- END LICENSE TEXT -----
 
-Package: node-abi@3.75.0
+Package: node-abi@4.31.0
 Version: -
 License: MIT
 Publisher: Lukas Geiger
@@ -1377,7 +1377,7 @@ THE SOFTWARE.
 
 ----- END LICENSE TEXT -----
 
-Package: prompt-supporter@0.7.3
+Package: prompt-supporter@0.7.4
 Version: -
 License: UNLICENSED
 Publisher: little_raisin

@@ -85,7 +85,9 @@
     "vitest": "^3.2.2"
   },
   "overrides": {
-    "node-abi": "^4.31.0"
+    "@electron/rebuild": {
+      "node-abi": "^4.31.0"
+    }
   },
   "engines": {
     "node": ">=22.12.0"

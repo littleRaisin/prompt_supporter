@@ -24,5 +24,15 @@ export default tseslint.config({ ignores: ['dist'] }, {
       'warn',
       { allowConstantExport: true },
     ],
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    'no-console': 'warn',
   },
-}, storybook.configs["flat/recommended"]);
+}, storybook.configs["flat/recommended"], {
+  // Storybook story files: type-only imports from @storybook/react are fine with @storybook/react-vite
+  files: ['src/stories/**/*.{ts,tsx}'],
+  rules: {
+    'storybook/no-renderer-packages': 'off',
+  },
+});

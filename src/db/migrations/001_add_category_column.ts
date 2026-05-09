@@ -7,5 +7,6 @@ export function up(db: Database) {
   db.exec(`
     ALTER TABLE prompt_supporter ADD COLUMN category TEXT DEFAULT 'character';
   `);
+  // eslint-disable-next-line no-console
   console.log("Migration 001: Added 'category' column to prompt_supporter table.");
 }

@@ -1,11 +1,13 @@
+export type Category = 'character' | 'tag' | 'copyright';
+
 export type Translation = {
   prompt_name: string;
   translation_text?: string;
   search_word?: string;
   note?: string;
-  favorite?: number;
+  favorite?: 0 | 1;
   copyrights?: string;
-  category?: string;
+  category?: Category;
   updated_at?: string;
 };
 export type TranslationList = Translation[];

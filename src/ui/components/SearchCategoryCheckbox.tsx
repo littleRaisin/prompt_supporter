@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next';
-
 type SearchCategoryCheckboxProps = {
   label: string;
   categoryKey: 'character' | 'tag' | 'copyright'; // 'character', 'tag', 'copyright'

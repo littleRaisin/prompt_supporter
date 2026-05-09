@@ -1,6 +1,6 @@
 import SidePanel from './SidePanel';
 import { useTranslation } from 'react-i18next';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import useExternalLink from '../hooks/useExternalLink';
 import { GITHUB_REPOSITORY_URL } from '../utils/constants';
@@ -24,10 +24,12 @@ const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
         if (typeof version === 'string') {
           setAppVersion(version);
         } else if (version && 'error' in version) {
+            // eslint-disable-next-line no-console
           console.error('Failed to get app version:', version.error);
         }
       }).catch(error => {
-        console.error('Error calling getAppVersion:', error);
+          // eslint-disable-next-line no-console
+          console.error('Error calling getAppVersion:', error);
       });
     }
   }, [isOpen]);
@@ -47,7 +49,8 @@ const SettingsPanel = ({ isOpen, onClose }: SettingsPanelProps) => {
         setLoadingLicenses(false);
       })
       .catch(error => {
-        console.error('Error fetching licenses:', error);
+          // eslint-disable-next-line no-console
+          console.error('Error fetching licenses:', error);
         setLicensesError('Failed to load licenses. Please try again later.');
         setLoadingLicenses(false);
       });

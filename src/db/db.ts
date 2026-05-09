@@ -8,7 +8,8 @@ let dbPath: string;
 if (isDev) {
   dbPath = path.join(__dirname, '../../prompt-supporter.sqlite');
 } else {
-  const electron = require('electron');
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const electron = require('electron') as { app: { getPath: (name: string) => string } };
   dbPath = path.join(electron.app.getPath('userData'), 'prompt-supporter.sqlite');
 }
 
@@ -40,7 +41,7 @@ function getCurrentSchemaVersion(): number {
   try {
     const result = db.prepare("SELECT version FROM schema_version ORDER BY version DESC LIMIT 1").get() as { version: number } | undefined;
     return result ? result.version : 0;
-  } catch (e) {
+  } catch {
     // テーブルが存在しない場合など、エラーが発生した場合はバージョン0とみなす
     return 0;
   }
@@ -48,33 +49,35 @@ function getCurrentSchemaVersion(): number {
 
 async function runMigrations() {
   const currentVersion = getCurrentSchemaVersion();
+  // eslint-disable-next-line no-console
   console.log(`Current schema version: ${currentVersion}`);
 
   const migrationFiles = fs.readdirSync(migrationsDir)
     .filter(file => file.endsWith('.ts') || file.endsWith('.js'))
-    .sort(); // ファイル名をソートして実行順序を保証
+    .sort();
 
   for (const file of migrationFiles) {
     const migrationPath = path.join(migrationsDir, file);
-    // 動的にモジュールをインポート
-    const migration = await import(migrationPath);
+    const migration = await import(migrationPath) as { version: number; up: (db: Database.Database) => void };
     const migrationVersion = migration.version;
 
     if (migrationVersion > currentVersion) {
+      // eslint-disable-next-line no-console
       console.log(`Running migration: ${file} (version ${migrationVersion})`);
-      db.transaction(() => { // トランザクションでマイグレーションを実行
+      db.transaction(() => {
         migration.up(db);
         db.prepare("INSERT OR REPLACE INTO schema_version (version) VALUES (?)").run(migrationVersion);
-      })(); // 即時実行
+      })();
     }
   }
+  // eslint-disable-next-line no-console
   console.log("All migrations completed.");
 }
 
 // アプリケーション起動時にマイグレーションを実行
 runMigrations().catch(error => {
+  // eslint-disable-next-line no-console
   console.error("Failed to run migrations:", error);
-  // エラーハンドリング: アプリケーションを終了するなど
 });
 
 export default db;

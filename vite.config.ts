@@ -9,5 +9,11 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTests.ts',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['src/**/*.stories.{ts,tsx}', 'src/**/__tests__/**', 'src/setupTests.ts', 'src/ui/vite-env.d.ts'],
+    },
   },
 });

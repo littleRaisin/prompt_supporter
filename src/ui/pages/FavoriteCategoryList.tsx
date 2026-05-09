@@ -6,13 +6,17 @@ import Pagination from '../components/Pagination';
 import SidePanel from '../components/SidePanel';
 import DetailPanel from '../components/DetailPanel';
 import { useItemActions } from '../hooks/useItemActions';
-import type { Translation } from '../../types/Translation';
+import type { Category, Translation } from '../../types/Translation';
+
+const VALID_CATEGORIES: Category[] = ['character', 'tag', 'copyright'];
+const isCategory = (v: string): v is Category => VALID_CATEGORIES.includes(v as Category);
 
 const LIMIT_KEY = 'favorite_category_limit';
 
 const FavoriteCategoryList = () => {
   const { t } = useTranslation();
-  const { category } = useParams<{ category: string }>();
+  const { category: categoryParam } = useParams<{ category: string }>();
+  const category: Category | undefined = categoryParam && isCategory(categoryParam) ? categoryParam : undefined;
   const [limit, setLimit] = useState(() => {
     const saved = localStorage.getItem(LIMIT_KEY);
     return saved ? Number(saved) : 20;
@@ -62,7 +66,7 @@ const FavoriteCategoryList = () => {
 
   const maxPage = Math.max(1, Math.ceil(total / limit));
 
-  const categoryLabels: { [key: string]: string } = {
+  const categoryLabels: Record<Category, string> = {
     character: t('common.Character'),
     copyright: t('common.Copyrights'),
     tag: t('common.Tag'),

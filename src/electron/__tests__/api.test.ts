@@ -1,12 +1,13 @@
-/// <reference types="vitest" />
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Mock, MockInstance } from 'vitest';
-import { ipcMain, shell } from 'electron'; // shellをインポート
-import db from '../../db/db'; // 実際のdbインスタンスをインポート
+import { ipcMain, shell } from 'electron';
+import db from '../../db/db';
 
 // electronモジュールのモック
 vi.mock('electron', async (importOriginal) => {
-  const actual = await importOriginal() as any;
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+  const actual = await importOriginal<typeof import('electron')>();
   return {
     ...actual,
     ipcMain: {
@@ -223,6 +224,40 @@ describe('Electron API', () => {
 
       expect(handler).toBeDefined();
       const result = await handler!(null, { limit: 10, page: 1, category: 'character' });
+      expect(result).toEqual({ error: String(mockError) });
+    });
+  });
+
+  describe('delete-translation', () => {
+    it('指定されたprompt_nameのデータを削除できること', async () => {
+      const mockRunFn = vi.fn();
+      ((db.prepare as unknown) as MockInstance).mockReturnValue({ run: mockRunFn });
+
+      const handler = (ipcMain.handle as Mock)?.mock?.calls.find(
+        (call: any[]) => call[0] === 'delete-translation'
+      )?.[1];
+
+      expect(handler).toBeDefined();
+      const result = await handler!(null, 'test_prompt');
+      expect(db.prepare).toHaveBeenCalledWith(
+        expect.stringContaining('DELETE FROM prompt_supporter')
+      );
+      expect(mockRunFn).toHaveBeenCalledWith('test_prompt');
+      expect(result).toEqual({ success: true });
+    });
+
+    it('エラー発生時にエラーオブジェクトを返すこと', async () => {
+      const mockError = new Error('Delete DB Error');
+      ((db.prepare as unknown) as MockInstance).mockImplementation(() => {
+        throw mockError;
+      });
+
+      const handler = (ipcMain.handle as Mock)?.mock?.calls.find(
+        (call: any[]) => call[0] === 'delete-translation'
+      )?.[1];
+
+      expect(handler).toBeDefined();
+      const result = await handler!(null, 'test_prompt');
       expect(result).toEqual({ error: String(mockError) });
     });
   });

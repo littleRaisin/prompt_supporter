@@ -4,39 +4,15 @@ import DetailPanel from '../ui/components/DetailPanel';
 import type { Translation } from '../types/Translation';
 
 // Mock window.backend for Storybook
-const mockBackend = {
-  getTranslation: async (promptName: string) => {
-    console.log('getTranslation called with:', promptName);
-    return { error: 'Not implemented in Storybook mock' };
-  },
-  getTranslationList: async (data: { keyword: string, categories: { character: boolean, tag: boolean, copyright: boolean } }) => {
-    console.log('getTranslationList called with:', data);
-    return { error: 'Not implemented in Storybook mock' };
-  },
-  getFavoriteList: async (limit?: number, page?: number) => {
-    console.log('getFavoriteList called with:', limit, page);
-    return { items: [], total: 0 };
-  },
-  getFavoriteListByCategory: async (limit: number, page: number, category: string) => {
-    console.log('getFavoriteListByCategory called with:', limit, page, category);
-    return { items: [], total: 0 };
-  },
-  upsertTranslation: async (data: {
-    promptName: string;
-    translationText?: string;
-    searchWord?: string;
-    note?: string;
-    favorite?: number;
-    copyrights?: string;
-    category?: string;
-  }) => {
-    console.log('upsertTranslation called with:', data);
-    return { success: true };
-  },
-  openExternalUrl: async (url: string) => {
-    console.log('openExternalUrl called with:', url);
-    return { success: true };
-  },
+const mockBackend: Window['backend'] = {
+  getTranslation: async (_promptName) => ({ error: 'Not implemented in Storybook mock' }),
+  getTranslationList: async (_data) => ({ error: 'Not implemented in Storybook mock' }),
+  getFavoriteList: async (_limit?, _page?) => ({ items: [], total: 0 }),
+  getFavoriteListByCategory: async (_limit, _page, _category) => ({ items: [], total: 0 }),
+  upsertTranslation: async (_data) => ({ success: true }),
+  deleteTranslation: async (_promptName) => ({ success: true }),
+  openExternalUrl: async (_url) => ({ success: true }),
+  getAppVersion: async () => '0.0.0',
 };
 
 // Assign the mock backend to window.backend
@@ -72,7 +48,7 @@ const sampleItem: Translation = {
   note: 'これはサンプルのメモです。\n複数行のテキストも表示されます。',
   favorite: 1,
   copyrights: 'SampleCorp',
-  category: 'General',
+  category: 'character',
   updated_at: '2023-01-01T12:00:00Z',
 };
 
@@ -105,7 +81,7 @@ export const NoCopyrights: Story = {
       "search_word": "サンプル",
       "note": "これはサンプルのメモです。\n複数行のテキストも表示されます。",
       "favorite": 0,
-      "category": "General",
+      "category": "character",
       "updated_at": "2023-01-01T12:00:00.000Z"
     },
     onDataChange: () => alert('Data changed!'),

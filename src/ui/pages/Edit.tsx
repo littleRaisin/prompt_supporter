@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Button from '../components/Button';
 import ConfirmModal from '../components/ConfirmModal';
+import type { Category } from '../../types/Translation';
 
 type FormData = {
   promptName: string;
@@ -13,7 +14,7 @@ type FormData = {
   note?: string;
   favorite?: boolean;
   copyrights?: string;
-  category?: string;
+  category?: Category;
 };
 
 const Edit = () => {

@@ -22,7 +22,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "better-sqlite3": "^11.10.0",
+    "better-sqlite3": "^12.9.0",
     "electron-squirrel-startup": "^1.0.1",
     "i18next": "^25.2.1",
     "react": "^19.1.0",

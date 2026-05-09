@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import Button from '../components/Button';
+import ConfirmModal from '../components/ConfirmModal';
 
 type FormData = {
   promptName: string;
@@ -18,9 +20,10 @@ const Edit = () => {
   const { t } = useTranslation();
   const { promptName } = useParams<{ promptName?: string }>();
   const navigate = useNavigate();
-  const { register, handleSubmit, reset, setValue, watch } = useForm<FormData>();
+  const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<FormData>();
   const selectedCategory = watch('category');
   const [isCopyMode, setIsCopyMode] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   // 編集時は既存データを取得してフォームにセット
   useEffect(() => {
@@ -64,6 +67,17 @@ const Edit = () => {
     }
   };
 
+  const handleDelete = async () => {
+    if (!promptName) return;
+    const res = await window.backend.deleteTranslation(promptName.trim());
+    if (res.error) {
+      toast.error(res.error);
+    } else {
+      toast.success(t('common.deletedMessage'));
+      navigate('/');
+    }
+  };
+
   const onSubmit = async (data: FormData) => {
     const trimmedPromptName = data.promptName.trim();
     await window.backend.upsertTranslation({
@@ -95,11 +109,14 @@ const Edit = () => {
         <div>
           <label className="block font-semibold">{t('common.promptName')}</label>
           <input
-            {...register('promptName', { required: true })}
+            {...register('promptName', { required: t('common.promptNameRequired') })}
             className="border px-2 py-1 w-full"
             disabled={!!promptName && !isCopyMode}
             placeholder={t('common.enterNewPromptName')}
           />
+          {errors.promptName && (
+            <p className="text-red-500 text-sm mt-1">{errors.promptName.message}</p>
+          )}
         </div>
         <div>
           <label className="block font-semibold">{t('common.TranslationText')} ({t("common.Optional")})</label>
@@ -136,8 +153,24 @@ const Edit = () => {
         <div className="flex gap-2">
           <Button type="submit" text={t('common.saveButton')} variant="primary" />
           <Button type="button" text={t('common.cancelButton')} variant="secondary" onClick={() => navigate(-1)} />
+          {promptName && !isCopyMode && (
+            <Button
+              type="button"
+              text={t('common.deleteButton')}
+              variant="danger"
+              onClick={() => setDeleteModalOpen(true)}
+            />
+          )}
         </div>
       </form>
+
+      <ConfirmModal
+        isOpen={deleteModalOpen}
+        title={t('common.deleteConfirmTitle')}
+        message={t('common.deleteConfirmMessage', { name: promptName })}
+        onConfirm={handleDelete}
+        onClose={() => setDeleteModalOpen(false)}
+      />
     </div>
   );
 };

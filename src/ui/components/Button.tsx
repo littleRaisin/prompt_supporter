@@ -2,7 +2,7 @@ type ButtonProps = {
   text: string;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'danger';
   disabled?: boolean;
 };
 
@@ -17,6 +17,8 @@ const Button = ({
   const styles =
     variant === 'secondary'
       ? "bg-gray-300 text-gray-800 hover:bg-gray-400"
+      : variant === 'danger'
+      ? "bg-red-500 text-white hover:bg-red-600"
       : "bg-blue-500 text-white hover:bg-blue-600";
 
   return (

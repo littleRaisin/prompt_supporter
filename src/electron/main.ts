@@ -25,7 +25,7 @@ function createWindow() {
     y = windowState.y;
     width = windowState.width;
     height = windowState.height;
-  } catch (e) {
+  } catch {
     // ファイルが存在しないか、読み込みに失敗した場合はデフォルト値を使用
     width = 800;
     height = 600;
@@ -76,6 +76,7 @@ function saveWindowState(state: { width?: number, height?: number, x?: number, y
       currentState = JSON.parse(fs.readFileSync(windowStatePath, 'utf-8'));
     }
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error('Failed to read window state:', e);
   }
 
@@ -83,6 +84,7 @@ function saveWindowState(state: { width?: number, height?: number, x?: number, y
   try {
     fs.writeFileSync(windowStatePath, JSON.stringify(newState));
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error('Failed to save window state:', e);
   }
 }

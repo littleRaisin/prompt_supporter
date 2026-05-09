@@ -1,6 +1,7 @@
 // src/electron/api.ts
 
-import { ipcMain, shell } from "electron"; // shellをインポート
+import { ipcMain, shell } from "electron";
+import type { Category } from '../types/Translation';
 import db from '../db/db';
 
 /**
@@ -26,6 +27,7 @@ ipcMain.handle('open-external-url', async (_event, url: string) => {
     await shell.openExternal(url);
     return { success: true };
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('Error opening external URL:', err);
     return { error: String(err) };
   }
@@ -86,8 +88,8 @@ ipcMain.handle('get-translation-list', (_event, data: { keyword: string, categor
   try {
     const { keyword, categories, limit, page } = data;
     const offset = (page - 1) * limit;
-    let whereClauses = [];
-    const params: { [key: string]: any } = { kw: `%${keyword}%`, limit, offset };
+    const whereClauses = [];
+    const params: Record<string, string | number> = { kw: `%${keyword}%`, limit, offset };
 
     // キーワード検索条件
     whereClauses.push(`
@@ -152,13 +154,13 @@ ipcMain.handle('delete-translation', (_event, promptName: string) => {
 
 // 追加・更新
 ipcMain.handle('upsert-translation', (_event, data: {
-  promptName: string,
-  translationText?: string,
-  searchWord?: string,
-  note?: string,
-  favorite?: number,
-  copyrights?: string,
-  category?: string // categoryを追加
+  promptName: string;
+  translationText?: string;
+  searchWord?: string;
+  note?: string;
+  favorite?: 0 | 1;
+  copyrights?: string;
+  category?: Category;
 }) => {
   try {
     const stmt = db.prepare(`

@@ -34,11 +34,23 @@ describe('Button', () => {
   it('disabledがtrueの場合、ボタンがクリックできないこと', async () => {
     const handleClick = vi.fn();
     render(<Button text="無効ボタン" onClick={handleClick} disabled />);
-    
+
     const button = screen.getByText('無効ボタン');
     await userEvent.click(button);
-    
+
     expect(handleClick).not.toHaveBeenCalled();
     expect(button).toBeDisabled();
+  });
+
+  it('danger variantで赤背景のスタイルが適用されること', () => {
+    render(<Button text="削除" variant="danger" />);
+    const button = screen.getByText('削除');
+    expect(button.className).toContain('bg-red-500');
+  });
+
+  it('secondary variantでグレー背景のスタイルが適用されること', () => {
+    render(<Button text="キャンセル" variant="secondary" />);
+    const button = screen.getByText('キャンセル');
+    expect(button.className).toContain('bg-gray-300');
   });
 });

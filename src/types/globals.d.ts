@@ -1,31 +1,26 @@
-import type { Translation } from './Translation';
+import type { Category, Translation } from './Translation';
+
+type SearchCategories = { character: boolean; tag: boolean; copyright: boolean };
 
 declare global {
   interface Window {
     backend: {
       getTranslation: (promptName: string) => Promise<Translation | { error: string }>;
-      getTranslationList: (data: { keyword: string, categories: { character: boolean, tag: boolean, copyright: boolean }, limit: number, page: number }) => Promise<{ items: Translation[]; total: number } | { error: string }>;
-      getFavoriteList: (
-        limit?: number,
-        page?: number
-      ) => Promise<{ items: Translation[]; total: number } | { error: string }>;
-      getFavoriteListByCategory: ( // 新しいAPIの型定義を追加
-        limit: number,
-        page: number,
-        category: string
-      ) => Promise<{ items: Translation[]; total: number } | { error: string }>;
+      getTranslationList: (data: { keyword: string; categories: SearchCategories; limit: number; page: number }) => Promise<{ items: Translation[]; total: number } | { error: string }>;
+      getFavoriteList: (limit?: number, page?: number) => Promise<{ items: Translation[]; total: number } | { error: string }>;
+      getFavoriteListByCategory: (limit: number, page: number, category: Category) => Promise<{ items: Translation[]; total: number } | { error: string }>;
       upsertTranslation: (data: {
         promptName: string;
         translationText?: string;
         searchWord?: string;
         note?: string;
-        favorite?: number;
+        favorite?: 0 | 1;
         copyrights?: string;
-        category?: string; // categoryを追加
+        category?: Category;
       }) => Promise<{ success?: boolean; error?: string }>;
       deleteTranslation: (promptName: string) => Promise<{ success?: boolean; error?: string }>;
-      openExternalUrl: (url: string) => Promise<{ success?: boolean; error?: string }>; // 外部URLを開くAPIの型定義を追加
-      getAppVersion: () => Promise<string | { error: string }>; // アプリケーションのバージョンを取得するAPIの型定義を追加
+      openExternalUrl: (url: string) => Promise<{ success?: boolean; error?: string }>;
+      getAppVersion: () => Promise<string | { error: string }>;
     };
   }
 }

@@ -35,6 +35,9 @@ contextBridge.exposeInMainWorld('backend', {
         category?: string; // categoryを追加
     }) => ipcRenderer.invoke('upsert-translation', data),
 
+    // 翻訳情報を削除
+    deleteTranslation: (promptName: string) => ipcRenderer.invoke('delete-translation', promptName),
+
     // 外部URLを開く
     openExternalUrl: (url: string) => ipcRenderer.invoke('open-external-url', url),
 

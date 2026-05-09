@@ -40,6 +40,11 @@
     "Settings": "Settings",
     "LanguageSetting": "Language Setting",
     "Version": "Version",
-    "GitHubRepository": "GitHub Repository"
+    "GitHubRepository": "GitHub Repository",
+    "deleteButton": "Delete",
+    "deleteConfirmTitle": "Confirm Deletion",
+    "deleteConfirmMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+    "deletedMessage": "Deleted successfully",
+    "promptNameRequired": "promptName is required"
   }
 }

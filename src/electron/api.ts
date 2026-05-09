@@ -139,6 +139,17 @@ ipcMain.handle('get-translation-list', (_event, data: { keyword: string, categor
   }
 });
 
+// 削除
+ipcMain.handle('delete-translation', (_event, promptName: string) => {
+  try {
+    const stmt = db.prepare(`DELETE FROM prompt_supporter WHERE prompt_name = ?`);
+    stmt.run(promptName);
+    return { success: true };
+  } catch (err) {
+    return { error: String(err) };
+  }
+});
+
 // 追加・更新
 ipcMain.handle('upsert-translation', (_event, data: {
   promptName: string,

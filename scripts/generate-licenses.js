@@ -11,6 +11,9 @@ const licenses = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
 
 let result = '';
 
+// Build cleaned JSON (strip environment-specific absolute paths)
+const cleanedLicenses = {};
+
 for (const pkg of Object.keys(licenses).sort()) {
   const info = licenses[pkg];
   result += `Package: ${pkg}\n`;
@@ -28,7 +31,15 @@ for (const pkg of Object.keys(licenses).sort()) {
     }
   }
   result += `\n`;
+
+  // Remove path/licenseFile before saving cleaned JSON
+  const { path: _path, licenseFile: _licenseFile, ...cleanedInfo } = info;
+  cleanedLicenses[pkg] = cleanedInfo;
 }
 
 fs.writeFileSync(outputPath, result);
 console.log('licenses.txt generated.');
+
+// Write back cleaned JSON without environment-specific absolute paths
+fs.writeFileSync(inputPath, JSON.stringify(cleanedLicenses, null, 2) + '\n');
+console.log('licenses.json cleaned (path/licenseFile fields removed).');

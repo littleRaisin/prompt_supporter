@@ -3,449 +3,336 @@
     "licenses": "MIT",
     "repository": "https://github.com/babel/babel",
     "publisher": "The Babel Team",
-    "url": "https://babel.dev/team",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\@babel\\runtime",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\@babel\\runtime\\LICENSE"
+    "url": "https://babel.dev/team"
   },
   "base64-js@1.5.1": {
     "licenses": "MIT",
     "repository": "https://github.com/beatgammit/base64-js",
     "publisher": "T. Jameson Little",
-    "email": "t.jameson.little@gmail.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\base64-js",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\base64-js\\LICENSE"
+    "email": "t.jameson.little@gmail.com"
   },
-  "better-sqlite3@11.10.0": {
+  "better-sqlite3@12.9.0": {
     "licenses": "MIT",
     "repository": "https://github.com/WiseLibs/better-sqlite3",
     "publisher": "Joshua Wise",
-    "email": "joshuathomaswise@gmail.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\better-sqlite3",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\better-sqlite3\\LICENSE"
+    "email": "joshuathomaswise@gmail.com"
   },
   "bindings@1.5.0": {
     "licenses": "MIT",
     "repository": "https://github.com/TooTallNate/node-bindings",
     "publisher": "Nathan Rajlich",
     "email": "nathan@tootallnate.net",
-    "url": "http://tootallnate.net",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\bindings",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\bindings\\LICENSE.md"
+    "url": "http://tootallnate.net"
   },
   "bl@4.1.0": {
     "licenses": "MIT",
-    "repository": "https://github.com/rvagg/bl",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\bl",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\bl\\LICENSE.md"
+    "repository": "https://github.com/rvagg/bl"
   },
   "buffer@5.7.1": {
     "licenses": "MIT",
     "repository": "https://github.com/feross/buffer",
     "publisher": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
-    "url": "https://feross.org",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\buffer",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\buffer\\LICENSE"
+    "url": "https://feross.org"
   },
   "chownr@1.1.4": {
     "licenses": "ISC",
     "repository": "https://github.com/isaacs/chownr",
     "publisher": "Isaac Z. Schlueter",
     "email": "i@izs.me",
-    "url": "http://blog.izs.me/",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\tar-fs\\node_modules\\chownr",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\tar-fs\\node_modules\\chownr\\LICENSE"
+    "url": "http://blog.izs.me/"
   },
   "cookie@1.1.1": {
     "licenses": "MIT",
     "repository": "https://github.com/jshttp/cookie",
     "publisher": "Roman Shtylman",
-    "email": "shtylman@gmail.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\cookie",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\cookie\\LICENSE"
+    "email": "shtylman@gmail.com"
   },
   "debug@2.6.9": {
     "licenses": "MIT",
     "repository": "https://github.com/visionmedia/debug",
     "publisher": "TJ Holowaychuk",
-    "email": "tj@vision-media.ca",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\electron-squirrel-startup\\node_modules\\debug",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\electron-squirrel-startup\\node_modules\\debug\\LICENSE"
+    "email": "tj@vision-media.ca"
   },
   "decompress-response@6.0.0": {
     "licenses": "MIT",
     "repository": "https://github.com/sindresorhus/decompress-response",
     "publisher": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
-    "url": "https://sindresorhus.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\decompress-response",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\decompress-response\\license"
+    "url": "https://sindresorhus.com"
   },
   "deep-extend@0.6.0": {
     "licenses": "MIT",
     "repository": "https://github.com/unclechu/node-deep-extend",
     "publisher": "Viacheslav Lotsmanov",
-    "email": "lotsmanov89@gmail.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\deep-extend",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\deep-extend\\LICENSE"
+    "email": "lotsmanov89@gmail.com"
   },
   "detect-libc@2.0.4": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/lovell/detect-libc",
     "publisher": "Lovell Fuller",
-    "email": "npm@lovell.info",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\detect-libc",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\detect-libc\\LICENSE"
+    "email": "npm@lovell.info"
   },
   "electron-squirrel-startup@1.0.1": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/mongodb-js/electron-squirrel-startup",
     "publisher": "Lucas Hrabovsky",
     "email": "lucas@mongodb.com",
-    "url": "http://imlucas.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\electron-squirrel-startup",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\electron-squirrel-startup\\LICENSE"
+    "url": "http://imlucas.com"
   },
   "end-of-stream@1.4.4": {
     "licenses": "MIT",
     "repository": "https://github.com/mafintosh/end-of-stream",
     "publisher": "Mathias Buus",
-    "email": "mathiasbuus@gmail.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\end-of-stream",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\end-of-stream\\LICENSE"
+    "email": "mathiasbuus@gmail.com"
   },
   "expand-template@2.0.3": {
     "licenses": "(MIT OR WTFPL)",
     "repository": "https://github.com/ralphtheninja/expand-template",
     "publisher": "LM",
-    "email": "ralphtheninja@riseup.net",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\expand-template",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\expand-template\\LICENSE"
+    "email": "ralphtheninja@riseup.net"
   },
   "file-uri-to-path@1.0.0": {
     "licenses": "MIT",
     "repository": "https://github.com/TooTallNate/file-uri-to-path",
     "publisher": "Nathan Rajlich",
     "email": "nathan@tootallnate.net",
-    "url": "http://n8.io/",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\file-uri-to-path",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\file-uri-to-path\\LICENSE"
+    "url": "http://n8.io/"
   },
   "fs-constants@1.0.0": {
     "licenses": "MIT",
     "repository": "https://github.com/mafintosh/fs-constants",
     "publisher": "Mathias Buus",
-    "url": "@mafintosh",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\fs-constants",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\fs-constants\\LICENSE"
+    "url": "@mafintosh"
   },
   "github-from-package@0.0.0": {
     "licenses": "MIT",
     "repository": "https://github.com/substack/github-from-package",
     "publisher": "James Halliday",
     "email": "mail@substack.net",
-    "url": "http://substack.net",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\github-from-package",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\github-from-package\\LICENSE"
+    "url": "http://substack.net"
   },
   "html-parse-stringify@3.0.1": {
     "licenses": "MIT",
     "repository": "https://github.com/henrikjoreteg/html-parse-stringify",
     "publisher": "Henrik Joreteg",
-    "email": "henrik@joreteg.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\html-parse-stringify",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\html-parse-stringify\\README.md"
+    "email": "henrik@joreteg.com"
   },
   "i18next@25.2.1": {
     "licenses": "MIT",
     "repository": "https://github.com/i18next/i18next",
     "publisher": "Jan Mühlemann",
     "email": "jan.muehlemann@gmail.com",
-    "url": "https://github.com/jamuhl",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\i18next",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\i18next\\LICENSE"
+    "url": "https://github.com/jamuhl"
   },
   "ieee754@1.2.1": {
     "licenses": "BSD-3-Clause",
     "repository": "https://github.com/feross/ieee754",
     "publisher": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
-    "url": "https://feross.org",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\ieee754",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\ieee754\\LICENSE"
+    "url": "https://feross.org"
   },
   "inherits@2.0.4": {
     "licenses": "ISC",
-    "repository": "https://github.com/isaacs/inherits",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\inherits",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\inherits\\LICENSE"
+    "repository": "https://github.com/isaacs/inherits"
   },
   "ini@1.3.8": {
     "licenses": "ISC",
     "repository": "https://github.com/isaacs/ini",
     "publisher": "Isaac Z. Schlueter",
     "email": "i@izs.me",
-    "url": "http://blog.izs.me/",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\rc\\node_modules\\ini",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\rc\\node_modules\\ini\\LICENSE"
+    "url": "http://blog.izs.me/"
   },
   "mimic-response@3.1.0": {
     "licenses": "MIT",
     "repository": "https://github.com/sindresorhus/mimic-response",
     "publisher": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
-    "url": "https://sindresorhus.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\decompress-response\\node_modules\\mimic-response",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\decompress-response\\node_modules\\mimic-response\\license"
+    "url": "https://sindresorhus.com"
   },
   "minimist@1.2.8": {
     "licenses": "MIT",
     "repository": "https://github.com/minimistjs/minimist",
     "publisher": "James Halliday",
     "email": "mail@substack.net",
-    "url": "http://substack.net",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\minimist",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\minimist\\LICENSE"
+    "url": "http://substack.net"
   },
   "mkdirp-classic@0.5.3": {
     "licenses": "MIT",
     "repository": "https://github.com/mafintosh/mkdirp-classic",
     "publisher": "Mathias Buus",
-    "url": "@mafintosh",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\mkdirp-classic",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\mkdirp-classic\\LICENSE"
+    "url": "@mafintosh"
   },
   "ms@2.0.0": {
     "licenses": "MIT",
-    "repository": "https://github.com/zeit/ms",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\electron-squirrel-startup\\node_modules\\ms",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\electron-squirrel-startup\\node_modules\\ms\\license.md"
+    "repository": "https://github.com/zeit/ms"
   },
   "napi-build-utils@2.0.0": {
     "licenses": "MIT",
     "repository": "https://github.com/inspiredware/napi-build-utils",
-    "publisher": "Jim Schlight",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\napi-build-utils",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\napi-build-utils\\LICENSE"
+    "publisher": "Jim Schlight"
   },
-  "node-abi@3.75.0": {
+  "node-abi@4.31.0": {
     "licenses": "MIT",
     "repository": "https://github.com/electron/node-abi",
-    "publisher": "Lukas Geiger",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\node-abi",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\node-abi\\LICENSE"
+    "publisher": "Lukas Geiger"
   },
   "once@1.4.0": {
     "licenses": "ISC",
     "repository": "https://github.com/isaacs/once",
     "publisher": "Isaac Z. Schlueter",
     "email": "i@izs.me",
-    "url": "http://blog.izs.me/",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\once",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\once\\LICENSE"
+    "url": "http://blog.izs.me/"
   },
   "prebuild-install@7.1.3": {
     "licenses": "MIT",
     "repository": "https://github.com/prebuild/prebuild-install",
     "publisher": "Mathias Buus",
-    "url": "@mafintosh",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\prebuild-install",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\prebuild-install\\LICENSE"
+    "url": "@mafintosh"
   },
-  "prompt-supporter@0.7.3": {
+  "prompt-supporter@0.7.4": {
     "licenses": "UNLICENSED",
     "private": true,
-    "publisher": "little_raisin",
-    "path": "D:\\git\\prompt-supporter",
-    "licenseFile": "D:\\git\\prompt-supporter\\README.md"
+    "publisher": "little_raisin"
   },
   "pump@3.0.2": {
     "licenses": "MIT",
     "repository": "https://github.com/mafintosh/pump",
     "publisher": "Mathias Buus Madsen",
-    "email": "mathiasbuus@gmail.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\pump",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\pump\\LICENSE"
+    "email": "mathiasbuus@gmail.com"
   },
   "rc@1.2.8": {
     "licenses": "(BSD-2-Clause OR MIT OR Apache-2.0)",
     "repository": "https://github.com/dominictarr/rc",
     "publisher": "Dominic Tarr",
     "email": "dominic.tarr@gmail.com",
-    "url": "dominictarr.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\rc",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\rc\\LICENSE.APACHE2"
+    "url": "dominictarr.com"
   },
   "react-dom@19.1.0": {
     "licenses": "MIT",
-    "repository": "https://github.com/facebook/react",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\react-dom",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\react-dom\\LICENSE"
+    "repository": "https://github.com/facebook/react"
   },
   "react-hook-form@7.56.4": {
     "licenses": "MIT",
     "repository": "https://github.com/react-hook-form/react-hook-form",
     "publisher": "Beier",
     "email": "bluebill1049@hotmail.com",
-    "url": "Bill",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\react-hook-form",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\react-hook-form\\LICENSE"
+    "url": "Bill"
   },
   "react-i18next@15.5.3": {
     "licenses": "MIT",
     "repository": "https://github.com/i18next/react-i18next",
     "publisher": "Jan Mühlemann",
     "email": "jan.muehlemann@gmail.com",
-    "url": "https://github.com/jamuhl",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\react-i18next",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\react-i18next\\LICENSE"
+    "url": "https://github.com/jamuhl"
   },
   "react-router-dom@7.13.1": {
     "licenses": "MIT",
     "repository": "https://github.com/remix-run/react-router",
     "publisher": "Remix Software",
-    "email": "hello@remix.run",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\react-router-dom",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\react-router-dom\\LICENSE.md"
+    "email": "hello@remix.run"
   },
   "react-router@7.13.1": {
     "licenses": "MIT",
     "repository": "https://github.com/remix-run/react-router",
     "publisher": "Remix Software",
-    "email": "hello@remix.run",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\react-router",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\react-router\\LICENSE.md"
+    "email": "hello@remix.run"
   },
   "react@19.1.0": {
     "licenses": "MIT",
-    "repository": "https://github.com/facebook/react",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\react",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\react\\LICENSE"
+    "repository": "https://github.com/facebook/react"
   },
   "readable-stream@3.6.2": {
     "licenses": "MIT",
-    "repository": "https://github.com/nodejs/readable-stream",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\readable-stream",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\readable-stream\\LICENSE"
+    "repository": "https://github.com/nodejs/readable-stream"
   },
   "safe-buffer@5.2.1": {
     "licenses": "MIT",
     "repository": "https://github.com/feross/safe-buffer",
     "publisher": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
-    "url": "https://feross.org",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\safe-buffer",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\safe-buffer\\LICENSE"
+    "url": "https://feross.org"
   },
   "scheduler@0.26.0": {
     "licenses": "MIT",
-    "repository": "https://github.com/facebook/react",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\scheduler",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\scheduler\\LICENSE"
+    "repository": "https://github.com/facebook/react"
   },
   "semver@7.7.2": {
     "licenses": "ISC",
     "repository": "https://github.com/npm/node-semver",
-    "publisher": "GitHub Inc.",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\node-abi\\node_modules\\semver",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\node-abi\\node_modules\\semver\\LICENSE"
+    "publisher": "GitHub Inc."
   },
   "set-cookie-parser@2.7.2": {
     "licenses": "MIT",
     "repository": "https://github.com/nfriedly/set-cookie-parser",
     "publisher": "Nathan Friedly",
-    "url": "http://nfriedly.com/",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\set-cookie-parser",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\set-cookie-parser\\LICENSE"
+    "url": "http://nfriedly.com/"
   },
   "simple-concat@1.0.1": {
     "licenses": "MIT",
     "repository": "https://github.com/feross/simple-concat",
     "publisher": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
-    "url": "https://feross.org",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\simple-concat",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\simple-concat\\LICENSE"
+    "url": "https://feross.org"
   },
   "simple-get@4.0.1": {
     "licenses": "MIT",
     "repository": "https://github.com/feross/simple-get",
     "publisher": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
-    "url": "https://feross.org",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\simple-get",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\simple-get\\LICENSE"
+    "url": "https://feross.org"
   },
   "string_decoder@1.3.0": {
     "licenses": "MIT",
-    "repository": "https://github.com/nodejs/string_decoder",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\string_decoder",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\string_decoder\\LICENSE"
+    "repository": "https://github.com/nodejs/string_decoder"
   },
   "strip-json-comments@2.0.1": {
     "licenses": "MIT",
     "repository": "https://github.com/sindresorhus/strip-json-comments",
     "publisher": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\rc\\node_modules\\strip-json-comments",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\rc\\node_modules\\strip-json-comments\\license"
+    "url": "sindresorhus.com"
   },
   "tar-fs@2.1.4": {
     "licenses": "MIT",
     "repository": "https://github.com/mafintosh/tar-fs",
-    "publisher": "Mathias Buus",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\tar-fs",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\tar-fs\\LICENSE"
+    "publisher": "Mathias Buus"
   },
   "tar-stream@2.2.0": {
     "licenses": "MIT",
     "repository": "https://github.com/mafintosh/tar-stream",
     "publisher": "Mathias Buus",
-    "email": "mathiasbuus@gmail.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\tar-stream",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\tar-stream\\LICENSE"
+    "email": "mathiasbuus@gmail.com"
   },
   "tunnel-agent@0.6.0": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/mikeal/tunnel-agent",
     "publisher": "Mikeal Rogers",
     "email": "mikeal.rogers@gmail.com",
-    "url": "http://www.futurealoof.com",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\tunnel-agent",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\tunnel-agent\\LICENSE"
+    "url": "http://www.futurealoof.com"
   },
   "typescript@5.8.3": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/microsoft/TypeScript",
-    "publisher": "Microsoft Corp.",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\typescript",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\typescript\\LICENSE.txt"
+    "publisher": "Microsoft Corp."
   },
   "util-deprecate@1.0.2": {
     "licenses": "MIT",
     "repository": "https://github.com/TooTallNate/util-deprecate",
     "publisher": "Nathan Rajlich",
     "email": "nathan@tootallnate.net",
-    "url": "http://n8.io/",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\util-deprecate",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\util-deprecate\\LICENSE"
+    "url": "http://n8.io/"
   },
   "void-elements@3.1.0": {
     "licenses": "MIT",
     "repository": "https://github.com/pugjs/void-elements",
-    "publisher": "hemanth.hm",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\void-elements",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\void-elements\\LICENSE"
+    "publisher": "hemanth.hm"
   },
   "wrappy@1.0.2": {
     "licenses": "ISC",
     "repository": "https://github.com/npm/wrappy",
     "publisher": "Isaac Z. Schlueter",
     "email": "i@izs.me",
-    "url": "http://blog.izs.me/",
-    "path": "D:\\git\\prompt-supporter\\node_modules\\wrappy",
-    "licenseFile": "D:\\git\\prompt-supporter\\node_modules\\wrappy\\LICENSE"
+    "url": "http://blog.izs.me/"
   }
 }
-
